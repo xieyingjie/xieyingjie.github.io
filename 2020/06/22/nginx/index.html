@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://nginx.org/nginx.png">
 <meta property="article:published_time" content="2020-06-22T03:23:57.000Z">
-<meta property="article:modified_time" content="2020-06-23T10:28:27.447Z">
+<meta property="article:modified_time" content="2020-06-23T10:36:16.883Z">
 <meta property="article:author" content="Ying Jie">
 <meta property="article:tag" content="proxy">
 <meta name="twitter:card" content="summary">
@@ -413,17 +413,13 @@
 <p>特性：<br>    模块化设计，较好的扩展性<br>    高可靠性<br>    支持热部署：不停机更新配置文件，升级版本，更换日志文件<br>    低内存消耗：10000个keep-alive连接模式下的非活动连接，仅需要2.5M内存<br>    event-driven,aio,mmap，sendfile</p>
 <p>基本功能：<br>    静态资源的web服务器<br>    http协议反向代理服务器<br>    pop3/imap4协议反向代理服务器<br>    FastCGI(LNMP),uWSGI(python)等协议<br>    模块化（非DSO），如zip，SSL模块     DSO：动态加载</p>
 <p>nginx的程序架构</p>
-<img src="/nginx/33Nginx.jpg" style="zoom: 50%;" />
-
-
-
+<p><img src="/images/nginx/33Nginx.jpg" alt=""></p>
 <p>master/worker结构<br>        一个master进程：负载加载和分析配置文件、管理worker进程、平滑升级<br>        一个或多个worker进程：处理并响应用户请求</p>
 <p>​        缓存相关的进程：<br>​        cache loader：载入缓存对象<br>​        cache manager：管理缓存对象</p>
 <p>nginx模块<br>    nginx高度模块化，但其模块早期不支持DSO机制；1.9.11版本支持动态装载和卸载</p>
 <p>模块分类：<br>        核心模块：core module<br>        标准模块：<br>            HTTP 模块： ngx_http_*<br>            Mail模块 ：ngx_mail_*<br>            Stream 模块 ngx_stream_*<br>        第三方模块</p>
 <p>nginx的功用<br>    静态的web资源服务器：html，图片，js，css，txt等静态资源<br>    结合FastCGI/uWSGI/SCGI等协议反向代理动态资源请求<br>    http/https协议的反向代理<br>    imap4/pop3协议的反向代理<br>    tcp/udp协议的请求转发（反向代理）</p>
-<img src="/nginx/Nginx2.jpg" style="zoom: 50%;" />
-
+<p><img src="/images/nginx/Nginx2.jpg" alt=""></p>
 <p>nginx的安装<br>    官方：<a href="http://nginx.org/packages/centos/7/x86_64/RPMS" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/x86_64/RPMS</a></p>
 <p>​    Fedora-EPEL源：<a href="https://mirrors.aliyun.com/epel/7/x86_64/" target="_blank" rel="noopener">https://mirrors.aliyun.com/epel/7/x86_64/</a></p>
 <p>​    编译安装：(Centos 7系统)</p>
