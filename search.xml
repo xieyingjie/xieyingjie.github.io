@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DevopsTools</title>
+    <url>/2020/06/19/DevopsTools/</url>
+    <content><![CDATA[<h6 id="Devops-Tools"><a href="#Devops-Tools" class="headerlink" title="Devops Tools"></a>Devops Tools</h6><p>远程控制类</p>
+<ul>
+<li>VNC</li>
+<li>Xshell</li>
+<li>SecureCRT</li>
+<li>向日葵</li>
+<li>mstsc</li>
+<li>putty</li>
+</ul>
+<p>虚拟化类</p>
+<ul>
+<li>vmware</li>
+<li>VirtualBox</li>
+<li>KVM</li>
+<li>docker</li>
+</ul>
+<p>文本编辑类</p>
+<ul>
+<li><p>vim</p>
+</li>
+<li><p>Sublime Text</p>
+</li>
+<li><p>Notepad++</p>
+</li>
+<li><p>Typora</p>
+</li>
+<li><p>wps</p>
+</li>
+<li><p>word</p>
+</li>
+</ul>
+<p>IDE类</p>
+<ul>
+<li>IntelliJ IDEA</li>
+<li>PyCharm</li>
+<li>Visual Studio Code</li>
+<li>Navicat</li>
+</ul>
+<p>调试类</p>
+<ul>
+<li>postman</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机基础知识</title>
     <url>/2020/06/19/computer/</url>
     <content><![CDATA[<h3 id="计算机基础知识"><a href="#计算机基础知识" class="headerlink" title="计算机基础知识"></a>计算机基础知识</h3><p>1946年诞生第一台计算机</p>
@@ -77,59 +130,6 @@ API:Application Programming Interface 源代码和库之间的接口，
 
 <p>Linux哲学思想</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一切皆文件</span><br><span class="line">配置数据存储在文本中（windows存储在注册表中的二进制文件）</span><br><span class="line">短小精干，功能单一</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DevopsTools</title>
-    <url>/2020/06/19/DevopsTools/</url>
-    <content><![CDATA[<h6 id="Devops-Tools"><a href="#Devops-Tools" class="headerlink" title="Devops Tools"></a>Devops Tools</h6><p>远程控制类</p>
-<ul>
-<li>VNC</li>
-<li>Xshell</li>
-<li>SecureCRT</li>
-<li>向日葵</li>
-<li>mstsc</li>
-<li>putty</li>
-</ul>
-<p>虚拟化类</p>
-<ul>
-<li>vmware</li>
-<li>VirtualBox</li>
-<li>KVM</li>
-<li>docker</li>
-</ul>
-<p>文本编辑类</p>
-<ul>
-<li><p>vim</p>
-</li>
-<li><p>Sublime Text</p>
-</li>
-<li><p>Notepad++</p>
-</li>
-<li><p>Typora</p>
-</li>
-<li><p>wps</p>
-</li>
-<li><p>word</p>
-</li>
-</ul>
-<p>IDE类</p>
-<ul>
-<li>IntelliJ IDEA</li>
-<li>PyCharm</li>
-<li>Visual Studio Code</li>
-<li>Navicat</li>
-</ul>
-<p>调试类</p>
-<ul>
-<li>postman</li>
-</ul>
-]]></content>
       <categories>
         <category>Linux</category>
       </categories>
