@@ -14,6 +14,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -86,7 +93,7 @@
 <meta name="description" content="centos6.9基于FPM模式的编译安装实现LAMP应用需要的软件包  mairadb：通用二进制格式，mariadb-10.2.12.tar.bz2  httpd：编译安装，httpd-2.4.29.tar.bz2  php7：编译安装，php-7.2.1.tar.bz2  Xcache：编译安装xcache-3.2.0  APR： 下载APR 1.6.3源码   APR-util：下载APR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP">
-<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/17/rpm/index.html">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/17/lamp/index.html">
 <meta property="og:site_name" content="yingjie&#39;s blog">
 <meta property="og:description" content="centos6.9基于FPM模式的编译安装实现LAMP应用需要的软件包  mairadb：通用二进制格式，mariadb-10.2.12.tar.bz2  httpd：编译安装，httpd-2.4.29.tar.bz2  php7：编译安装，php-7.2.1.tar.bz2  Xcache：编译安装xcache-3.2.0  APR： 下载APR 1.6.3源码   APR-util：下载APR">
 <meta property="article:published_time" content="2020-06-17T03:32:19.000Z">
@@ -102,7 +109,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -122,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/17/rpm/"/>
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/17/lamp/"/>
 
 
 
@@ -301,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/17/rpm/">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/17/lamp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ying Jie">
@@ -351,6 +358,37 @@
 
           
 
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  254
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
           
 
           
@@ -426,7 +464,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/06/19/DevopsTools/" rel="prev" title="DevopsTools">
+              <a href="/2020/06/19/dDevopsTools/" rel="prev" title="DevopsTools">
                 DevopsTools <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -598,6 +636,15 @@
   <span class="author" itemprop="copyrightHolder">Ying Jie</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">2.9k</span>
+  
 </div>
 
 
@@ -629,6 +676,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
