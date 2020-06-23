@@ -117,39 +117,6 @@ API:Application Programming Interface 源代码和库之间的接口，
       </tags>
   </entry>
   <entry>
-    <title>LAMP</title>
-    <url>/2020/06/17/lamp/</url>
-    <content><![CDATA[<h4 id="centos6-9基于FPM模式的编译安装实现LAMP应用"><a href="#centos6-9基于FPM模式的编译安装实现LAMP应用" class="headerlink" title="centos6.9基于FPM模式的编译安装实现LAMP应用"></a>centos6.9基于FPM模式的编译安装实现LAMP应用</h4><p>需要的软件包</p>
-<ol>
-<li><p>mairadb：通用二进制格式，mariadb-10.2.12.tar.bz2</p>
-</li>
-<li><p>httpd：编译安装，httpd-2.4.29.tar.bz2</p>
-</li>
-<li><p>php7：编译安装，php-7.2.1.tar.bz2</p>
-</li>
-<li><p>Xcache：编译安装xcache-3.2.0</p>
-</li>
-<li><p>APR： 下载APR 1.6.3源码 </p>
-</li>
-<li><p>APR-util：下载APR-util 1.6.1源码</p>
-</li>
-<li><p>phpMyAdmin：下载 phpMyAdmin-4.4.15.10-all-languages</p>
-</li>
-<li><p>wordpress: 下载 wordpress-4.9.1-zh_CN.tar.gz </p>
-</li>
-</ol>
-<p>顺序：mariadb–&gt;httpd–&gt;php </p>
-<hr>
-<p>mariadb官网：<a href="https://mariadb.org/" target="_blank" rel="noopener">https://mariadb.org/</a></p>
-<p>php官网：<a href="https://www.php.net/" target="_blank" rel="noopener">https://www.php.net/</a></p>
-<p>http官网：<a href="http://httpd.apache.org/" target="_blank" rel="noopener">http://httpd.apache.org/</a></p>
-<hr>
-<p>安装步骤：</p>
-<p>[root@centos6 ~]#mkdir src<br>[root@centos6 ~]#mv *.bz2 *.gz src<br>[root@centos6 ~]#cd src<br>[root@centos6 src]#tar xvf  httpd-2.4.29.tar.bz2<br>[root@centos6 src]#tar xvf  apr-1.6.3.tar.bz2<br>[root@centos6 src]#tar xvf  apr-util-1.6.1.tar.bz2</p>
-<p>[root@centos6 src]#mv apr-1.6.3  httpd-2.4.29/srclib/apr<br>[root@centos6 src]#mv apr-util-1.6.1   httpd-2.4.29/srclib/apr-util<br>[root@centos6 src]#cd  httpd-2.4.29/<br>[root@centos6 http-2.4.29]#./configure –prefix=/app/httpd24 <br>–enable-so<br>–enable-ssl <br>–enable-cgi <br>–enable-rewrite<br>–with-zlib <br>–with-pcre \<br>–with-included-apr <br>–enable-modules=most <br>–enable-mpms-shared</p>
-]]></content>
-  </entry>
-  <entry>
     <title>DevopsTools</title>
     <url>/2020/06/19/dDevopsTools/</url>
     <content><![CDATA[<h6 id="Devops-Tools"><a href="#Devops-Tools" class="headerlink" title="Devops Tools"></a>Devops Tools</h6><p>远程控制类</p>
@@ -201,5 +168,38 @@ API:Application Programming Interface 源代码和库之间的接口，
       <tags>
         <tag>Linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>LAMP</title>
+    <url>/2020/06/17/lamp/</url>
+    <content><![CDATA[<h4 id="centos6-9基于FPM模式的编译安装实现LAMP应用"><a href="#centos6-9基于FPM模式的编译安装实现LAMP应用" class="headerlink" title="centos6.9基于FPM模式的编译安装实现LAMP应用"></a>centos6.9基于FPM模式的编译安装实现LAMP应用</h4><p>需要的软件包</p>
+<ol>
+<li><p>mairadb：通用二进制格式，mariadb-10.2.12.tar.bz2</p>
+</li>
+<li><p>httpd：编译安装，httpd-2.4.29.tar.bz2</p>
+</li>
+<li><p>php7：编译安装，php-7.2.1.tar.bz2</p>
+</li>
+<li><p>Xcache：编译安装xcache-3.2.0</p>
+</li>
+<li><p>APR： 下载APR 1.6.3源码 </p>
+</li>
+<li><p>APR-util：下载APR-util 1.6.1源码</p>
+</li>
+<li><p>phpMyAdmin：下载 phpMyAdmin-4.4.15.10-all-languages</p>
+</li>
+<li><p>wordpress: 下载 wordpress-4.9.1-zh_CN.tar.gz </p>
+</li>
+</ol>
+<p>顺序：mariadb–&gt;httpd–&gt;php </p>
+<hr>
+<p>mariadb官网：<a href="https://mariadb.org/" target="_blank" rel="noopener">https://mariadb.org/</a></p>
+<p>php官网：<a href="https://www.php.net/" target="_blank" rel="noopener">https://www.php.net/</a></p>
+<p>http官网：<a href="http://httpd.apache.org/" target="_blank" rel="noopener">http://httpd.apache.org/</a></p>
+<hr>
+<p>安装步骤：</p>
+<p>[root@centos6 ~]#mkdir src<br>[root@centos6 ~]#mv *.bz2 *.gz src<br>[root@centos6 ~]#cd src<br>[root@centos6 src]#tar xvf  httpd-2.4.29.tar.bz2<br>[root@centos6 src]#tar xvf  apr-1.6.3.tar.bz2<br>[root@centos6 src]#tar xvf  apr-util-1.6.1.tar.bz2</p>
+<p>[root@centos6 src]#mv apr-1.6.3  httpd-2.4.29/srclib/apr<br>[root@centos6 src]#mv apr-util-1.6.1   httpd-2.4.29/srclib/apr-util<br>[root@centos6 src]#cd  httpd-2.4.29/<br>[root@centos6 http-2.4.29]#./configure –prefix=/app/httpd24 <br>–enable-so<br>–enable-ssl <br>–enable-cgi <br>–enable-rewrite<br>–with-zlib <br>–with-pcre \<br>–with-included-apr <br>–enable-modules=most <br>–enable-mpms-shared</p>
+]]></content>
   </entry>
 </search>
