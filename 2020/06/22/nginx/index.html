@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="proxy," />
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yingjie&#39;s blog">
-<meta property="og:url" content="http://www.xieyingjie.tech/archives/2020/06/index.html">
+<meta name="description" content="Nginx介绍 ​    Nginx：engine X ，2002年，开源，商业版 ​    NGINX是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，    通用TCP&#x2F;UDP代理服务器 ​    解决C10K问题（10K Connections） ​    官网：http:&#x2F;&#x2F;nginx.org（开源版） https:&#x2F;&#x2F;www.nginx.com (商业版) ​    二次开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/22/nginx/index.html">
 <meta property="og:site_name" content="yingjie&#39;s blog">
+<meta property="og:description" content="Nginx介绍 ​    Nginx：engine X ，2002年，开源，商业版 ​    NGINX是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，    通用TCP&#x2F;UDP代理服务器 ​    解决C10K问题（10K Connections） ​    官网：http:&#x2F;&#x2F;nginx.org（开源版） https:&#x2F;&#x2F;www.nginx.com (商业版) ​    二次开">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://nginx.org/nginx.png">
+<meta property="article:published_time" content="2020-06-22T03:23:57.000Z">
+<meta property="article:modified_time" content="2020-06-23T08:08:26.492Z">
 <meta property="article:author" content="Ying Jie">
+<meta property="article:tag" content="proxy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nginx.org/nginx.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xieyingjie.tech/archives/2020/06/"/>
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/22/nginx/"/>
 
 
 
 
 
-  <title>Archive | yingjie's blog</title>
+  <title>nginx | yingjie's blog</title>
   
 
 
@@ -140,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,185 +285,194 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/22/nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ying Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingjie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">nginx</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-22T11:23:57+08:00">
+                2020-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 4 posts in total. Keep on posting.
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://nginx.org/nginx.png" rel="gallery_ckbrndx0u0002qwvk3gv8gitp"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://nginx.org/nginx.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
           </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/22/nginx/" itemprop="url">
-              
-                <span itemprop="name">nginx</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-22T11:23:57+08:00"
-              content="2020-06-22" >
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/19/computer/" itemprop="url">
-              
-                <span itemprop="name">computer</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-19T15:53:30+08:00"
-              content="2020-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>Nginx介绍</p>
+<p>​    Nginx：engine X ，2002年，开源，商业版</p>
+<p>​    NGINX是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，    通用TCP/UDP代理服务器</p>
+<p>​    解决C10K问题（10K Connections）</p>
+<p>​    官网：<a href="http://nginx.org（开源版）" target="_blank" rel="noopener">http://nginx.org（开源版）</a> <a href="https://www.nginx.com" target="_blank" rel="noopener">https://www.nginx.com</a> (商业版)</p>
+<p>​    二次开发版：Tengine, OpenResty（章亦春）</p>
+<p>特性：<br>    模块化设计，较好的扩展性<br>    高可靠性<br>    支持热部署：不停机更新配置文件，升级版本，更换日志文件<br>    低内存消耗：10000个keep-alive连接模式下的非活动连接，仅需要2.5M内存<br>    event-driven,aio,mmap，sendfile</p>
+<p>基本功能：<br>    静态资源的web服务器<br>    http协议反向代理服务器<br>    pop3/imap4协议反向代理服务器<br>    FastCGI(LNMP),uWSGI(python)等协议<br>    模块化（非DSO），如zip，SSL模块     DSO：动态加载</p>
+<p>nginx的程序架构</p>
+<p><img src="/.tech//33Nginx.jpg" alt></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/19/DevopsTools/" itemprop="url">
-              
-                <span itemprop="name">DevopsTools</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-19T11:52:46+08:00"
-              content="2020-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/17/rpm/" itemprop="url">
-              
-                <span itemprop="name">LAMP</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-17T11:32:19+08:00"
-              content="2020-06-17" >
-          06-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/proxy/" rel="tag"># proxy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/19/computer/" rel="next" title="computer">
+                <i class="fa fa-chevron-left"></i> computer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -464,6 +480,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -696,6 +716,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
