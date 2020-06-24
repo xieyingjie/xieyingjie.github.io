@@ -136,7 +136,7 @@
 <meta property="og:description" content="Nginx是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，通用TCP&#x2F;UDP代理服务器">
 <meta property="og:image" content="https://nginx.org/nginx.png">
 <meta property="article:published_time" content="2020-06-22T03:23:57.000Z">
-<meta property="article:modified_time" content="2020-06-23T14:14:41.768Z">
+<meta property="article:modified_time" content="2020-06-24T07:41:21.631Z">
 <meta property="article:author" content="Ying Jie">
 <meta property="article:tag" content="proxy">
 <meta name="twitter:card" content="summary">
@@ -489,25 +489,60 @@
       
 
       
-        <p>Nginx介绍</p>
-<p>​    Nginx：engine X ，2002年，开源，商业版</p>
-<p>​    NGINX是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，通用TCP/UDP代理服务器</p>
-<p>​    解决C10K问题（10K Connections）</p>
-<p>​    官网：<a href="http://nginx.org（开源版）" target="_blank" rel="noopener">http://nginx.org（开源版）</a>        <a href="https://www.nginx.com" target="_blank" rel="noopener">https://www.nginx.com</a> (商业版)</p>
-<p>​    二次开发版：Tengine, OpenResty（章亦春）</p>
-<p>特性：<br>    模块化设计，较好的扩展性<br>    高可靠性<br>    支持热部署：不停机更新配置文件，升级版本，更换日志文件<br>    低内存消耗：10000个keep-alive连接模式下的非活动连接，仅需要2.5M内存<br>    event-driven,aio,mmap，sendfile</p>
-<p>基本功能：<br>    静态资源的web服务器<br>    http协议反向代理服务器<br>    pop3/imap4协议反向代理服务器<br>    FastCGI(LNMP),uWSGI(python)等协议<br>    模块化（非DSO），如zip，SSL模块     DSO：动态加载</p>
-<p>nginx的程序架构</p>
-<p><img src="/images/nginx/33Nginx.jpg" alt=""></p>
-<p>master/worker结构<br>        一个master进程：负载加载和分析配置文件、管理worker进程、平滑升级<br>        一个或多个worker进程：处理并响应用户请求</p>
-<p>​        缓存相关的进程：<br>​        cache loader：载入缓存对象<br>​        cache manager：管理缓存对象</p>
-<p>nginx模块<br>    nginx高度模块化，但其模块早期不支持DSO机制；1.9.11版本支持动态装载和卸载</p>
-<p>模块分类：<br>        核心模块：core module<br>        标准模块：<br>            HTTP 模块： ngx_http_*<br>            Mail模块 ：ngx_mail_*<br>            Stream 模块 ngx_stream_*<br>        第三方模块</p>
-<p>nginx的功用<br>    静态的web资源服务器：html，图片，js，css，txt等静态资源<br>    结合FastCGI/uWSGI/SCGI等协议反向代理动态资源请求<br>    http/https协议的反向代理<br>    imap4/pop3协议的反向代理<br>    tcp/udp协议的请求转发（反向代理）</p>
-<p><img src="/images/nginx/Nginx2.jpg" alt=""></p>
-<p>nginx的安装<br>    官方：<a href="http://nginx.org/packages/centos/7/x86_64/RPMS" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/x86_64/RPMS</a></p>
-<p>​    Fedora-EPEL源：<a href="https://mirrors.aliyun.com/epel/7/x86_64/" target="_blank" rel="noopener">https://mirrors.aliyun.com/epel/7/x86_64/</a></p>
-<p>​    编译安装：(Centos 7系统)</p>
+        <h4 id="Nginx介绍"><a href="#Nginx介绍" class="headerlink" title="Nginx介绍"></a><strong>Nginx介绍</strong></h4><ul>
+<li><p>​    Nginx：engine X ，2002年，开源，商业版</p>
+</li>
+<li><p>​    NGINX是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，通用TCP/UDP代理服务器</p>
+</li>
+<li><p>​    解决C10K问题（10K Connections）</p>
+</li>
+<li><p>​    官网：<a href="http://nginx.org（开源版）" target="_blank" rel="noopener">http://nginx.org（开源版）</a>        <a href="https://www.nginx.com" target="_blank" rel="noopener">https://www.nginx.com</a> (商业版)</p>
+</li>
+<li><p>​    二次开发版：Tengine, OpenResty（章亦春）</p>
+</li>
+</ul>
+<h5 id="特性："><a href="#特性：" class="headerlink" title="特性："></a>特性：</h5><p>​    模块化设计，较好的扩展性<br>​    高可靠性<br>​    支持热部署：不停机更新配置文件，升级版本，更换日志文件<br>​    低内存消耗：10000个keep-alive连接模式下的非活动连接，仅需要2.5M内存<br>​    event-driven,aio,mmap，sendfile</p>
+<h5 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h5><p>​    静态资源的web服务器<br>​    http协议反向代理服务器<br>​    pop3/imap4协议反向代理服务器<br>​    FastCGI(LNMP),uWSGI(python)等协议<br>​    模块化（非DSO），如zip，SSL模块     DSO：动态加载</p>
+<h5 id="nginx的程序架构"><a href="#nginx的程序架构" class="headerlink" title="nginx的程序架构"></a>nginx的程序架构</h5><img src="/images/nginx/33Nginx.jpg" style="zoom:50%;" />
+
+
+
+<h5 id="master-worker结构"><a href="#master-worker结构" class="headerlink" title="master/worker结构"></a>master/worker结构</h5><ul>
+<li>一个master进程：负载加载和分析配置文件、管理worker进程、平滑升级</li>
+<li>一个或多个worker进程：处理并响应用户请求</li>
+</ul>
+<h5 id="缓存相关的进程："><a href="#缓存相关的进程：" class="headerlink" title="缓存相关的进程："></a><strong>缓存相关的进程：</strong></h5><ul>
+<li>cache loader：载入缓存对象​</li>
+<li>cache manager：管理缓存对象</li>
+</ul>
+<h5 id="nginx模块："><a href="#nginx模块：" class="headerlink" title="nginx模块："></a><strong>nginx模块：</strong></h5><ul>
+<li>nginx高度模块化，但其模块早期不支持DSO机制；1.9.11版本支持动态装载和卸载</li>
+<li>模块分类：<pre><code>核心模块：core module
+标准模块：
+    HTTP 模块： ngx_http_* 
+    Mail模块 ：ngx_mail_*
+    Stream 模块 ngx_stream_*
+第三方模块</code></pre></li>
+</ul>
+<h5 id="nginx的功用："><a href="#nginx的功用：" class="headerlink" title="nginx的功用："></a><strong>nginx的功用：</strong></h5><ul>
+<li>静态的web资源服务器：html，图片，js，css，txt等静态资源</li>
+<li>结合FastCGI/uWSGI/SCGI等协议反向代理动态资源请求</li>
+<li>http/https协议的反向代理</li>
+<li>imap4/pop3协议的反向代理</li>
+<li>tcp/udp协议的请求转发（反向代理）</li>
+</ul>
+<img src="/images/nginx/Nginx2.jpg" style="zoom:50%;" />
+
+
+
+<h4 id="nginx的安装"><a href="#nginx的安装" class="headerlink" title="nginx的安装"></a>nginx的安装</h4><ul>
+<li><p>官方：<a href="http://nginx.org/packages/centos/7/x86_64/RPMS" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/x86_64/RPMS</a></p>
+</li>
+<li><p>Fedora-EPEL源：<a href="https://mirrors.aliyun.com/epel/7/x86_64/" target="_blank" rel="noopener">https://mirrors.aliyun.com/epel/7/x86_64/</a></p>
+</li>
+<li><p>编译安装：(Centos 7系统)</p>
+</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">yum -y install pcre-devel openssl-devel zlib-devel</span><br><span class="line"></span><br><span class="line">cd /usr/local/src</span><br><span class="line"></span><br><span class="line">wget  https://nginx.org/download/nginx-1.18.0.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf nginx-1.18.0.tar.gz</span><br><span class="line"></span><br><span class="line">cd nginx-1.18.0</span><br><span class="line"></span><br><span class="line">useradd -r nginx</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line">	--prefix=/usr/local/nginx \</span><br><span class="line">    --conf-path=/etc/nginx/nginx.conf \</span><br><span class="line">    --error-log-path=/var/log/nginx/error.log \</span><br><span class="line">    --http-log-path=/var/log/nginx/access.log \</span><br><span class="line">    --pid-path=/var/run/nginx.pid \</span><br><span class="line">    --lock-path=/var/run/nginx.lock \</span><br><span class="line">    --user=nginx \</span><br><span class="line">    --group=nginx \</span><br><span class="line">    --with-http_ssl_module \</span><br><span class="line">    --with-http_v2_module \</span><br><span class="line">    --with-http_dav_module \</span><br><span class="line">    --with-http_stub_status_module \</span><br><span class="line">    --with-threads \</span><br><span class="line">    --with-file-aio \</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
 
 
@@ -560,6 +595,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/06/24/mysql/" rel="prev" title="mysql">
+                mysql <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -610,8 +649,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -632,7 +680,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -684,6 +732,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特性："><span class="nav-number">1.1.</span> <span class="nav-text">特性：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本功能："><span class="nav-number">1.2.</span> <span class="nav-text">基本功能：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx的程序架构"><span class="nav-number">1.3.</span> <span class="nav-text">nginx的程序架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#master-worker结构"><span class="nav-number">1.4.</span> <span class="nav-text">master&#x2F;worker结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存相关的进程："><span class="nav-number">1.5.</span> <span class="nav-text">缓存相关的进程：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx模块："><span class="nav-number">1.6.</span> <span class="nav-text">nginx模块：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx的功用："><span class="nav-number">1.7.</span> <span class="nav-text">nginx的功用：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx的安装"><span class="nav-number">2.</span> <span class="nav-text">nginx的安装</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
