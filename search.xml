@@ -130,7 +130,8 @@
 <li><p>4个接口的千兆以太网卡</p>
 </li>
 </ul>
-<h3 id="服务器硬件"><a href="#服务器硬件" class="headerlink" title="服务器硬件"></a>服务器硬件</h3><h4 id="CPU：central-processing-unit"><a href="#CPU：central-processing-unit" class="headerlink" title="CPU：central processing unit"></a>CPU：central processing unit</h4><p>​    CPU公司<br>        Intel<br>​            Xeon 至强<br>​            Itanium 安藤<br>        AMD  (The future is fusion(融合))<br>​        Althlon MP<br>​        IBM<br>​        power</p>
+<h3 id="服务器硬件"><a href="#服务器硬件" class="headerlink" title="服务器硬件"></a>服务器硬件</h3><h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>​    central processing unit</p>
+<p>​    CPU公司<br>        Intel<br>​            Xeon 至强<br>​            Itanium 安藤<br>        AMD  (The future is fusion(融合))<br>​        Althlon MP<br>​        IBM<br>​        power</p>
 <p>​    手机CPU </p>
 <p>​        华为麒麟芯片Kirin </p>
 <p>​        高通骁龙芯片Qualcomm snapdragon </p>
@@ -284,6 +285,12 @@ Linux: ELF，.so(shared object)动态库, .a静态库</code></pre><p>​        
 <p>[root@centos6 ~]#mkdir src<br>[root@centos6 ~]#mv *.bz2 *.gz src<br>[root@centos6 ~]#cd src<br>[root@centos6 src]#tar xvf  httpd-2.4.29.tar.bz2<br>[root@centos6 src]#tar xvf  apr-1.6.3.tar.bz2<br>[root@centos6 src]#tar xvf  apr-util-1.6.1.tar.bz2</p>
 <p>[root@centos6 src]#mv apr-1.6.3  httpd-2.4.29/srclib/apr<br>[root@centos6 src]#mv apr-util-1.6.1   httpd-2.4.29/srclib/apr-util<br>[root@centos6 src]#cd  httpd-2.4.29/<br>[root@centos6 http-2.4.29]#./configure –prefix=/app/httpd24 <br>–enable-so<br>–enable-ssl <br>–enable-cgi <br>–enable-rewrite<br>–with-zlib <br>–with-pcre \<br>–with-included-apr <br>–enable-modules=most <br>–enable-mpms-shared</p>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>web架构</tag>
+      </tags>
   </entry>
   <entry>
     <title>nginx</title>
