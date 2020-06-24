@@ -58,22 +58,34 @@
     <url>/2020/06/19/computer/</url>
     <content><![CDATA[<h3 id="计算机基础知识"><a href="#计算机基础知识" class="headerlink" title="计算机基础知识"></a>计算机基础知识</h3><p>1946年诞生第一台计算机</p>
 <p>10.24 程序员生日</p>
-<p>计算机：computer</p>
-<p>​    硬件（hardware）</p>
-<p>​    软件（software）</p>
-<p>应用软件：用户程序</p>
-<p>积分器，积分电路：integrator</p>
-<p>位 bit： </p>
-<p>​    0 1  </p>
-<p>​    2^1</p>
-<p>字节 byte:</p>
+<p><strong>计算机：computer</strong></p>
 <ul>
-<li>8bit  </li>
-<li>2^8=256 (0-255) </li>
-<li>min:00000000</li>
-<li>max:11111111</li>
+<li><p>硬件（hardware）</p>
+</li>
+<li><p>软件（software）</p>
+</li>
 </ul>
-<p>二进制转化成十进制</p>
+<p>应用软件：用户程序</p>
+<p>积分器：integrator</p>
+<p><strong>位 bit：</strong> </p>
+<ul>
+<li><p>0和1  </p>
+</li>
+<li><p>2^1</p>
+</li>
+</ul>
+<p><strong>字节 byte</strong>:</p>
+<ul>
+<li><p>8bit  </p>
+</li>
+<li><p>2^8=256 (0-255) </p>
+</li>
+<li><p>min:00000000</p>
+</li>
+<li><p>max:11111111</p>
+</li>
+</ul>
+<p><strong>二进制转化成十进制</strong></p>
 <ul>
 <li><p>1=2^0=1</p>
 </li>
@@ -93,12 +105,12 @@
 </li>
 </ul>
 <p>冯.诺依曼体系：运算器、控制器、存储器、输入设备、输出设备</p>
-<p>摩尔定律:</p>
+<p><strong>摩尔定律</strong>:</p>
 <ul>
 <li>1965年戈登.摩尔(英特尔（Intel）创始人之一)提出 </li>
 <li>价格不变，集成电路上可容纳的元器件数目每隔18-24个月（一年半至两年） 增加一倍，性能特性一倍</li>
 </ul>
-<p>容量的单位</p>
+<p><strong>容量的单位</strong></p>
 <ul>
 <li><p>1024=1K=2^10</p>
 </li>
@@ -130,32 +142,97 @@
 <li><p>4个接口的千兆以太网卡</p>
 </li>
 </ul>
-<h3 id="服务器硬件"><a href="#服务器硬件" class="headerlink" title="服务器硬件"></a>服务器硬件</h3><h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>​    central processing unit</p>
-<p>​    CPU公司<br>        Intel<br>​            Xeon 至强<br>​            Itanium 安藤<br>        AMD  (The future is fusion(融合))<br>​        Althlon MP<br>​        IBM<br>​        power</p>
-<p>​    手机CPU </p>
-<p>​        华为麒麟芯片Kirin </p>
-<p>​        高通骁龙芯片Qualcomm snapdragon </p>
-<p>​        台湾联发科</p>
-<p>​        小米松果CPU</p>
-<p>​    CPU架构</p>
-<p>​        X86</p>
-<p>​        X64</p>
-<p>​        ARM (Acorn RISC Machine ) 手机CPU架构</p>
-<p>​        Power（IBM）</p>
-<p>​        Powerpc (apple,ibm,moto合作开发) 兼容苹果系统</p>
-<p>​        UItrasparc (Sun)</p>
-<p>​        Alpha (HP)     惠普公司</p>
-<p>​        安腾（compaq） 康柏公司(被惠普收购)</p>
-<p>​    微型计算机CPU发展    参数（字长/位  主频/MHz  集成度/晶体管数）</p>
-<p>​    微处理器<br>​        4004        1971年    4位        摩尔定律<br>​        80286        1982年    16位<br>​        80386        1985年    32位<br>​        80486        1989年<br>​        Pentium        1993年<br>​        Pentium 2    1997年<br>​        Pentium 3    1999年<br>​        Pentium 4    2000年    32位<br>​        Itanium（安腾） 2001年    64位<br>​        Itanium 2    2002年    64位</p>
-<p>​    按CPU体系架构<br>​        非X86服务器（俗称小型机）使用RISC(精简指令集)或EPIC（并行指</p>
-<p>​        代码处理器 采用UNIX和其他专用操作系统（越简单稳定性越好）</p>
-<p>​        X86服务器：CISC（复杂指令集）处理器 通常称为PC服务器   </p>
-<p>​    按CPU个数区分（几颗CPU）<br>​        4路以及4路以上服务器（企业级）<br>​        2路服务器（部门级）<br>​        1路服务器（入门级）    </p>
-<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>   物理实质：一组具备数据输入输出和数据存储功能的高速集成电路<br>   CPU能直接寻址的存储空间<br>   所有程序运行都在内存运行<br>   断电后数据丢失<br>   单位一般位“MB”或“GB”<br>   32pin 64pin</p>
-<p>   内存带宽：内存与北桥芯片之间的数据传输率 64位/8字节（单通道内存节制<br>   器）</p>
-<p>   计算公式：内存总线频率<em>数据总线位数/8<br>   DDR2 667  运行频率333MHz  带宽=333</em>2<em>64/8=5400MB/s=5.4GB/s<br>   DDR3 800  运行频率400MHZ  带宽=400</em>2*64/8=6400MDB/s=6.4GB/s</p>
-<p>   内存与硬盘比较<br>       机械硬盘 200-300M/s<br>       SSD 500-600M/s</p>
+<h3 id="服务器硬件"><a href="#服务器硬件" class="headerlink" title="服务器硬件"></a>服务器硬件</h3><h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>central processing unit</p>
+<p><strong>CPU公司</strong></p>
+<ul>
+<li><p>Intel</p>
+<ul>
+<li>Xeon 至强</li>
+<li>Itanium 安藤</li>
+</ul>
+</li>
+<li><p>AMD  (The future is fusion(融合))</p>
+<ul>
+<li>Althlon MP</li>
+<li>IBM</li>
+<li>power</li>
+</ul>
+</li>
+<li><p>手机CPU </p>
+<ul>
+<li>华为麒麟芯片Kirin </li>
+<li>高通骁龙芯片Qualcomm snapdragon </li>
+<li>台湾联发科</li>
+<li>小米松果CPU</li>
+</ul>
+</li>
+</ul>
+<p><strong>CPU架构</strong></p>
+<ul>
+<li><p>X86</p>
+</li>
+<li><p>X64</p>
+</li>
+<li><p>ARM (Acorn RISC Machine ) 手机CPU架构</p>
+</li>
+<li><p>Power（IBM）</p>
+</li>
+<li><p>Powerpc (apple,ibm,moto合作开发) 兼容苹果系统</p>
+</li>
+<li><p>UItrasparc (Sun)</p>
+</li>
+<li><p>Alpha (HP)     惠普公司</p>
+</li>
+<li><p>安腾（compaq） 康柏公司(被惠普收购)</p>
+</li>
+</ul>
+<p>微型计算机CPU发展    参数（字长/位  主频/MHz  集成度/晶体管数）</p>
+<p><strong>微处理器</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4004		1971年	4位		摩尔定律</span><br><span class="line">80286		1982年	16位</span><br><span class="line">80386		1985年	32位</span><br><span class="line">80486		1989年</span><br><span class="line">Pentium		1993年           </span><br><span class="line">Pentium 2	1997年</span><br><span class="line">Pentium 3	1999年</span><br><span class="line">Pentium 4	2000年	32位</span><br><span class="line">Itanium     2001年	64位</span><br><span class="line">Itanium 2	2002年	64位</span><br></pre></td></tr></table></figure>
+
+<p><strong>按CPU体系架构</strong></p>
+<ul>
+<li><p>非X86服务器（俗称小型机）使用RISC(精简指令集)或EPIC（并行指</p>
+</li>
+<li><p>代码处理器 采用UNIX和其他专用操作系统（越简单稳定性越好）</p>
+</li>
+<li><p>X86服务器：CISC（复杂指令集）处理器 通常称为PC服务器   </p>
+</li>
+</ul>
+<p><strong>按CPU个数区分（几颗CPU）</strong></p>
+<ul>
+<li>4路以及4路以上服务器（企业级）</li>
+<li>2路服务器（部门级）</li>
+<li>1路服务器（入门级）    </li>
+</ul>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><ul>
+<li><p>物理实质：一组具备数据输入输出和数据存储功能的高速集成电路</p>
+</li>
+<li><p>CPU能直接寻址的存储空间</p>
+</li>
+<li><p>所有程序运行都在内存运行</p>
+</li>
+<li><p>断电后数据丢失</p>
+</li>
+<li><p>单位一般位“MB”或“GB”</p>
+</li>
+<li><p>32pin 64pin</p>
+</li>
+<li><p>内存带宽：内存与北桥芯片之间的数据传输率 64位/8字节（单通道内存节制器）</p>
+</li>
+<li><p>计算公式：内存总线频率*数据总线位数/8</p>
+<ul>
+<li>DDR2 667  运行频率333MHz  带宽=333264/8=5400MB/s=5.4GB/s</li>
+<li>DDR3 800  运行频率400MHZ  带宽=400264/8=6400MDB/s=6.4GB/s</li>
+</ul>
+</li>
+<li><p>内存与硬盘比较</p>
+<ul>
+<li>机械硬盘 200-300M/s </li>
+<li>SSD 500-600M/s</li>
+</ul>
+</li>
+</ul>
 <h4 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h4><p>​    硬盘结构<br>​        盘片———存储介质（Media）<br>​        磁头———读写头（Read Write Head）<br>        马达（spindle motor &amp;Voice Coil Motor）7200,10000,15000rpm</p>
 <p>​    RPM:Revolution Per Minute(每分钟转速) 旋转次数</p>
 <p>​    硬盘基本参数<br>​        容量：单位MB、GB、TB<br>​        转速：单位rpm  盘片每分钟转动的圈数<br>​        传输速率：data transfer rate 硬盘读写数据的速度 单位MB/s<br>​        缓存：解决前后级读写数据不匹配    </p>
