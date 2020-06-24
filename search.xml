@@ -178,9 +178,11 @@
 <h3 id="操作系统OS"><a href="#操作系统OS" class="headerlink" title="操作系统OS"></a>操作系统OS</h3><h4 id="OS分类"><a href="#OS分类" class="headerlink" title="OS分类"></a>OS分类</h4><p>​        服务器OS:RHEL,CentOS,Windows Server（目前版本windows Server 2016）,AIX  </p>
 <p>​        桌面OS：Windows 10,Windows 7,Mac OS,Fedora(浅顶软呢帽)</p>
 <p>​        移动设备OS:Andriod,IOS,YunOS</p>
-<h4 id="开发接口标准"><a href="#开发接口标准" class="headerlink" title="开发接口标准"></a>开发接口标准</h4><p>​        ABI:Application Binary Interface 应用程序与OS之间的底层接口，允许目标代码在兼容ABI的系统中能运行</p>
-<p>​        API:Application Programming Interface 源代码和库之间的接口，同样的源代码可以在API兼容系统中编译</p>
-<p>​        POSIX:Portable Operating System Interface  </p>
+<h4 id="开发接口标准"><a href="#开发接口标准" class="headerlink" title="开发接口标准"></a>开发接口标准</h4><ul>
+<li>ABI:Application Binary Interface 应用程序与OS之间的底层接口，允许目标代码在兼容ABI的系统中能运行</li>
+<li>API:Application Programming Interface 源代码和库之间的接口，同样的源代码可以在API兼容系统中编译</li>
+<li>POSIX:Portable Operating System Interface  </li>
+</ul>
 <h4 id="运行程序格式"><a href="#运行程序格式" class="headerlink" title="运行程序格式"></a>运行程序格式</h4><pre><code>Windows: EXE, .dll(dynamic link library)动态库，.lib静态库
 
 Linux: ELF，.so(shared object)动态库, .a静态库</code></pre><p>​          安卓软件包 .apk  </p>
