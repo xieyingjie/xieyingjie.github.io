@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="yingjie's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="centos6编译安装httpd-2.4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos6编译安装httpd-2.4">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/29/httpd/index.html">
+<meta property="og:site_name" content="yingjie&#39;s blog">
+<meta property="og:description" content="centos6编译安装httpd-2.4">
+<meta property="og:image" content="http://www.xieyingjie.tech/images/httpd/httpd1.png">
+<meta property="article:published_time" content="2020-06-29T01:49:12.000Z">
+<meta property="article:modified_time" content="2020-06-29T03:37:58.234Z">
+<meta property="article:author" content="Ying Jie">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.xieyingjie.tech/images/httpd/httpd1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/29/httpd/"/>
+
+
+
+
+
+  <title>centos6编译安装httpd-2.4 | yingjie's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/xieyingjie" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yingjie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">keep learning & keep it simple</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/29/httpd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ying Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingjie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos6编译安装httpd-2.4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-29T09:49:12+08:00">
+                2020-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  centos6编译安装httpd-2.4
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/images/httpd/httpd1.png" rel="gallery_ckbzugazx000024vk50rma1wf"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/images/httpd/httpd1.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h4 id="centos6编译安装httpd-2-4"><a href="#centos6编译安装httpd-2-4" class="headerlink" title="centos6编译安装httpd-2.4"></a>centos6编译安装httpd-2.4</h4><h5 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h5><blockquote>
+<p>APR(Apache portable Run-time libraries， Apache可移植运行库) 主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。在早期的Apache版本中，应用程序本身必须能够处理各种具体操作系统平台的细节，并针对不同的平台调用不同的处理函数</p>
+<p>随着Apache的进一步开发， Apache组织决定将这些通用的函数独立出来并发展成为一个新的项目。这样， APR的开发就从Apache中独立出来， Apache仅仅是使用 APR而已。目前APR主要还是由Apache使用，由于APR的较好的移植性，因此一些需要进行移植的C程序也开始使用APR，开源项目比如用于服务器压力测试的Flood loader tester， 该项目不仅仅适用于Apache， <a href="http://httpd.apache.org/test/flood" target="_blank" rel="noopener">http://httpd.apache.org/test/flood</a>  </p>
+</blockquote>
+<h5 id="编译前准备"><a href="#编译前准备" class="headerlink" title="编译前准备"></a>编译前准备</h5><ol>
+<li><p>httpd2.4依赖的apr版本（apr-1.4.8+），而centos6上的apr版本（apr-1.3.9），所以在centos6上需要重新编译安装httpd2.4</p>
+</li>
+<li><p>下载相关源码包</p>
+<blockquote>
+<p>http2.4.29.tar.bz2   </p>
+<p>APR 1.6.3.tar.bz2  </p>
+<p>APR-util 1.6.1.tar.bz2</p>
+</blockquote>
+</li>
+<li><p>准备开发环境相关包组</p>
+<blockquote>
+<p>开发包组：Development Tools<br>相关包： pcre-devel openssl-devel expat-devel </p>
+</blockquote>
+</li>
+</ol>
+<h5 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h5>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#创建存放源码目录，便于管理</span><br><span class="line">[root@centos6 ~]# mkdir &#x2F;usr&#x2F;local&#x2F;src&#x2F;httpd2.4</span><br><span class="line">[root@centos6 src]# cd &#x2F;usr&#x2F;local&#x2F;src&#x2F;httpd2.4</span><br><span class="line">[root@centos6 http2.4]# ls</span><br><span class="line">apr-1.6.3.tar.bz2  apr-util-1.6.1.tar.bz2  httpd-2.4.29.tar.bz2</span><br><span class="line"></span><br><span class="line">#安装开发环境包组</span><br><span class="line">[root@centos6 httpd2.4]# yum groupinstall &quot;development tools&quot; -y</span><br><span class="line">[root@centos6 httpd2.4]# yum install openssl-devel pcre-devel expat-devel -y</span><br><span class="line"></span><br><span class="line">#编译安装</span><br><span class="line">[root@centos6 httpdd2.4]#tar xvf apr-1.6.3.tar.bz2</span><br><span class="line">[root@centos6 httpd2.4]#tar xvf apr-utl-1.6.1.tar.bz2</span><br><span class="line">[root@centos6 httpd2.4]#tar xvf httpd-2.4.29.tar.bz2</span><br><span class="line">[root@centos6 httpd2.4]# ls</span><br><span class="line">apr-1.6.3          apr-util-1.6.1          httpd-2.4.29</span><br><span class="line">apr-1.6.3.tar.bz2  apr-util-1.6.1.tar.bz2  httpd-2.4.29.tar.bz2</span><br><span class="line"></span><br><span class="line">#编译安装apr</span><br><span class="line">[root@centos6 httpd2.4]#cd apr-1.6.3</span><br><span class="line">[root@centos6 apr-1.6.3]# .&#x2F;configure -prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;apr</span><br><span class="line">[root@centos6 apr-1.6.3]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#编译安装apr-util</span><br><span class="line">[root@centos6 httpd2.4]# cd apr-util-1.6.1</span><br><span class="line">[root@centos6 apr-util-1.6.1]# .&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;apr-util --with-apr&#x3D;&#x2F;usr&#x2F;local&#x2F;apr</span><br><span class="line">[root@centos6 apr-util-1.6.1]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#编译安装httpd2.4</span><br><span class="line">[root@centos6 httpd-2.4.29]# .&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;http2.4 \</span><br><span class="line">&gt; --enable-so \</span><br><span class="line">&gt; --enable-ssl \</span><br><span class="line">&gt; --enable-cgi \</span><br><span class="line">&gt; --enable-rewrite \</span><br><span class="line">&gt; --with-zlib \</span><br><span class="line">&gt; --with-pcre \</span><br><span class="line">&gt; --with-apr&#x3D;&#x2F;usr&#x2F;local&#x2F;apr \</span><br><span class="line">&gt; --with-apr-util&#x3D;&#x2F;usr&#x2F;local&#x2F;apr-util \</span><br><span class="line">&gt; --enable-modules&#x3D;most \</span><br><span class="line">&gt; --enable-mpms-shared&#x3D;all \</span><br><span class="line">&gt; --with-mpm&#x3D;prefork </span><br><span class="line"></span><br><span class="line">[root@centos6 httpd-2.4.29]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#添加环境变量</span><br><span class="line">[root@centos6 bin]# echo &#39;PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin:$PATH&#39; &gt; &#x2F;etc&#x2F;profile.d&#x2F;env.sh</span><br><span class="line">[root@centos6 bin]# source &#x2F;etc&#x2F;profile.d&#x2F;env.sh</span><br><span class="line"></span><br><span class="line">#创建用于程序运行的用户和组</span><br><span class="line">[root@centos6 bin]# useradd -r -s &#x2F;sbin&#x2F;nologin apache</span><br><span class="line"></span><br><span class="line">#修改配置文件</span><br><span class="line">[root@centos6 httpd-2.4.29]# vim &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;conf&#x2F;httpd.conf </span><br><span class="line">User daemon 修改为 apache  </span><br><span class="line">Group daemon 修改为 apache</span><br><span class="line"></span><br><span class="line">#启动服务</span><br><span class="line">[root@centos6 bin]#apachectl start</span><br><span class="line"></span><br><span class="line">#查看监听端口和进程</span><br><span class="line">[root@centos6 ~]# ss -ntl|grep 80</span><br><span class="line">LISTEN     0      128                      :::80                      :::* </span><br><span class="line"></span><br><span class="line">[root@centos6 ~]# ps -ef|grep httpd</span><br><span class="line">root      37105      1  0 10:45 ?        00:00:00 &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin&#x2F;httpd -k start</span><br><span class="line">apache    37261  37105  0 10:54 ?        00:00:00 &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin&#x2F;httpd -k start</span><br><span class="line">apache    37262  37105  0 10:54 ?        00:00:00 &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin&#x2F;httpd -k start</span><br><span class="line">apache    37263  37105  0 10:54 ?        00:00:00 &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin&#x2F;httpd -k start</span><br><span class="line">apache    37264  37105  0 10:54 ?        00:00:00 &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin&#x2F;httpd -k start</span><br><span class="line">apache    37265  37105  0 10:54 ?        00:00:00 &#x2F;usr&#x2F;local&#x2F;http2.4&#x2F;bin&#x2F;httpd -k start</span><br></pre></td></tr></table></figure>
+
+<h5 id="自定义开机启动脚本"><a href="#自定义开机启动脚本" class="headerlink" title="自定义开机启动脚本"></a>自定义开机启动脚本</h5>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">添加开机自启动脚本方法一：</span></span><br><span class="line">echo "/usr/local/http2.4/bin/apachectl start" &gt; /etc/rc.d/rc.local</span><br><span class="line">   </span><br><span class="line"><span class="meta">#</span><span class="bash">添加开机自启动脚本方法二：</span></span><br><span class="line">vim /etc/rc.d/init.d/http2.4</span><br><span class="line">    #!/bin/bash</span><br><span class="line">    #</span><br><span class="line">    #startup script for the Apache HTTP Server</span><br><span class="line">    #chkconfig: - 85 15</span><br><span class="line">    #config: /etc/httpd/conf/httpd.conf</span><br><span class="line">    #config: /etc/sysconfig/httpd</span><br><span class="line"></span><br><span class="line">    # Source function library.</span><br><span class="line">   . /etc/rc.d/init.d/functions</span><br><span class="line">   </span><br><span class="line">   if [ -f /etc/sysconfig/httpd ]; then</span><br><span class="line">           . /etc/sysconfig/httpd</span><br><span class="line">   fi</span><br><span class="line">   </span><br><span class="line">   HTTPD_LANG=$&#123;HTTPD_LANG-"C"&#125;</span><br><span class="line">   </span><br><span class="line"><span class="meta">   #</span><span class="bash"> the httpd script</span></span><br><span class="line">   apachectl=/usr/local/http2.4/apachectl</span><br><span class="line">   httpd=$&#123;HTTPD-/usr/local/http2.4/bin/httpd&#125;</span><br><span class="line">   prog=httpd</span><br><span class="line">   pidfile=$&#123;PIDFILE-/usr/local/http2.4/logs/httpd.pid&#125;</span><br><span class="line">   lockfile=$&#123;LOCKFILE-/var/lock/subsys/http2.4&#125;</span><br><span class="line">   RETVAL=0</span><br><span class="line">   STOP_TIMEOUT=$&#123;STOP_TIMEOUT-10&#125;</span><br><span class="line">   </span><br><span class="line">   start() &#123;</span><br><span class="line">           echo -n $"Starting $prog: "</span><br><span class="line">           LANG=$HTTPD_LANG daemon --pidfile=$&#123;pidfile&#125; $httpd $OPTIONS</span><br><span class="line">           RETVAL=$?</span><br><span class="line">           echo</span><br><span class="line">           [ $RETVAL = 0 ] &amp;&amp; touch $&#123;lockfile&#125;</span><br><span class="line">           return $RETVAL</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   stop() &#123;</span><br><span class="line">   	status -p $&#123;pidfile&#125; $httpd &gt; /dev/null</span><br><span class="line">   	if [[ $? = 0 ]]; then</span><br><span class="line">   		echo -n $"Stopping $prog: "</span><br><span class="line">   		killproc -p $&#123;pidfile&#125; -d $&#123;STOP_TIMEOUT&#125; $httpd</span><br><span class="line">   	else</span><br><span class="line">   		echo -n $"Stopping $prog: "</span><br><span class="line">   		success</span><br><span class="line">   	fi</span><br><span class="line">   	RETVAL=$?</span><br><span class="line">   	echo</span><br><span class="line">   	[ $RETVAL = 0 ] &amp;&amp; rm -f $&#123;lockfile&#125; $&#123;pidfile&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   reload() &#123;</span><br><span class="line">       echo -n $"Reloading $prog: "</span><br><span class="line">       if ! LANG=$HTTPD_LANG $httpd $OPTIONS -t &gt;&amp;/dev/null; then</span><br><span class="line">           RETVAL=6</span><br><span class="line">           echo $"not reloading due to configuration syntax error"</span><br><span class="line">           failure $"not reloading $httpd due to configuration syntax error"</span><br><span class="line">       else</span><br><span class="line">           # Force LSB behaviour from killproc</span><br><span class="line">           LSB=1 killproc -p $&#123;pidfile&#125; $httpd -HUP</span><br><span class="line">           RETVAL=$?</span><br><span class="line">           if [ $RETVAL -eq 7 ]; then</span><br><span class="line">               failure $"httpd shutdown"</span><br><span class="line">           fi</span><br><span class="line">       fi</span><br><span class="line">       echo</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   case "$1" in</span><br><span class="line">     start)</span><br><span class="line">   	start</span><br><span class="line">   	;;</span><br><span class="line">     stop)</span><br><span class="line">   	stop</span><br><span class="line">   	;;</span><br><span class="line">     status)</span><br><span class="line">           status -p $&#123;pidfile&#125; $httpd</span><br><span class="line">   	RETVAL=$?</span><br><span class="line">   	;;</span><br><span class="line">     restart)</span><br><span class="line">   	stop</span><br><span class="line">   	start</span><br><span class="line">   	;;</span><br><span class="line">     condrestart|try-restart)</span><br><span class="line">   	if status -p $&#123;pidfile&#125; $httpd &gt;&amp;/dev/null; then</span><br><span class="line">   		stop</span><br><span class="line">   		start</span><br><span class="line">   	fi</span><br><span class="line">   	;;</span><br><span class="line">     force-reload|reload)</span><br><span class="line">           reload</span><br><span class="line">   	;;</span><br><span class="line">     graceful|help|configtest|fullstatus)</span><br><span class="line">   	$apachectl $@</span><br><span class="line">   	RETVAL=$?</span><br><span class="line">   	;;</span><br><span class="line">     *)</span><br><span class="line">   	echo $"Usage: $prog &#123;start|stop|restart|condrestart|try-restart|force-reload|reload|status|fullstatus|graceful|help|configtest&#125;"</span><br><span class="line">   	RETVAL=2</span><br><span class="line">   esac</span><br><span class="line">   </span><br><span class="line">   exit $RETVAL</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/28/rpm/" rel="next" title="RPM软件包管理">
+                <i class="fa fa-chevron-left"></i> RPM软件包管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/29/https/" rel="prev" title="https">
+                https <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			  <a href="/">
+			    <img class="site-author-image" itemprop="image"
+				  src="/images/avatar.jpg"
+				  alt="Ying Jie" />
+			  </a>
+            
+              <p class="site-author-name" itemprop="name">Ying Jie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/about/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#centos6编译安装httpd-2-4"><span class="nav-number">1.</span> <span class="nav-text">centos6编译安装httpd-2.4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ARP"><span class="nav-number">1.1.</span> <span class="nav-text">ARP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译前准备"><span class="nav-number">1.2.</span> <span class="nav-text">编译前准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译安装"><span class="nav-number">1.3.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自定义开机启动脚本"><span class="nav-number">1.4.</span> <span class="nav-text">自定义开机启动脚本</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ying Jie</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.4k</span>
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a></div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

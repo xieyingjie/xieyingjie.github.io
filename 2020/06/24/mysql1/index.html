@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="yingjie's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="MySQL（一）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL（一）">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/24/mysql1/index.html">
+<meta property="og:site_name" content="yingjie&#39;s blog">
+<meta property="og:description" content="MySQL（一）">
+<meta property="og:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
+<meta property="article:published_time" content="2020-06-24T08:45:57.000Z">
+<meta property="article:modified_time" content="2020-06-30T17:56:21.976Z">
+<meta property="article:author" content="Ying Jie">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/24/mysql1/"/>
+
+
+
+
+
+  <title>MySQL（一） | yingjie's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/xieyingjie" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yingjie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">keep learning & keep it simple</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/24/mysql1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ying Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingjie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-24T16:45:57+08:00">
+                2020-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  MySQL（一）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/images/mysql/mysql1.png" rel="gallery_ckc285w8q0000e0vk1sud6dyq"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/images/mysql/mysql1.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h4 id="一、数据库的发展史"><a href="#一、数据库的发展史" class="headerlink" title="一、数据库的发展史"></a>一、数据库的发展史</h4><ol>
+<li><p>萌芽阶段—–文件系统</p>
+<blockquote>
+<p>使用磁盘文件来存储数据</p>
+</blockquote>
+</li>
+<li><p>初级阶段—–第一代数据库</p>
+<blockquote>
+<p>出现了网状模型、层次模型的数据库</p>
+</blockquote>
+</li>
+<li><p>中级阶段—–第二代数据库</p>
+<blockquote>
+<p>关系型数据库和结构化查询语言</p>
+</blockquote>
+</li>
+<li><p>高级阶段——新一代数据库</p>
+<blockquote>
+<p>“关系-对象”型数据库  </p>
+</blockquote>
+</li>
+</ol>
+<p><strong>文件管理系统的缺点</strong></p>
+<blockquote>
+<p>编写应用程序不方便<br>数据冗余不可避免<br>应用程序依赖性<br>不支持对文件的并发访问<br>数据间联系弱<br>难以按用户视图表示数据<br>无安全控制功能  </p>
+</blockquote>
+<p><strong>数据库管理系统的优点</strong>  </p>
+<blockquote>
+<p>相互关联的数据的集合<br>较少的数据冗余<br>程序与数据相互独立<br>保证数据的安全、可靠<br>最大限度地保证数据的正确性<br>数据可以并发使用并能同时保证一致性  </p>
+</blockquote>
+<p><strong>数据库管理系统</strong> </p>
+<blockquote>
+<p>数据库是数据的汇集，它以一定的组织形式存于存储介质上</p>
+<p>DBMS是管理数据库的系统软件，它实现数据库系统的各种功能。是数据库系统的核心</p>
+<p>DBA：负责数据库的规划、设计、协调、维护和管理等工作</p>
+<p>应用程序指以数据库为基础的应用程序  </p>
+</blockquote>
+<p><strong>数据库管理系统的基本功能</strong></p>
+<blockquote>
+<p>数据定义<br>数据处理<br>数据安全<br>数据备份  </p>
+</blockquote>
+<p><strong>数据库系统的架构</strong></p>
+<blockquote>
+<p>单机架构<br>大型主机/终端架构<br>主从式架构（ C/S）<br>分布式架构  </p>
+</blockquote>
+<h4 id="二、关系型数据库"><a href="#二、关系型数据库" class="headerlink" title="二、关系型数据库"></a>二、关系型数据库</h4><p>关系 ：关系就是二维表。并满足如下性质：表中的行、列次序并不重要</p>
+<p>行row：表中的每一行，又称为一条记录</p>
+<p>列column：表中的每一列，称为属性，字段</p>
+<p>主键（ Primary key）：用于惟一确定一个记录的字段</p>
+<p>域domain：属性的取值范围，如，性别只能是‘男’和‘女’<br>两个值  </p>
+<p><strong>RDBMS：</strong></p>
+<p>1、MySQL: MySQL, MariaDB, Percona Server</p>
+<p>2、PostgreSQL: 简称为pgsql， EnterpriseDB</p>
+<p>3、Oracle：</p>
+<p>3、MSSQL：</p>
+<p>4、DB2:</p>
+<p><strong>事务transaction：多个操作被当作一个整体对待(ACID)</strong></p>
+<p>A: 原子性<br>C：一致性<br>I: 隔离性<br>D：持久性  </p>
+<p><strong>实体-联系模型E-R</strong></p>
+<p>1、实体Entity</p>
+<blockquote>
+<p>客观存在并可以相互区分的客观事物或抽象事件称为实体。<br>在E-R图中用矩形框表示实体，把实体名写在框内</p>
+</blockquote>
+<p>2、属性</p>
+<blockquote>
+<p>实体所具有的特征或性质</p>
+</blockquote>
+<p>3、联系</p>
+<blockquote>
+<p>联系是数据之间的关联集合，是客观存在的应用语义链</p>
+</blockquote>
+<p>4、实体内部的联系</p>
+<blockquote>
+<p>指组成实体的各属性之间的联系。如职工实体中，职工号和部门经理号之间有一种关联关系</p>
+</blockquote>
+<p>5、实体之间的联系</p>
+<blockquote>
+<p>指不同实体之间联系。例学生选课实体和学生基本信息实体之间</p>
+</blockquote>
+<p>6、实体之间的联系用菱形框表示  </p>
+<p><strong>联系类型</strong></p>
+<blockquote>
+<p>一对一联系(1:1)<br>一对多联系(1:n)<br>多对多联系(m:n)  </p>
+</blockquote>
+<p><strong>数据三要素</strong></p>
+<p>1、数据结构：</p>
+<blockquote>
+<p>包括两类，一类是与数据类型、内容、性质有关的对象，比如关系模型中的域、属性和关系等；另一类是与数据之间联系有关的对象，它从数据组织层表达数据记录与字段的结构</p>
+</blockquote>
+<p>2、数据的操作：</p>
+<blockquote>
+<p>数据提取：在数据集合中提取感兴趣的内容。(SELECT）<br>数据更新：变更数据库中的数据。(INSERT、 DELETE、UPDATE)</p>
+</blockquote>
+<p>3、数据的约束条件 ：是一组完整性规则的集合</p>
+<blockquote>
+<p>实体（行）完整性 Entity integrity<br>域（列）完整性 Domain Integrity<br>参考完整性 Referential Integrity  </p>
+</blockquote>
+<p><strong>简易数据规划流程</strong></p>
+<p>1、第一阶段：收集数据，得到字段</p>
+<blockquote>
+<p>• 收集必要且完整的数据项<br>• 转换成数据表的字段</p>
+</blockquote>
+<p>2、第二阶段：把字段分类，归入表，建立表的关联</p>
+<blockquote>
+<p>• 关联：表和表间的关系<br>• 分割数据表并建立关联的优点<br>• 节省空间<br>• 减少输入错误<br>• 方便数据修改</p>
+</blockquote>
+<p>3、第三阶段：</p>
+<blockquote>
+<p>• 规范化数据库  </p>
+</blockquote>
+<p><strong>范式</strong>  </p>
+<blockquote>
+<p>1NF： 无重复的列， 每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。除去同类型的字段，就是无重复的列。说明：第一范式（ 1NF）是对关系模式的基本要求，不满足第一范式（ 1NF）的数据库就不是关系数据库</p>
+<p>2NF：属性完全依赖于主键，第二范式必须先满足第一范式，要求表中的每个行必须可以被唯一地区分。通常为表加上一个列，以存储各个实例的唯一标识PK，非PK的字段需要与整个PK有直接相关性</p>
+<p>3NF：属性不依赖于其它非主属性，满足第三范式必须先满足<br>第二范式。第三范式要求一个数据库表中不包含已在其它表中<br>已包含的非主关键字信息，非PK的字段间不能有从属关系  </p>
+</blockquote>
+<h4 id="三、SQL概念"><a href="#三、SQL概念" class="headerlink" title="三、SQL概念"></a><strong>三、SQL概念</strong></h4><p>1、SQL: Structure Query Language </p>
+<blockquote>
+<p>结构化查询语言<br>SQL解释器：<br>数据存储协议：应用层协议， C/S</p>
+</blockquote>
+<p>2、S： server, 监听于套接字，接收并处理客户端的应用请求</p>
+<p>3、C： Client</p>
+<p>• 程序接口</p>
+<blockquote>
+<p>CLI<br>GUI</p>
+</blockquote>
+<p>• 应用编程接口</p>
+<blockquote>
+<p>ODBC： Open Database Connectivity<br>JDBC： Java Data Base Connectivity  </p>
+</blockquote>
+<p>4、约束： constraint，表中的数据要遵守的限制</p>
+<blockquote>
+<p>主键：一个或多个字段的组合，填入的数据必须能在本表中唯一标识本行；必须提供数据，即NOT NULL，一个表只能有一个</p>
+<p>惟一键：一个或多个字段的组合，填入的数据必须能在本表中唯一标识本行；允许为NULL，一个表可以存在多个</p>
+<p>外键：一个表中的某字段可填入的数据取决于另一个表的主键或唯一键已有的数据</p>
+<p>检查：字段值在一定范围内  </p>
+</blockquote>
+<p>5、索引：将表中的一个或多个字段中的数据复制一份另存，并且些需要按特定次序排序存储<br>• 关系运算：</p>
+<blockquote>
+<p>选择：挑选出符合条件的行<br>投影：挑选出需要的字段<br>连接：表间字段的关联  </p>
+</blockquote>
+<p>6、数据模型<br>•  数据抽象：</p>
+<blockquote>
+<p>物理层：数据存储格式，即RDBMS在磁盘上如何组织文件<br>逻辑层： DBA角度，描述存储什么数据，以及数据间存在什么样的关系<br>视图层：用户角度，描述DB中的部分数据</p>
+</blockquote>
+<p>• 关系模型的分类：</p>
+<blockquote>
+<p>基于对象的关系模型<br>半结构化的关系模型： XML数据  </p>
+</blockquote>
+<h4 id="四、MySQL历史"><a href="#四、MySQL历史" class="headerlink" title="四、MySQL历史"></a>四、MySQL历史</h4><p>• 1979年： TcX公司 Monty Widenius， Unireg<br>• 1996年： 发布MySQL1.0， Solaris版本， Linux版本<br>• 1999年： MySQL AB公司，瑞典<br>• 2003年： MySQL 5.0版本，提供视图、存储过程等功能<br>• 2008年： sun 收购<br>• 2009年： oracle收购sun<br>• 2009年： Monty成立MariaDB  </p>
+<img src="/images/mysql/mysql2.jpg"/>
+
+
+
+<h4 id="五、MySQL和MariaDB"><a href="#五、MySQL和MariaDB" class="headerlink" title="五、MySQL和MariaDB"></a><strong>五、MySQL和MariaDB</strong></h4><p><strong>官方网址</strong><br><a href="https://www.mysql.com/" target="_blank" rel="noopener">https://www.mysql.com/</a><br><a href="http://mariadb.org/" target="_blank" rel="noopener">http://mariadb.org/</a></p>
+<p><strong>官方文档</strong><br><a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener">https://dev.mysql.com/doc/</a><br><a href="https://mariadb.com/kb/en/" target="_blank" rel="noopener">https://mariadb.com/kb/en/</a></p>
+<p><strong>版本演变</strong><br>MySQL：  5.1 –&gt; 5.5 –&gt; 5.6 –&gt; 5.7<br>MariaDB：5.5 –&gt;10.0–&gt; 10.1 –&gt; 10.2 –&gt; 10.3  </p>
+<p><strong>MySQL体系结构</strong>  </p>
+<img src="/images/mysql/mysql3.jpg" style="zoom: 33%;" />
+
+
+
+<p><strong>MariaDB的特性</strong></p>
+<p>• 插件式存储引擎：也称为“表类型”，存储管理器有多种实现版本，功能和特性可能均略有差别；用户可根据需要灵活选择,Mysql5.5.5开始innoDB引擎是MYSQL默认引擎</p>
+<blockquote>
+<p>MyISAM ==&gt; Aria<br>InnoDB ==&gt; XtraDB</p>
+</blockquote>
+<p>• 存储引擎比较：<a href="https://docs.oracle.com/cd/E17952_01/mysql-5.5-en/storage-engines.html" target="_blank" rel="noopener">https://docs.oracle.com/cd/E17952_01/mysql-5.5-en/storage-engines.html</a></p>
+<p>• 单进程，多线程</p>
+<p>• 诸多扩展和新特性</p>
+<p>• 提供了较多测试组件</p>
+<p>• 开源  </p>
+<p><strong>存储引擎</strong>  </p>
+<p><img src="/images/mysql/mysql4.jpg" alt=""></p>
+<p>• MyISAM引擎特点：</p>
+<blockquote>
+<p>读取数据较快，占用资源较少<br>表级锁定<br>读写相互阻塞，写入不能读，读时不能写<br>只缓存索引<br>不支持事务<br>不支持外键约束<br>不支持聚簇索引<br>不支持MVCC（多版本并发控制机制）高并发<br>崩溃恢复性较差<br>MySQL5.5.5前默认的数据库引擎  </p>
+<p>适用场景：只读（或者写较少）、表较小（可以接受长时间进行修复操作）</p>
+<p>MyISAM引擎文件：<br>tbl_name.frm: 表格式定义<br>tbl_name.MYD: 数据文件<br>tbl_name.MYI: 索引文件  </p>
+</blockquote>
+<p>• InnoDB引擎特点：</p>
+<blockquote>
+<p>支持事务，适合处理大量短期事务<br>行级锁<br>读写阻塞与事务隔离级别相关<br>可缓存数据和索引<br>支持聚簇索引<br>支持MVCC高并发<br>崩溃恢复性更好<br>从MySQL5.5后支持全文索引<br>从MySQL5.5.5开始为默认的数据库引擎  </p>
+<p>InnoDB数据库文件<br>a. 所有InnoDB表的数据和索引放置于同一个表空间中</p>
+<ul>
+<li>表空间文件： datadir定义的目录下</li>
+<li>数据文件： ibddata1, ibddata2, …</li>
+</ul>
+<p>b. 每个表单独使用一个表空间存储表的数据和索引</p>
+<ul>
+<li>启用： innodb_file_per_table=ON</li>
+<li>两类文件放在数据库独立目录中<br>数据文件(存储数据和索引)： tb_name.ibd<br>表格式定义： tb_name.frm  </li>
+</ul>
+</blockquote>
+<p>• 其它存储引擎</p>
+<blockquote>
+<p>Performance_Schema:Performance_Schema数据库</p>
+<p>Memory ：将所有数据存储在RAM中，以便在需要快速查找参考和其他类似数据的环境中进行快速访问。适用存放临时数据。引擎以前被称为HEAP引擎</p>
+<p>MRG_MyISAM：使MySQL DBA或开发人员能够对一系列相同的MyISAM表进行逻辑分组，并将它们作为一个对象引用。适用于VLDB(Very Large Data Base)环境，如数据仓库</p>
+<p>Archive ：为存储和检索大量很少参考的存档或安全审核信息，只支持SELECT和INSERT操作；支持行级锁和专用缓存区</p>
+<p>Federated联合：用于访问其它远程MySQL服务器一个代理，它通过创建一个到远程MySQL服务器的客户端连接，并将查询传输到远程服务器执行，而后完成数据存取，提供链接单独MySQL服务器的能力，以便从多个物理服务器创建一个逻辑数据库。非常适合分布式或数据集市环境  </p>
+<p>BDB：可替代InnoDB的事务引擎，支持COMMIT、ROLLBACK和其他事务特性</p>
+<p>Cluster/NDB： MySQL的簇式数据库引擎，尤其适合于具有高性能查找要求的应用程序，这类查找需求还要求具有最高的正常工作时间和可用性</p>
+<p>CSV： CSV存储引擎使用逗号分隔值格式将数据存储在文本文件中。可以使用CSV引擎以CSV格式导入和导出其他软件和应用程序之间的数据交换</p>
+<p>BLACKHOLE ：黑洞存储引擎接受但不存储数据，检索总是返回一个空集。该功能可用于分布式数据库设计，数据自动复制，但不是本地存储</p>
+<p>example：“stub”引擎，它什么都不做。可以使用此引擎创建表，但不能将数据存储在其中或从中检索。目的是作为例子来说明如何开始编写新的存储引擎  </p>
+</blockquote>
+<p><strong>MariaDB支持的其它存储引擎</strong></p>
+<blockquote>
+<p>OQGraph<br>SphinxSE<br>TokuDB<br>Cassandra<br>CONNECT<br>SQUENCE  </p>
+</blockquote>
+<p><strong>管理存储引擎</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#查看mysql支持的存储引擎:</span><br><span class="line">show engines;</span><br><span class="line"></span><br><span class="line">#查看当前默认的存储引擎:</span><br><span class="line">show variables like &#39;%storage_engine%&#39;</span><br><span class="line"></span><br><span class="line">#设置默认的存储引擎：</span><br><span class="line">vim &#x2F;etc&#x2F;my.conf</span><br><span class="line">[mysqld]</span><br><span class="line">default_storage_engine&#x3D; InnoDB;</span><br><span class="line"></span><br><span class="line">#查看库中所有表使用的存储引擎</span><br><span class="line">Show table status from db_name;</span><br><span class="line"></span><br><span class="line">#查看库中指定表的存储引擎</span><br><span class="line">show table status like ‘tb_name‘;</span><br><span class="line">show create table tb_name;</span><br><span class="line"></span><br><span class="line">#设置表的存储引擎：</span><br><span class="line">CREATE TABLE tb_name(... ) ENGINE&#x3D;InnoDB;</span><br><span class="line">ALTER TABLE tb_name ENGINE&#x3D;InnoDB;</span><br></pre></td></tr></table></figure>
+
+<p><strong>MySQL中的系统数据库</strong></p>
+<blockquote>
+<p><strong>mysql数据库：</strong>是mysql的核心数据库，类似于sql server中的master库，主要负责存储数据库的用户、权限设置、关键字等mysql自己需要使用的控制和管理信息</p>
+<p><strong>PERFORMANCE_SCHEMA：</strong>MySQL 5.5开始新增的数据库，主要用于收集数据库服务器性能参数,库里表的存储引擎均为PERFORMANCE_SCHEMA，用户不能创建存储引擎为PERFORMANCE_SCHEMA的表</p>
+<p><strong>information_schema数据库:</strong>MySQL 5.0之后产生的，一个虚拟数据库，物理上并不存在。 information_schema数据库类似与“数据字典”，提供了访问数据库元数据的方式，即数据的数据。比如数据库名或表名，列类型，访问权限（更加细化的访问方式）  </p>
+</blockquote>
+<h4 id="六、Mariadb介绍"><a href="#六、Mariadb介绍" class="headerlink" title="六、Mariadb介绍"></a>六、Mariadb介绍</h4><p><strong>Mariadb安装</strong></p>
+<p>1、源代码：编译安装<br>2、二进制格式的程序包：展开至特定路径，并经过简单配置后即可使用<br>3、程序包管理器管理的程序包<br>• CentOS安装光盘<br>• 项目官方：<a href="https://downloads.mariadb.org/mariadb/repositories/" target="_blank" rel="noopener">https://downloads.mariadb.org/mariadb/repositories/</a>  </p>
+<p><strong>安装和使用MariaDB:</strong></p>
+<p>1、Rpm包安装</p>
+<blockquote>
+<p>mariadb-server 服务器包<br>mariadb 客户端工具包</p>
+</blockquote>
+<p>2、提高安全性：mysql_secure_installation</p>
+<blockquote>
+<p>设置数据库管理员root口令<br>禁止root远程登录<br>删除anonymous用户帐号<br>删除test数据库  </p>
+</blockquote>
+<p>3、MariaDB程序  </p>
+<p>客户端程序：</p>
+<blockquote>
+<p>mysql: 交互式的CLI工具</p>
+<p>mysqldump: 备份工具，基于mysql协议向mysqld发起查询请求，并将查得的所有数据转换成insert等写操作语句保存文本文件中</p>
+<p>mysqladmin：基于mysql协议管理mysqld</p>
+<p>mysqlimport: 数据导入工具</p>
+<p>MyISAM存储引擎的管理工具<br>1、myisamchk：检查MyISAM库<br>2、myisampack：打包MyISAM表，只读</p>
+</blockquote>
+<p>服务器端程序</p>
+<blockquote>
+<p>mysqld_safe<br>mysqld 获取默认设置： mysqld –print-defaults<br>mysqld_multi：多实例 ，示例： mysqld_multi –example  </p>
+</blockquote>
+<p>4、用户账号  </p>
+<blockquote>
+<p>mysql用户账号由两部分组成：USERNAME’@’HOST‘</p>
+<p>说明：HOST限制此用户可通过哪些远程主机连接mysql服务器</p>
+<p>支持使用通配符：<br>% 匹配任意长度的任意字符<br>_   匹配任意单个字符  </p>
+</blockquote>
+<p><strong>Mysql客户端</strong>  </p>
+<p>mysql使用模式：</p>
+<blockquote>
+<p>交互式客户端命令：<br>\h, help<br>\u， use<br>\s， status<br>!， system</p>
+<p>交互式服务器端命令：SQL语句，需要结束符；</p>
+<p>脚本模式：<br>mysql –uUSERNAME -pPASSWORD &lt; /path/somefile.sql<br>mysql&gt; source /path/from/somefile.sql  </p>
+</blockquote>
+<p>mysql客户端可用选项 ：</p>
+<blockquote>
+<p>-A, –no-auto-rehash 禁止补全<br>-u, –user= 用户名,默认为root<br>-h, –host= 服务器主机,默认为localhost<br>-p, –passowrd= 用户密码,建议使用-p,默认为空密码<br>-P, –port= 服务器端口<br>-S, –socket= 指定连接socket文件路径<br>-D, –database= 指定默认数据库<br>-C, –compress 启用压缩<br>-e “SQL“ 执行SQL命令<br>-V, –version 显示版本<br>-v –verbose 显示详细信息<br>–print-defaults 获取程序默认使用的配置</p>
+</blockquote>
+<p><strong>socket地址</strong></p>
+<p>服务器监听的两种socket地址：</p>
+<blockquote>
+<p>ip socket: 监听在tcp的3306端口，支持远程通信</p>
+<p>unix sock: 监听在sock文件上， 仅支持本机通信<br>如： /var/lib/mysql/mysql.sock)</p>
+<p>说明： host为localhost,127.0.0.1时自动使用unix sock  </p>
+</blockquote>
+<p><strong>服务器端配置</strong></p>
+<p>服务器端(mysqld)：工作特性有多种配置方式</p>
+<blockquote>
+<p>1、命令行选项：</p>
+<p>2、配置文件： 类ini格式<br>集中式的配置，能够为mysql的各应用程序提供配置信息<br>[mysqld]<br>[mysqld_safe]<br>[mysqld_multi]<br>[mysql]<br>[mysqldump]<br>[server]<br>[client]</p>
+<p>格式： parameter = value<br>说明： _和- 相同<br>0， OFF， FALSE意义相同， 1， ON， TRUE意义相同  </p>
+<p>3、配置文件：后面覆盖前面的配置文件，顺序如下：<br>• /etc/my.cnf  Global选项<br>• /etc/mysql/my.cnf Global选项<br>• SYSCONFDIR/my.cnf Global选项<br>• $MYSQL_HOME/my.cnf Server-specific 选项<br>• –defaults-extra-file=path<br>• ~/.my.cnf User-specific 选项</p>
+<p>4、获取可用参数列表：<br>mysqld –help –verbose  </p>
+<p>5、侦听3306/tcp端口可以在绑定有一个或全部接口IP上</p>
+<p>6、vim /etc/my.cnf<br>[mysqld]<br>skip-networking=1 关闭网络连接，只侦听本地客户端，<br>所有和服务器的交互都通过一个socket实现， socket的配置存放<br>在/var/lib/mysql/mysql.sock） 可在/etc/my.cnf修改  </p>
+</blockquote>
+<p><strong>执行命令</strong>  </p>
+<p>运行mysql命令：默认空密码登录</p>
+<blockquote>
+<p>mysql&gt;use mysql<br>mysql&gt;select user();查看当前用户<br>mysql&gt;SELECT User,Host,Password FROM user;</p>
+</blockquote>
+<p>登录系统： mysql –uroot –p</p>
+<p>客户端命令：本地执行，每个命令都完整形式和简写格式<br>mysql&gt; help<br>mysql&gt; status 或 \s</p>
+<p>服务端命令：通过mysql协议发往服务器执行并取回结果，每个命令都必须命令结束符号；默认为分号。SELECT VERSION();  </p>
+<h4 id="七、三种安装方式实现"><a href="#七、三种安装方式实现" class="headerlink" title="七、三种安装方式实现"></a>七、三种安装方式实现</h4><p>一、yum安装（最简单）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mariadb-server -y</span><br></pre></td></tr></table></figure>
+
+<p>二、通用二进制安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">#以CentOS系统为例</span><br><span class="line"></span><br><span class="line">#确保本机没有安装mysql服务器端程序</span><br><span class="line">[root@centos7 ~]# rpm -qa &quot;mysql*&quot;</span><br><span class="line">[root@centos7 ~]# rpm -qa &quot;mariadb*&quot;</span><br><span class="line"></span><br><span class="line">#获取安装包</span><br><span class="line">mmariadb-10.2.12-Linux-x86_64.tar.gz(二进制)</span><br><span class="line"></span><br><span class="line">#创建账号</span><br><span class="line">getent passwd mysql</span><br><span class="line">useradd -r -s &#x2F;sbin&#x2F;nologin mysql</span><br><span class="line"></span><br><span class="line">#解压安装包（&#x2F;usr&#x2F;local&#x2F;mysql）</span><br><span class="line">tar xvf mariadb-10.2.12-linux-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line"></span><br><span class="line">#创建目录软连接，方便管理</span><br><span class="line">cd &#x2F;usr&#x2F;local</span><br><span class="line">mv mariadb-10.2.12-linux-x86_64 mariadb-10.2.12</span><br><span class="line">ln -sv mariadb-10.2.12 mysql </span><br><span class="line"></span><br><span class="line">#更改所有者，所属组</span><br><span class="line">chown -R mysql.mysql mysql&#x2F;</span><br><span class="line"></span><br><span class="line">#创建环境变量</span><br><span class="line">echo &#39;PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin:$PATH&#39; &gt; &#x2F;etc&#x2F;profile.d&#x2F;mysql.sh</span><br><span class="line">source &#x2F;etc&#x2F;profile.d&#x2F;mysql.sh</span><br><span class="line"></span><br><span class="line">#准备存放数据库的目录  </span><br><span class="line">#注意：存放数据库和存放操作系统的空间不在同一块，可使用逻辑卷</span><br><span class="line">#创建用于数据库的lVM空间</span><br><span class="line"></span><br><span class="line">#分区</span><br><span class="line">fdisk &#x2F;dev&#x2F;sda</span><br><span class="line">    n</span><br><span class="line">    Using default value</span><br><span class="line">    +50G</span><br><span class="line">    t</span><br><span class="line">    L</span><br><span class="line">    8e</span><br><span class="line">    w</span><br><span class="line">lsblk</span><br><span class="line"></span><br><span class="line">#同步磁盘和内存信息</span><br><span class="line">partprobe</span><br><span class="line"></span><br><span class="line">#创建逻辑卷</span><br><span class="line">pvcreate &#x2F;dev&#x2F;sda6</span><br><span class="line">vgcreate vg0 &#x2F;dev&#x2F;sda6 -s 16M</span><br><span class="line">lvcreate -n lv_mysqldata -l 100%FREE vg0</span><br><span class="line"></span><br><span class="line">#创建文件系统</span><br><span class="line">mkfs.xfs &#x2F;dev&#x2F;vg0&#x2F;lv_mysqldata  </span><br><span class="line"></span><br><span class="line">#创建挂载目录</span><br><span class="line">mkdir &#x2F;data&#x2F;mysqldb -pv </span><br><span class="line"></span><br><span class="line">#将挂载信息保存到文件中，开机自动挂载</span><br><span class="line">blkid </span><br><span class="line">vim &#x2F;etc&#x2F;fstab  </span><br><span class="line">UUID&#x3D;611fbf6d-d210-4ebc-a18b-8d8d5ea59ec9 &#x2F;data&#x2F;mysqldb xfs defaults 0 0</span><br><span class="line"></span><br><span class="line">#更新挂载信息</span><br><span class="line">mount -a</span><br><span class="line"></span><br><span class="line">#修改权限</span><br><span class="line">chowm -R mysql.mysql &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line">chmod 770 &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line"></span><br><span class="line">#创建系统数据库</span><br><span class="line">yum install  libaio-devel.x86_64 -y </span><br><span class="line">cd &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">scripts&#x2F;mysql_install_db --datadir&#x3D;&#x2F;data&#x2F;mysqldb --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#创建配置文件</span><br><span class="line">cp my-innodb-heavy-4G.cnf &#x2F;etc&#x2F;my.cnf</span><br><span class="line">vim &#x2F;etc&#x2F;my.cnf</span><br><span class="line">port            &#x3D; 3306</span><br><span class="line">datadir         &#x3D; &#x2F;data&#x2F;mysqldb</span><br><span class="line">socket          &#x3D; &#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">#innodb_additional_mem_pool_size &#x3D; 16M</span><br><span class="line"></span><br><span class="line">#创建服务脚本，并启动服务</span><br><span class="line">chkconfig --list</span><br><span class="line">cp &#x2F;urs&#x2F;local&#x2F;mysql&#x2F;supportfile&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">chkconfig --add mysqld </span><br><span class="line">chkconfig --list</span><br><span class="line">service mysql start </span><br><span class="line"></span><br><span class="line">#安全初始化</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;mysql_secure_installation</span><br><span class="line"></span><br><span class="line">#手动修改mysql数据库用户密码</span><br><span class="line">.&#x2F;bin&#x2F;mysqladmin -u root password &#39;new-password&#39;</span><br><span class="line">.&#x2F;bin&#x2F;mysqladmin -u root -h localhost password &#39;new-password&#39;</span><br></pre></td></tr></table></figure>
+
+<p>三、源码编译安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">#创建mysql用户账号</span><br><span class="line">[root@centos7 ~]# getent passwd mysql</span><br><span class="line">[root@centos7 ~]# useradd -r -s &#x2F;sbin&#x2F;nologin mysql</span><br><span class="line">[root@centos7 ~]# id mysql</span><br><span class="line">uid&#x3D;998(mysql) gid&#x3D;996(mysql) groups&#x3D;996(mysql)</span><br><span class="line"></span><br><span class="line">#创建数据库存放的目录</span><br><span class="line">[root@centos7 ~]#mkdir -pv &#x2F;data&#x2F;mysqldb</span><br><span class="line"></span><br><span class="line">#准备开发工具包</span><br><span class="line">yum groupinstall &quot;development tools&quot; </span><br><span class="line">yum install libaio-devel bison bison-devel zlib-devel</span><br><span class="line">openssl-devel ncurses-devel libcurl-devel libarchive-devel</span><br><span class="line">boost-devel gcc gcc-c++ cmake libevent-devel</span><br><span class="line"></span><br><span class="line">#准备mariadb源码并解压包</span><br><span class="line">[root@centos7 ~]#tar xvf mariadb-10.2.12.tar.gz </span><br><span class="line"></span><br><span class="line">#编译选项参考:</span><br><span class="line">https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;5.7&#x2F;en&#x2F;sourceconfiguration-options.html</span><br><span class="line"></span><br><span class="line">#生成make文件</span><br><span class="line">[root@centos7 mariadb-10.2.12]# cmakecmake . \</span><br><span class="line">&gt; -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql \</span><br><span class="line">&gt; -DMYSQL_DATADIR&#x3D;&#x2F;data&#x2F;mysqldb \</span><br><span class="line">&gt; -DSYSCONFDIR&#x3D;&#x2F;etc \</span><br><span class="line">&gt; -DMYSQL_USER&#x3D;mysql \</span><br><span class="line">&gt; -DWITH_INNOBASE_STORAFE_ENGINE&#x3D;1 \</span><br><span class="line">&gt; -DWITH_ARCHIVE_STORAGE_ENGINE&#x3D;1 \</span><br><span class="line">&gt; -DWITH_BLACKHOLE_STORAGE_ENGINE&#x3D;1 \</span><br><span class="line">&gt; -DWITH_PARTITION_STORAGE_ENGINE&#x3D;1 \</span><br><span class="line">&gt; -DWITHOUT_MROONGA_STORAGE_ENGINE&#x3D;1 \</span><br><span class="line">&gt; -DWITH_DEBUG&#x3D;0 \</span><br><span class="line">&gt; -DWITH_READLINE&#x3D;1 \</span><br><span class="line">&gt; -DWITH_SSL&#x3D;system \</span><br><span class="line">&gt; -DWITH_ZLIB&#x3D;system \</span><br><span class="line">&gt; -DWITH_LIBWRAP&#x3D;0 \</span><br><span class="line">&gt; -DENABLED_LOCAL_INFILE&#x3D;1 \</span><br><span class="line">&gt; -DMYSQL_UNIX_ADDR&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;mysql.sock \</span><br><span class="line">&gt; -DDEFAULT_CHARSET&#x3D;utf8 \</span><br><span class="line">&gt; -DDEFAULT_COLLATION&#x3D;utf8_general_ci</span><br><span class="line"></span><br><span class="line">#编译安装mariadb</span><br><span class="line">[root@centos7 mariadb-10.2.12]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">注释：</span><br><span class="line">-DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;path&#x2F;to&#x2F;mysql  主程序（二进制可执行程序）</span><br><span class="line">-DMYSQL_DATADIR&#x3D;&#x2F;data&#x2F;mysqldb&#x2F;         数据库文件</span><br><span class="line">-DSYSCONFDIR&#x3D;&#x2F;etc                      配置文件路径</span><br><span class="line">-DMYSQL_UNIX_ADDR&#x3D;&#x2F;path&#x2F;to&#x2F;mysql.sock  socket文件 </span><br><span class="line">-DDEFAULT_CHARSET&#x3D;utf8                 服务器端字符集设置</span><br><span class="line"></span><br><span class="line">#添加环境变量</span><br><span class="line">echo &#39;PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin:$PATH&#39; &gt; &#x2F;etc&#x2F;profile.d&#x2F;mysql.sh</span><br><span class="line">source &#x2F;etc&#x2F;profile.d&#x2F;mysql.sh</span><br><span class="line"></span><br><span class="line">#创建数据库</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;scripts&#x2F;mysql_install_db --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql --datadir&#x3D;&#x2F;data&#x2F;mysqldb --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#创建配置文件</span><br><span class="line">cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;my-innodb-heavy-4G.cnf &#x2F;etc&#x2F;my.cnf</span><br><span class="line">vim &#x2F;etc&#x2F;my.cnf</span><br><span class="line">[mysqldb]</span><br><span class="line">port            &#x3D; 3306</span><br><span class="line">socket          &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;mysql.sock</span><br><span class="line">datadir         &#x3D; &#x2F;data&#x2F;mysqldata</span><br><span class="line">#innodb_additional_mem_pool_size &#x3D; 16M</span><br><span class="line"></span><br><span class="line">#创建启动脚本</span><br><span class="line">cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;mysqld</span><br><span class="line">chkconfig --add mysqld</span><br><span class="line">chkconfig --list</span><br><span class="line"></span><br><span class="line">#修改实例目录权限</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line"></span><br><span class="line">#修改主程序目录权限</span><br><span class="line">chgrp -R mysql &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">chmod 775 &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line"></span><br><span class="line">#启动服务</span><br><span class="line">systemctl start mysqld</span><br><span class="line"></span><br><span class="line">#安全初始化</span><br><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/24/http/" rel="next" title="http服务">
+                <i class="fa fa-chevron-left"></i> http服务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/25/mysql2/" rel="prev" title="MySQL（二）">
+                MySQL（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			  <a href="/">
+			    <img class="site-author-image" itemprop="image"
+				  src="/images/avatar.jpg"
+				  alt="Ying Jie" />
+			  </a>
+            
+              <p class="site-author-name" itemprop="name">Ying Jie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/about/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、数据库的发展史"><span class="nav-number">1.</span> <span class="nav-text">一、数据库的发展史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、关系型数据库"><span class="nav-number">2.</span> <span class="nav-text">二、关系型数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、SQL概念"><span class="nav-number">3.</span> <span class="nav-text">三、SQL概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、MySQL历史"><span class="nav-number">4.</span> <span class="nav-text">四、MySQL历史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、MySQL和MariaDB"><span class="nav-number">5.</span> <span class="nav-text">五、MySQL和MariaDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#六、Mariadb介绍"><span class="nav-number">6.</span> <span class="nav-text">六、Mariadb介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#七、三种安装方式实现"><span class="nav-number">7.</span> <span class="nav-text">七、三种安装方式实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ying Jie</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.4k</span>
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a></div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

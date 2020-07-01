@@ -113,7 +113,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -128,14 +128,19 @@
 
 
 
+<meta name="description" content="http服务和Apache">
 <meta property="og:type" content="article">
-<meta property="og:title" content="http">
+<meta property="og:title" content="http服务">
 <meta property="og:url" content="http://www.xieyingjie.tech/2020/06/24/http/index.html">
 <meta property="og:site_name" content="yingjie&#39;s blog">
+<meta property="og:description" content="http服务和Apache">
+<meta property="og:image" content="http://www.xieyingjie.tech/images/http/http1.png">
 <meta property="article:published_time" content="2020-06-24T07:38:25.000Z">
-<meta property="article:modified_time" content="2020-06-24T07:38:25.624Z">
+<meta property="article:modified_time" content="2020-06-29T12:23:27.036Z">
 <meta property="article:author" content="Ying Jie">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.xieyingjie.tech/images/http/http1.png">
 
 
 
@@ -171,7 +176,7 @@
 
 
 
-  <title>http | yingjie's blog</title>
+  <title>http服务 | yingjie's blog</title>
   
 
 
@@ -361,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">http</h1>
+          <h1 class="post-title" itemprop="name headline">http服务</h1>
         
 
         <div class="post-meta">
@@ -384,6 +389,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -395,38 +422,11 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  0
-                </span>
-              
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
           
-
+              <div class="post-description">
+                  http服务和Apache
+              </div>
           
 
         </div>
@@ -440,9 +440,331 @@
 
       
       
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/images/http/http1.png" rel="gallery_ckbt1q4ta0002q4vkhc6e56xb"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/images/http/http1.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
 
       
-        
+        <h4 id="Internet"><a href="#Internet" class="headerlink" title="Internet"></a>Internet</h4><h5 id="什么是互联网Internet？"><a href="#什么是互联网Internet？" class="headerlink" title="什么是互联网Internet？"></a>什么是互联网Internet？</h5><img src="/images/http/http2.jpg" alt="http2" style="zoom: 40%;" />
+
+<h5 id="Internet与中国"><a href="#Internet与中国" class="headerlink" title="Internet与中国"></a>Internet与中国</h5><ol>
+<li><p>Internet最早来源于美国国防部高级研究计划局ARPA建立的ARPANet，<br>1969年投入运行。1983年， ARPAnet分裂为两部分：ARPAnet和纯军<br>事用的MILNET。当年1月， ARPA把TCP/IP协议作为ARPAnet的标准协<br>议，这个以ARPAnet为主干网的网际互联网便被称为Internet。1986年，<br>美国国家科学基金会建立计算机通信网络NSFnet。此后， NSFNet逐渐<br>取代ARPANet在Internet的地位。 1990年， ARPANet正式关闭</p>
+</li>
+<li><p>北京时间1987年9月20日，钱天白建立起一个网络节点，通过电话拨号连<br>接到国际互联网，向他的德国朋友发出来自中国的第一封电子邮件：<br>Across the Great Wall we can reach every corner in the world，自此，<br>中国与国际计算机网络开始连接在一起</p>
+  <img src="/images/http/http3.jpg" alt="http3" style="zoom: 33%;" />
+
+</li>
+</ol>
+<h5 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP/IP协议"></a>TCP/IP协议</h5><img src="/images/http/http4.jpg" alt="http4" style="zoom: 33%;" />
+
+<h5 id="跨Internet的主机间通讯"><a href="#跨Internet的主机间通讯" class="headerlink" title="跨Internet的主机间通讯"></a>跨Internet的主机间通讯</h5><blockquote>
+<p>在建立通信连接的每一端，进程间的传输要有两个标志：<br>IP地址和端口号，合称为套接字地址 socket address<br>客户机套接字地址定义了一个唯一的客户进程<br>服务器套接字地址定义了一个唯一的服务器进程</p>
+</blockquote>
+  <img src="/images/http/http5.jpg" alt="httpd5" style="zoom:80%;" />
+
+
+
+<h5 id="Socket套接字"><a href="#Socket套接字" class="headerlink" title="Socket套接字"></a>Socket套接字</h5><img src="/images/http/http6.jpg" alt="httpd6" style="zoom: 33%;" />
+
+<blockquote>
+<p>Socket：套接字，进程间通信IPC的一种实现，允许位于不同主机（或同一主机）<br>上不同进程之间进行通信和数据交换， SocketAPI出现于1983年， 4.2 BSD实现</p>
+<p>Socket API：封装了内核中所提供的socket通信相关的系统调用</p>
+<p>Socket Domain：根据其所使用的地址</p>
+<ol>
+<li>AF_INET： Address Family， IPv4</li>
+<li>AF_INET6： IPv6</li>
+<li>AF_UNIX：同一主机上不同进程之间通信时使用</li>
+</ol>
+<p>Socket Type：根据使用的传输层协议</p>
+<ol>
+<li>SOCK_STREAM：流， tcp套接字， 可靠地传递、面向连接</li>
+<li>SOCK_DGRAM：数据报， udp套接字， 不可靠地传递、无连接</li>
+<li>SOCK_RAW: 裸套接字,无须tcp或tdp,APP直接通过IP包通信  </li>
+</ol>
+</blockquote>
+<p>客户/服务器程序的套接字函数</p>
+  <img src="/images/http/http7.jpg" alt="http7" style="zoom: 50%;" />
+
+
+
+<p>套接字相关的系统调用：</p>
+<blockquote>
+<p>socket(): 创建一个套接字<br>bind()：绑定IP和端口<br>listen()：监听<br>accept()：接收请求<br>connect()：请求连接建立<br>write()：发送<br>read()：接收<br>close():关闭连接  </p>
+</blockquote>
+<h5 id="http服务通信过程"><a href="#http服务通信过程" class="headerlink" title="http服务通信过程"></a>http服务通信过程</h5><img src="/images/http/http8.jpg" alt="http8" style="zoom: 33%;" />
+
+
+
+<img src="/images/http/http22.png" alt="image-20200628200114736" style="zoom: 50%;" />
+
+
+
+<img src="/images/http/http10.jpg" alt="http10" style="zoom: 33%;" />
+
+<h5 id="Http相关术语"><a href="#Http相关术语" class="headerlink" title="Http相关术语"></a>Http相关术语</h5><blockquote>
+<p>http: Hyper Text Transfer Protocol, 80/tcp</p>
+<p>html: Hyper Text Markup Language 超文本标记语言，编程语言</p>
+<p>CSS: Cascading Style Sheet 层叠样式表</p>
+<p>js: javascript</p>
+</blockquote>
+<blockquote>
+<p>MIME： Multipurpose Internet Mail Extensions</p>
+<ul>
+<li>多用途互联网邮件扩展 /etc/mime.types</li>
+<li>格式： major/minor<br>text/plain<br>text/html<br>text/css<br>image/jpeg<br>image/png<br>video/mp4<br>application/javascript</li>
+<li>参考：<a href="http://www.w3school.com.cn/media/media_mimeref.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/media/media_mimeref.asp</a>  </li>
+</ul>
+</blockquote>
+<h4 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h4><h5 id="协议介绍"><a href="#协议介绍" class="headerlink" title="协议介绍"></a>协议介绍</h5><p><img src="/images/http/http11.jpg" alt="http11"></p>
+<blockquote>
+<p>http/0.9：1991，原型版本，功能简陋，只有一个命令GET。 GET/index.html ,服务器只能回应HTML格式字符串，不能回应别的格式</p>
+<p>http/1.0: 1996年5月,支持cache, MIME, method</p>
+<ol>
+<li>每个TCP连接只能发送一个请求，发送数据完毕，连接就关闭，如果还要请求其他资源，就必须再新建一个连接</li>
+<li>引入了POST命令和HEAD命令</li>
+<li>头信息是 ASCII 码，后面数据可为任何格式。服务器回应时会告诉客户端，数据是什么格式，即Content-Type字段的作用。这些数据类型总称为MIME 多用途互联网邮件扩展，每个值包括一级类型和二级类型，预定义的类型，也可自定义类型。</li>
+<li>常见Content-Type值： text/xml image/jpeg audio/mp3  </li>
+</ol>
+<p>http/1.1： 1997年1月</p>
+<ol>
+<li>引入了持久连接（ persistent connection），即TCP连接默认不关闭，可以被多个请求复用，不用声明Connection: keep-alive。对于同一个域名，大多数浏览器允许同时建立6个持久连接</li>
+<li>引入了管道机制（ pipelining），即在同一个TCP连接里，客户端可以同时发送多个请求，进一步改进了HTTP协议的效率</li>
+<li>新增方法： PUT、 PATCH、 OPTIONS、 DELETE</li>
+<li>同一个TCP连接里面，所有的数据通信是按次序进行的。服务器只能顺序处理回应，前面的回应慢，会有许多请求排队，造成”队头堵塞”（ Head-of-line blocking）</li>
+<li>为避免上述问题，两种方法：一是减少请求数，二是同时多开持久连接。网页优化技巧，比如合并脚本和样式表、将图片嵌入CSS代码、域名分片（ domain sharding）等</li>
+<li>HTTP 协议不带有状态，每次请求都必须附上所有信息。请求的<br>很多字段都是重复的，浪费带宽，影响速度  </li>
+</ol>
+<p>Spdy： 2009年,谷歌研发,解决 HTTP/1.1 效率不高问题</p>
+<p>http/2.0： 2015年</p>
+<ol>
+<li>头信息和数据体都是二进制，称为头信息帧和数据帧</li>
+<li>复用TCP连接，在一个连接里，客户端和浏览器都可以同时<br>发送多个请求或回应，且不用按顺序一一对应，避免了“队<br>头堵塞“,此双向的实时通信称为多工（ Multiplexing）</li>
+<li>引入头信息压缩机制（ header compression） ,头信息使用gzip或compress压缩后再发送；客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，不发送同样字段，只发送索引号，提高速度</li>
+<li>HTTP/2 允许服务器未经请求，主动向客户端发送资源，<br>即服务器推送（ server push）  </li>
+</ol>
+</blockquote>
+<h5 id="http工作机制"><a href="#http工作机制" class="headerlink" title="http工作机制"></a>http工作机制</h5><ol>
+<li><p>工作机制：</p>
+<p>http请求： http request<br>http响应： http response<br>一次http事务：请求&lt;–&gt;响应</p>
+</li>
+<li><p>Web资源： web resource</p>
+<p>一个网页由多个资源构成，打开一个页面，会有多个资源展示出来，但是每个资源都要单独请求。因此，一个“Web 页面”通常并不是单个资源，而是一组资源的集合</p>
+<p>静态文件：无需服务端做出额外处理</p>
+<blockquote>
+<p>文件后缀： .jpg, .html, .txt, .js, .css, .mp3, .avi</p>
+</blockquote>
+<p>动态文件：服务端执行程序，返回执行的结果</p>
+<blockquote>
+<p>文件后缀： .asp, .php, .jsp  </p>
+</blockquote>
+</li>
+<li><p>提高HTTP连接性能</p>
+<blockquote>
+<p>并行连接：通过多条TCP连接发起并发的HTTP请求<br>持久连接： keep-alive,长连接，重用TCP连接，以消除连接和关闭的时延,以事务个数和时间来决定是否关闭连接<br>管道化连接：通过共享TCP连接发起并发的HTTP请求<br>复用的连接：交替传送请求和响应报文（实验阶段）  </p>
+</blockquote>
+</li>
+<li><p>HTTP连接请求</p>
+</li>
+</ol>
+<img src="/images/http/http12.jpg" style="zoom: 33%;" />
+
+<ol start="5">
+<li><p>串行和并行连接</p>
+<img src="/images/http/http13.jpg" style="zoom: 50%;" />
+
+</li>
+</ol>
+<img src="/images/http/http14.jpg" style="zoom: 50%;" />
+
+<ol start="6">
+<li><p>串行,持久连接和管道</p>
+<p><img src="/images/http/http15.jpg" alt=""></p>
+</li>
+</ol>
+<h5 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h5><p>URI: Uniform Resource Identifier 统一资源标识，分为URL和URN</p>
+<blockquote>
+<p>URN: Uniform Resource Naming，统一资源命名<br>示例： P2P下载使用的磁力链接是URN的一种实现<br>magnet:?xt=urn:btih:660557A6890EF888666</p>
+<p>URL: Uniform Resorce Locator，统一资源定位符，用于描述某服务器某特定资源位置</p>
+<p>两者区别： URN如同一个人的名称， 而URL代表一个人的住址。换言之， URN定义某事物的身份，而URL提供查找该事物的方法。 URN仅用于命名，而不指定地址  </p>
+</blockquote>
+<p>URL组成</p>
+<p><img src="/images/http/http16.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;scheme&gt;:&#x2F;&#x2F;&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;&#x2F;&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;</span><br><span class="line"></span><br><span class="line">    schame:方案，访问服务器以获取资源时要使用哪种协议</span><br><span class="line"></span><br><span class="line">    user:用户，某些方案访问资源时需要的用户名</span><br><span class="line"></span><br><span class="line">    password:密码，用户对应的密码，中间用：分隔</span><br><span class="line"></span><br><span class="line">    Host:主机，资源宿主服务器的主机名或IP地址</span><br><span class="line"></span><br><span class="line">    port:端口,资源宿主服务器正在监听的端口号，很多方案有默认端口号</span><br><span class="line"></span><br><span class="line">    path:路径,服务器资源的本地名，由一个&#x2F;将其与前面的URL组件分隔</span><br><span class="line"></span><br><span class="line">    params:参数，指定输入的参数，参数为名&#x2F;值对，多个参数，用;分隔</span><br><span class="line"></span><br><span class="line">    query:查询，传递参数给程序，如数据库，用？分隔,多个查询用&amp;分隔</span><br><span class="line"></span><br><span class="line">    frag:片段,一小片或一部分资源的名字，此组件在客户端使用，用#分隔</span><br></pre></td></tr></table></figure>
+
+<p>网站访问量</p>
+<blockquote>
+<p>IP(独立IP)：即Internet Protocol,指独立IP数。一天内来自相同客户机IP地址只计算一次，记录远程客户机IP地址的计算机访问网站的次数，是衡量网站流量的重要指标</p>
+<p>PV(访问量)： 即Page View, 页面浏览量或点击量，用户每次刷新即被计算一次， PV反映的是浏览某网站的页面数， PV与来访者的数量成正比， PV并不是页面的来访者数量，而是网站被访问的页面数量</p>
+<p>UV(独立访客)：即Unique Visitor,访问网站的一台电脑为一个访客。一天内相同的客户端只被计算一次。可以理解成访问某网站的电脑的数量。网站判断来访电脑的身份是通过来访电脑的cookies实现的。如果更换了IP后但不清除cookies，再访<br>问相同网站，该网站的统计中UV数是不变的</p>
+<p>网站统计： <a href="http://www.alexa.cn/rank/" target="_blank" rel="noopener">http://www.alexa.cn/rank/</a>  </p>
+</blockquote>
+<h5 id="Web服务请求处理步骤"><a href="#Web服务请求处理步骤" class="headerlink" title="Web服务请求处理步骤"></a>Web服务请求处理步骤</h5><p>一次完整的http请求处理过程</p>
+<img src="/images/http/http17.jpg" style="zoom: 33%;" />
+
+
+
+<ol>
+<li><p>建立连接：接收或拒绝连接请求</p>
+</li>
+<li><p>接收请求：接收客户端请求报文中对某资源的一次请求的过程</p>
+<blockquote>
+<p>Web访问响应模型（ Web I/O）</p>
+<ul>
+<li><p>单进程I/O模型： 启动一个进程处理用户请求，而且一次只处理一个，多个请求被串行响应</p>
+</li>
+<li><p>多进程I/O模型： 并行启动多个进程,每个进程响应一个连接请求复用I/O结构：启动一个进程，同时响应N个连接请求, 实现方法： 多线程模型和事件驱动</p>
+<blockquote>
+<p>多线程模型：一个进程生成N个线程，每线程响应一个连接请求</p>
+<p>事件驱动：一个进程处理N个请求</p>
+</blockquote>
+</li>
+<li><p>复用的多进程I/O模型：启动M个进程，每个进程响应N个连接请求，同时接收M*N个请求</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>处理请求</p>
+<blockquote>
+<p>服务器对请求报文进行解析，并获取请求的资源及请求方法等相关信息，根据方法，资源，首部和可选的主体部分对请求进行处理</p>
+<p>元数据：请求报文首部<br><method> <URL> <VERSION><br>HEADERS 格式 name:value</p>
+<request body>
+
+<p>HTTP常用请求方式， Method<br>GET、 POST、 HEAD、 PUT、 DELETE、 TRACE、 OPTIONS</p>
+</blockquote>
+</li>
+<li><p>访问资源:</p>
+<blockquote>
+<p>服务器获取请求报文中请求的资源web服务器，即存放了web资源的服务器，负责向请求者提供对方请求的静态资源，或动态运行后生成的资源</p>
+<p>资源放置于本地文件系统特定的路径： DocRoot<br>DocRoot –&gt; /var/www/html</p>
+<p>web服务器资源路径映射方式：<br>(a) docroot<br>(b) alias<br>(c) 虚拟主机docroot<br>(d) 用户家目录docro</p>
+</blockquote>
+</li>
+<li><p>构建响应报文：</p>
+<blockquote>
+<p>一旦Web服务器识别除了资源，就执行请求方法中描述的动作，并返回响应报文。响应报文中 包含有响应状态码、响应首部，如果生成了响应主体的话，还包括响应主体</p>
+<p>1）响应实体：如果事务处理产生了响应主体，就将内容放在响应报文中回送过去。响应报文中通常包括：</p>
+<blockquote>
+<p>描述了响应主体MIME类型的Content-Type首部<br>描述了响应主体长度的Content-Length<br>实际报文的主体内容</p>
+</blockquote>
+<p>2) URL重定向： web服务构建的响应并非客户端请求的资源，而是资源另外一个访问路径</p>
+<blockquote>
+<p>永久重定向： <a href="http://www.360buy.com" target="_blank" rel="noopener">http://www.360buy.com</a><br>临时重定向： <a href="http://www.taobao.com" target="_blank" rel="noopener">http://www.taobao.com</a> </p>
+</blockquote>
+<p>3） MIME类型：</p>
+<blockquote>
+<p>Web服务器要负责确定响应主体的MIME类型。多种配置服务器的方法可将MIME类型与资源管理起来</p>
+<p>魔法分类： Apache web服务器可以扫描每个资源的内容，并将其与一个已知模式表(被称为魔法文件)进行匹配，以决定每个文件的MIME类型。这样做可能比较慢，但很方便，尤其是文件没有标准扩展名时</p>
+<p>显式分类：可以对Web服务器进行配置，使其不考虑文件的扩展名或内容，强制特定文件或目录内容拥有某个MIME类型</p>
+<p>类型协商： 有些Web服务器经过配置，可以以多种文档格<br>式来存储资源。在这种情况下，可以配置Web服务器，使其可以<br>通过与用户的协商来决定使用哪种格式(及相关的MIME类型)”最<br>好  </p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>发送响应报文</p>
+<blockquote>
+<p>Web服务器通过连接发送数据时也会面临与接收数据一样的问题。服务器可能有很多条到各个客户端的连接， 有些是空闲的，有些在向服务器发送数据，还有一些在向客户端回送响应数据。服务器要记录连接的状态，还要特别注意对持久连接的处理。对非持久连接而言，服务器应该在发送了整条报文之后，关闭自己这一端的连接。对持久连接来说，连接可能仍保持打开状态，在这种情况下， 服务器要正确地计算Content-Length首部，不然客户端就无法知道响应什么时候结束了</p>
+</blockquote>
+</li>
+<li><p>记录日志</p>
+<blockquote>
+<p>最后，当事务结束时， Web服务器会在日志文件中添加一个条目，来描述已执行的事务  </p>
+</blockquote>
+</li>
+</ol>
+<h4 id="http服务器应用"><a href="#http服务器应用" class="headerlink" title="http服务器应用"></a>http服务器应用</h4><h5 id="http服务器程序"><a href="#http服务器程序" class="headerlink" title="http服务器程序"></a><strong>http服务器程序</strong></h5><blockquote>
+<p>httpd apache<br>nginx<br>lighttpd</p>
+</blockquote>
+<h5 id="应用程序服务器"><a href="#应用程序服务器" class="headerlink" title="应用程序服务器"></a><strong>应用程序服务器</strong></h5><blockquote>
+<p>IIS .asp<br>tomcat .jsp<br>jetty 开源的servlet容器，基于Java的web容器<br>Resin CAUCHO公司，支持servlets和jsp的引擎<br>webshpere(IBM), weblogic(BEA), jboss,oc4j(Oracle)</p>
+</blockquote>
+<h5 id="市场占有率统计"><a href="#市场占有率统计" class="headerlink" title="市场占有率统计"></a><strong>市场占有率统计</strong></h5><p><a href="http://www.netcraft.com" target="_blank" rel="noopener">www.netcraft.com</a>  </p>
+<h4 id="Httpd介绍"><a href="#Httpd介绍" class="headerlink" title="Httpd介绍"></a>Httpd介绍</h4><h5 id="Httpd"><a href="#Httpd" class="headerlink" title="Httpd"></a>Httpd</h5><p>1) 20世纪90年代初， 国家超级计算机应用中心NCSA开发</p>
+<p>2) 1995年开源社区发布apache（ a patchy server）</p>
+<blockquote>
+<p>ASF: apache software foundation<br>FSF： Free Software Foundation  </p>
+</blockquote>
+<h5 id="特性："><a href="#特性：" class="headerlink" title="特性："></a>特性：</h5><blockquote>
+<p>高度模块化： core + modules<br>DSO: Dynamic Shared Object 动态加/卸载<br>MPM： multi-processing module多路处理模块  </p>
+</blockquote>
+<h5 id="MPM工作模式"><a href="#MPM工作模式" class="headerlink" title="MPM工作模式"></a>MPM工作模式</h5><ul>
+<li><p>prefork：多进程I/O模型，每个进程响应一个请求，默认模型</p>
+<blockquote>
+<p>一个主进程：生成和回收n个子进程， 创建套接字，不响应请求</p>
+<p>多个子进程：工作work进程，每个子进程处理一个请求；系统初始时，预先生成多个空闲进程，等待请求，最大不超过1024个</p>
+<img src="/images/http/http18.jpg"  style="zoom:50%;" />
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>worker：复用的多进程I/O模型,多进程多线程， IIS使用此模型</p>
+<blockquote>
+<p>一个主进程： 生成m个子进程，每个子进程负责生个n个线程，每个线<br>程响应一个请求，并发响应请求： m*n</p>
+<img src="/images/http/http19.jpg"  style="zoom: 67%;" />
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>event：事件驱动模型（ worker模型的变种）</p>
+<blockquote>
+<p>一个主进程：生成m个子进程，每个进程直接响应n个请求</p>
+<p>并发响应请求： m*n</p>
+<p>有专门的线程来管理这些keep-alive类型的线程，当有真实请求时， 将请求传递给服务线程，执行完毕后，又允许释放。这样增强了高并发场景下的请求处理能力</p>
+<img src="/images/http/http20.jpg"  style="zoom:67%;" />
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>httpd-2.2: event 测试版， centos6默认</p>
+<p>httpd-2.4： event 稳定版， centos7默认  </p>
+</li>
+</ul>
+<h5 id="进程角色"><a href="#进程角色" class="headerlink" title="进程角色"></a>进程角色</h5><img src="/images/http/http21.jpg" style="zoom: 33%;" />
+
+<h5 id="httpd功能特性"><a href="#httpd功能特性" class="headerlink" title="httpd功能特性"></a>httpd功能特性</h5><ol>
+<li><p><strong>虚拟主机</strong></p>
+</li>
+<li><blockquote>
+<p>IP、 Port、 FQDN</p>
+</blockquote>
+</li>
+<li><p><strong>CGI</strong>： Common Gateway Interface，通用网关接口</p>
+</li>
+<li><p><strong>反向代理</strong></p>
+</li>
+<li><p><strong>负载均衡</strong></p>
+</li>
+<li><p><strong>路径别名</strong></p>
+</li>
+<li><p><strong>丰富的用户认证机制</strong><br>basic<br>digest</p>
+</li>
+<li><p><strong>支持第三方模块</strong>  </p>
+</li>
+</ol>
+<h4 id="Httpd安装"><a href="#Httpd安装" class="headerlink" title="Httpd安装"></a>Httpd安装</h4><h5 id="版本"><a href="#版本" class="headerlink" title="版本:"></a><strong>版本:</strong></h5><p>CentOS 6: 2.2<br>CentOS 7: 2.4</p>
+<h5 id="安装方式："><a href="#安装方式：" class="headerlink" title="安装方式："></a><strong>安装方式：</strong></h5><p>rpm： centos发行版，稳定，建议使用<br>编译：定制或特殊需求</p>
+<h5 id="CentOS-6-httpd程序环境："><a href="#CentOS-6-httpd程序环境：" class="headerlink" title="CentOS 6 httpd程序环境："></a><strong>CentOS 6 httpd程序环境：</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">httpd-2.2</span><br><span class="line"></span><br><span class="line">配置文件：</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;*.conf</span><br><span class="line"></span><br><span class="line">检查配置语法：</span><br><span class="line">httpd –t</span><br><span class="line">service httpd configtest  </span><br><span class="line"></span><br><span class="line">服务脚本：</span><br><span class="line"> &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;httpd</span><br><span class="line">脚本配置文件：</span><br><span class="line"> &#x2F;etc&#x2F;sysconfig&#x2F;httpd</span><br><span class="line"></span><br><span class="line">服务控制和启动：</span><br><span class="line">chkconfig httpd on|off</span><br><span class="line">service &#123;start|stop|restart|status|configtest|reload&#125; httpd</span><br><span class="line"></span><br><span class="line">站点网页文档根目录：</span><br><span class="line">&#x2F;var&#x2F;www&#x2F;html</span><br><span class="line"></span><br><span class="line">模块文件路径：</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;modules</span><br><span class="line">&#x2F;usr&#x2F;lib64&#x2F;httpd&#x2F;modules  </span><br><span class="line"></span><br><span class="line">主程序文件：</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;httpd</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;httpd.worker</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;httpd.event</span><br><span class="line"></span><br><span class="line">主进程文件：</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;run&#x2F;httpd.pid</span><br><span class="line"></span><br><span class="line">日志文件目录：&#x2F;var&#x2F;log&#x2F;httpd</span><br><span class="line">access_log: 访问日志</span><br><span class="line">error_log：错误日志</span><br><span class="line"></span><br><span class="line">帮助文档包：</span><br><span class="line">httpd-manual</span><br></pre></td></tr></table></figure>
+
+<p>Httpd 2.2常见配置  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br></pre></td><td class="code"><pre><span class="line">httpd配置文件的组成：</span><br><span class="line">    grep &quot;Section&quot; &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">    ### Section 1: Global Environment</span><br><span class="line">    ### Section 2: &#39;Main&#39; server configuration</span><br><span class="line">    ### Section 3: Virtual Hosts</span><br><span class="line"></span><br><span class="line">配置格式： directive value</span><br><span class="line">    directive: 不区分字符大小写</span><br><span class="line">    value: 为路径时，是否区分大小写，取决于文件系统</span><br><span class="line"></span><br><span class="line">1、显示服务器版本信息</span><br><span class="line"></span><br><span class="line">	ServerTokens Major|Minor|Min[imal]|Prod[uctOnly]|OS|Full</span><br><span class="line">    </span><br><span class="line">    ServerTokens Prod[uctOnly] ：</span><br><span class="line">    	Server: Apache</span><br><span class="line"></span><br><span class="line">    ServerTokens Major: </span><br><span class="line">    	Server: Apache&#x2F;2</span><br><span class="line"></span><br><span class="line">    ServerTokens Minor: </span><br><span class="line">    	Server: Apache&#x2F;2.0</span><br><span class="line"></span><br><span class="line">    ServerTokens Min[imal]: </span><br><span class="line">    	Server: Apache&#x2F;2.0.41</span><br><span class="line"></span><br><span class="line">    ServerTokens OS: </span><br><span class="line">    	Server: Apache&#x2F;2.0.41 (Unix)</span><br><span class="line"></span><br><span class="line">    ServerTokens Full (or not specified): </span><br><span class="line">    	Server: Apache&#x2F;2.0.41 (Unix) PHP&#x2F;4.2.2 MyMod&#x2F;1.2</span><br><span class="line">    </span><br><span class="line">    建议使用：ServerTokens Prod</span><br><span class="line"></span><br><span class="line">2、修改监听的IP和Port</span><br><span class="line">	Listen [IP:]PORT</span><br><span class="line">      省略IP表示为本机所有IP</span><br><span class="line">      Listen指令至少一个，可重复出现多次</span><br><span class="line">    Listen 80</span><br><span class="line">    Listen 8080</span><br><span class="line">    </span><br><span class="line">3、 持久连接</span><br><span class="line">	Persistent Connection：连接建立，每个资源获取完成后不会断开连接，</span><br><span class="line">	而是继续等待其它的请求完成，默认关闭持久连接</span><br><span class="line">	</span><br><span class="line">	断开条件：数量限制： 100</span><br><span class="line">    </span><br><span class="line">    时间限制：以秒为单位， httpd-2.4 支持毫秒级</span><br><span class="line">	</span><br><span class="line">	副作用：对并发访问量较大的服务器，持久连接功能会使用有些请求得不到响应</span><br><span class="line">	</span><br><span class="line">	折衷：使用较短的持久连接时间</span><br><span class="line">	</span><br><span class="line">	设置： </span><br><span class="line">		KeepAlive On|Off</span><br><span class="line">        KeepAliveTimeout 15</span><br><span class="line">        MaxKeepAliveRequests 100</span><br><span class="line"></span><br><span class="line">	测试： </span><br><span class="line">		telnet WEB_SERVER_IP PORT</span><br><span class="line">		GET &#x2F;URL HTTP&#x2F;1.1</span><br><span class="line">		Host: WEB_SERVER_IP </span><br><span class="line"></span><br><span class="line">4、MPM（ Multi-Processing Module）多路处理模块</span><br><span class="line">	prefork, worker, event（试验阶段）</span><br><span class="line">	</span><br><span class="line">	httpd-2.2不支持同时编译多个模块，所以只能编译时选定一个； rpm安装的包提供三个二进制程序文件，</span><br><span class="line">	分别用于实现</span><br><span class="line">	</span><br><span class="line">	对不同MPM机制的支持</span><br><span class="line"></span><br><span class="line">	确认方法：ps aux | grep httpd</span><br><span class="line">	</span><br><span class="line">	默认为&#x2F;usr&#x2F;sbin&#x2F;httpd, 即prefork模式</span><br><span class="line"></span><br><span class="line">	查看模块列表</span><br><span class="line">	  查看静态编译的模块: httpd -l</span><br><span class="line">	  查看静态编译及动态装载的模块: httpd –M</span><br><span class="line">	  动态模块加载：不需重启即生效</span><br><span class="line">	  动态模块路径: &#x2F;usr&#x2F;lib64&#x2F;httpd&#x2F;modules&#x2F;</span><br><span class="line"></span><br><span class="line">5、 DSO： Dynamic Shared Object</span><br><span class="line">	加载动态模块配置: &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">	</span><br><span class="line">	配置指定实现模块加载格式：LoadModule &lt;mod_name&gt; &lt;mod_path&gt;</span><br><span class="line">	</span><br><span class="line">	模块文件路径可使用相对路径：相对于ServerRoot（默认&#x2F;etc&#x2F;httpd）</span><br><span class="line">    </span><br><span class="line">    示例：LoadModule auth_basic_module modules&#x2F;mod_auth_basic.so</span><br><span class="line"></span><br><span class="line">6、定义&#39;Main&#39; server的文档页面路径</span><br><span class="line">	DocumentRoot &quot;&#x2F;path&quot;</span><br><span class="line">	</span><br><span class="line">	文档路径映射：DocumentRoot指向的路径为URL路径的起始位置</span><br><span class="line">	</span><br><span class="line">	示例：DocumentRoot &quot;&#x2F;app&#x2F;data“</span><br><span class="line">	http:&#x2F;&#x2F;HOST:PORT&#x2F;test&#x2F;index.html --&gt; &#x2F;app&#x2F;data&#x2F;test&#x2F;index.html</span><br><span class="line">	</span><br><span class="line">	注意： SELinux和iptables的状态</span><br><span class="line"></span><br><span class="line">7、定义站点主页面</span><br><span class="line">	DirectoryIndex index.html index.html.var</span><br><span class="line">	</span><br><span class="line">8、站点访问控制常见机制</span><br><span class="line">	可基于两种机制指明对哪些资源进行何种访问控制</span><br><span class="line">	访问控制机制有两种：客户端来源地址，用户账号</span><br><span class="line">	</span><br><span class="line">	文件系统路径：</span><br><span class="line">        &lt;Directory “&#x2F;path&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;&#x2F;Directory&gt;</span><br><span class="line"></span><br><span class="line">        &lt;File “&#x2F;path&#x2F;file”&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;&#x2F;File&gt;</span><br><span class="line"></span><br><span class="line">        &lt;FileMatch &quot;PATTERN&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;&#x2F;FileMatch&gt;</span><br><span class="line">    </span><br><span class="line">     URL路径：</span><br><span class="line">        &lt;Location &quot;&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;&#x2F;Location&gt;</span><br><span class="line"></span><br><span class="line">        &lt;LocationMatch &quot;&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;&#x2F;LocationMatch&gt;</span><br><span class="line">      </span><br><span class="line">      示例：</span><br><span class="line">        &lt;FilesMatch &quot;\.(gif|jpe?g|png)$&quot;&gt;</span><br><span class="line">        &lt;Files “?at.*”&gt; 通配符</span><br><span class="line">        &lt;Location &#x2F;status&gt;</span><br><span class="line">        &lt;LocationMatch &quot;&#x2F;(extra|special)&#x2F;data&quot;&gt;</span><br><span class="line"></span><br><span class="line">9、&lt;Directory&gt;中“基于源地址”实现访问控制</span><br><span class="line">  	 (1) Options：后跟1个或多个以空白字符分隔的选项列表</span><br><span class="line">		在选项前的+， - 表示增加或删除指定选项</span><br><span class="line">		</span><br><span class="line">		常见选项：</span><br><span class="line">            Indexes：指明的URL路径下不存在与定义的主页面资源相符的资源文件时，返回索引列表给用户</span><br><span class="line">            FollowSymLinks：允许访问符号链接文件所指向的源文件</span><br><span class="line">            None：全部禁用</span><br><span class="line">            All： 全部允许</span><br><span class="line">        </span><br><span class="line">        示例:</span><br><span class="line">            &lt;Directory &#x2F;web&#x2F;docs&gt;</span><br><span class="line">            	Options Indexes FollowSymLinks</span><br><span class="line">            &lt;&#x2F;Directory&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;Directory &#x2F;web&#x2F;docs&#x2F;spec&gt;</span><br><span class="line">            	Options +Includes -Indexes</span><br><span class="line">            &lt;&#x2F;Directory&gt;</span><br><span class="line">	</span><br><span class="line">	(2) AllowOverride</span><br><span class="line">		与访问控制相关的哪些指令可以放在指定目录下的.htaccess（由AccessFileName指定）文件中，</span><br><span class="line">		覆盖之前的配置指令</span><br><span class="line">		</span><br><span class="line">		只对&lt;directory&gt;语句有效</span><br><span class="line">		</span><br><span class="line">		AllowOverride All: 所有指令都有效</span><br><span class="line">		</span><br><span class="line">		AllowOverride None： .htaccess 文件无效	</span><br><span class="line">		</span><br><span class="line">		AllowOverride AuthConfig Indexes 除了AuthConfig和Indexes的其它指令都无法覆盖</span><br><span class="line">		</span><br><span class="line">	(3) order和allow、deny</span><br><span class="line">		放在directory, .htaccess中</span><br><span class="line">		</span><br><span class="line">		order：定义生效次序；写在后面的表示默认法则</span><br><span class="line">            Order allow,deny</span><br><span class="line">            Order deny,allow</span><br><span class="line">		Allow from和Deny from： 定义客户端地址(IP或网段)</span><br><span class="line">            172.16.0.0</span><br><span class="line">            172.16.0.0&#x2F;16</span><br><span class="line">            172.16.0.0&#x2F;255.255.0.0</span><br><span class="line">    示例：</span><br><span class="line">    &lt;files &quot;*.txt&quot;&gt;</span><br><span class="line">        order deny,allow</span><br><span class="line">        deny from 172.16. 100.100</span><br><span class="line">        allow from 172.16</span><br><span class="line">    &lt;&#x2F;files&gt;</span><br><span class="line"> </span><br><span class="line">10、日志设定</span><br><span class="line">	错误日志：</span><br><span class="line">        ErrorLog logs&#x2F;error_log</span><br><span class="line">        LogLevel warn</span><br><span class="line">        LogLevel 可选值:debug, info, notice, warn,error, crit, alert, emerg</span><br><span class="line">    </span><br><span class="line">    访问日志：</span><br><span class="line">    定义日志格式: </span><br><span class="line">    LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot;&quot; combined		使用日志格式：</span><br><span class="line">	CustomLog logs&#x2F;access_log combined</span><br><span class="line">	</span><br><span class="line">	参考帮助：http:&#x2F;&#x2F;httpd.apache.org&#x2F;docs&#x2F;2.2&#x2F;mod&#x2F;mod_log_config.html#formats</span><br><span class="line">	</span><br><span class="line">	%h 客户端IP地址</span><br><span class="line">	%l 远程用户,启用mod_ident才有效，通常为减号“-”</span><br><span class="line">	%u 验证（ basic， digest）远程用户,非登录访问时，为一个减号</span><br><span class="line">	%t 服务器收到请求时的时间</span><br><span class="line">	%r First line of request，即表示请求报文的首行；记录了此次请求的“方法”，“URL”以及协议版本</span><br><span class="line">	%&gt;s 响应状态码</span><br><span class="line">	%b 响应报文的大小，单位是字节；不包括响应报文http首部</span><br><span class="line">	%&#123;Referer&#125;i 请求报文中首部“referer”的值；即从哪个页面中的超链接跳转至当前页面的</span><br><span class="line">	%&#123;User-Agent&#125;i 请求报文中首部“User-Agent”的值；即发出请求的应用程序</span><br><span class="line">	</span><br><span class="line">11、设定默认字符集</span><br><span class="line">	AddDefaultCharset UTF-8</span><br><span class="line">	中文字符集： GBK, GB2312, GB18030</span><br><span class="line"></span><br><span class="line">12、定义路径别名</span><br><span class="line">	格式： Alias &#x2F;URL&#x2F; &quot;&#x2F;PATH&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">13、基于用户的访问控制</span><br><span class="line">	认证质询： WWW-Authenticate：响应码为401，拒绝客户端请求，并说明要求客户端提供账号和密码</span><br><span class="line">	</span><br><span class="line">	认证： Authorization：客户端用户填入账号和密码后再次发送</span><br><span class="line">	</span><br><span class="line">	请求报文；认证通过时，则服务器发送响应的资源</span><br><span class="line">	</span><br><span class="line">	认证方式两种：</span><br><span class="line">        basic：明文</span><br><span class="line">        digest：消息摘要认证,兼容性差</span><br><span class="line">        </span><br><span class="line">	安全域：需要用户认证后方能访问的路径；应该通过名称对其进行标识，以便于告知用户认证的原因</span><br><span class="line">	</span><br><span class="line">	用户的账号和密码</span><br><span class="line">        虚拟账号：仅用于访问某服务时用到的认证标识</span><br><span class="line">        存储：文本文件， SQL数据库， ldap目录存储， nis等</span><br><span class="line"></span><br><span class="line">14、实现用户家目录的http共享</span><br><span class="line">	基于模块mod_userdir.so实现</span><br><span class="line">	</span><br><span class="line">	相关设置：</span><br><span class="line">	vim &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">    &lt;IfModule mod_userdir.c&gt;</span><br><span class="line">        #UserDir disabled</span><br><span class="line">        UserDir public_html #指定共享目录的名称</span><br><span class="line">    &lt;&#x2F;IfModule&gt;</span><br><span class="line">	</span><br><span class="line">	准备目录</span><br><span class="line">	su – wang;mkdir ~&#x2F;public_html</span><br><span class="line">	setfacl –m u:apache:x ~student</span><br><span class="line"></span><br><span class="line">	访问: http:&#x2F;&#x2F;localhost&#x2F;~wang&#x2F;index.html</span><br><span class="line">	</span><br><span class="line">15、ServerSignature On | Off | EMail</span><br><span class="line">	当客户请求的网页并不存在时，服务器将产生错误文档，缺省情况下由于打开了ServerSignature选项，错误文</span><br><span class="line">	的最后一行将包含服务器的名字、Apache的版本等信息</span><br><span class="line">	</span><br><span class="line">	如果不对外显示这些信息，就可以将这个参数设置为Off,设置为Email，将显示ServerAdmin 的Email提示</span><br><span class="line"></span><br><span class="line">16、ServerType inetd | standalone.</span><br><span class="line">    standalone 独立服务模式</span><br><span class="line">    inetd 非独立服务模式: 只适用于Unix平台88</span><br><span class="line"></span><br><span class="line">17、status页面</span><br><span class="line">	LoadModule status_module modules&#x2F;mod_status.so</span><br><span class="line">    &lt;Location &#x2F;server-status&gt;</span><br><span class="line">        SetHandler server-status</span><br><span class="line">        Order allow,deny</span><br><span class="line">        Allow from 172.16</span><br><span class="line">    &lt;&#x2F;Location&gt;</span><br><span class="line">	</span><br><span class="line">	ExtendedStatus On 显示扩展信息</span><br><span class="line">	</span><br><span class="line">18、虚拟主机</span><br><span class="line">	站点标识： socket</span><br><span class="line">        IP相同，但端口不同</span><br><span class="line">        IP不同，但端口均为默认端口</span><br><span class="line">        FQDN不同：</span><br><span class="line">	</span><br><span class="line">	注意：一般虚拟机不要与main主机混用；因此，要使用虚拟主机，一般先禁用main主机</span><br><span class="line">	</span><br><span class="line">	禁用方法：注释中心主机的DocumentRoot指令即可</span><br><span class="line">	</span><br><span class="line">	虚拟主机的配置方法：</span><br><span class="line">    &lt;VirtualHost IP:PORT&gt;</span><br><span class="line">        ServerName FQDN</span><br><span class="line">        DocumentRoot “&#x2F;path&quot;</span><br><span class="line">    &lt;&#x2F;VirtualHost&gt;</span><br><span class="line">	</span><br><span class="line">	建议：上述配置存放在独立的配置文件中</span><br><span class="line">	</span><br><span class="line">	其它可用指令：</span><br><span class="line">    ServerAlias：虚拟主机的别名；可多次使用</span><br><span class="line">    ErrorLog： 错误日志</span><br><span class="line">    CustomLog：访问日志</span><br><span class="line">    &lt;Directory “&#x2F;path&quot;&gt; &lt;&#x2F;Directory&gt;</span><br><span class="line">    Alias</span><br></pre></td></tr></table></figure>
+
+<h5 id="CentOS-7-httpd程序环境"><a href="#CentOS-7-httpd程序环境" class="headerlink" title="CentOS 7 httpd程序环境"></a>CentOS 7 httpd程序环境</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Rpm安装程序环境</span><br><span class="line"></span><br><span class="line">配置文件：</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;*.conf</span><br><span class="line"></span><br><span class="line">模块相关的配置文件：</span><br><span class="line">&#x2F;etc&#x2F;httpd&#x2F;conf.modules.d&#x2F;*.conf</span><br><span class="line">&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;httpd.service</span><br><span class="line"></span><br><span class="line">主程序文件：</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;httpd</span><br><span class="line">httpd-2.4支持MPM的动态切换</span><br><span class="line"></span><br><span class="line">日志文件：</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;httpd</span><br><span class="line">access_log：访问日志</span><br><span class="line">error_log：错误日志</span><br><span class="line"></span><br><span class="line">站点文档：</span><br><span class="line">&#x2F;var&#x2F;www&#x2F;html</span><br><span class="line"></span><br><span class="line">模块文件路径：</span><br><span class="line">&#x2F;usr&#x2F;lib64&#x2F;httpd&#x2F;modules</span><br><span class="line"></span><br><span class="line">服务控制：</span><br><span class="line">systemctl enable|disable httpd.service</span><br><span class="line">systemctl &#123;start|stop|restart|status&#125; httpd.service</span><br></pre></td></tr></table></figure>
+
+<p>httpd-2.4配置  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">(1) 切换使用的MPM</span><br><span class="line">	&#x2F;etc&#x2F;httpd&#x2F;conf.modules.d&#x2F;00-mpm.conf </span><br><span class="line">	启用要启用的MPM相关的LoadModule指令即可</span><br><span class="line"></span><br><span class="line">(2)主目录：</span><br><span class="line">	DocumentRoot &#x2F;path</span><br><span class="line">	</span><br><span class="line">(3) 基于IP的访问控制:</span><br><span class="line">    无明确授权的目录，默认拒绝</span><br><span class="line">    允许所有主机访问： Require all granted</span><br><span class="line">    拒绝所有主机访问： Require all denied</span><br><span class="line">    控制特定的IP访问：</span><br><span class="line">        Require ip IPADDR：授权指定来源的IP访问</span><br><span class="line">        Require not ip IPADDR：拒绝特定的IP访问</span><br><span class="line">	控制特定的主机访问：</span><br><span class="line">        Require host HOSTNAME：授权特定主机访问</span><br><span class="line">        Require not host HOSTNAME：拒绝</span><br><span class="line"></span><br><span class="line">(4) 虚拟主机</span><br><span class="line">	基于FQDN的虚拟主机不再需要NameVirutalHost指令</span><br><span class="line">    &lt;VirtualHost *:80&gt;</span><br><span class="line">        ServerName www.b.net</span><br><span class="line">        DocumentRoot &quot;&#x2F;apps&#x2F;b.net&#x2F;htdocs&quot;</span><br><span class="line">        &lt;Directory &quot;&#x2F;apps&#x2F;b.net&#x2F;htdocs&quot;&gt;</span><br><span class="line">            Options None</span><br><span class="line">            AllowOverride None</span><br><span class="line">            Require all granted</span><br><span class="line">    	&lt;&#x2F;Directory&gt;</span><br><span class="line">    &lt;&#x2F;VirtualHost&gt;</span><br><span class="line">	</span><br><span class="line">	注意：任意目录下的页面只有显式授权才能被访问</span><br><span class="line">	</span><br><span class="line">(5) ssl:安装mod_ssl，和httpd-2.2相同配置</span><br><span class="line"></span><br><span class="line">(6) KeepAlive on</span><br><span class="line">    KeepAliveTimeout #ms 毫秒级持久连接时长定义</span><br><span class="line">    MaxKeepAliveRequests 100 </span><br><span class="line">    </span><br><span class="line">(7) 启用反向代理</span><br><span class="line">    ProxyPass &quot;&#x2F;&quot; &quot;http:&#x2F;&#x2F;www.example.com&#x2F;&quot;</span><br><span class="line">    ProxyPassReverse &quot;&#x2F;&quot; &quot;http:&#x2F;&#x2F;www.example.com&#x2F;&quot;</span><br><span class="line">	</span><br><span class="line">	特定URL反向代理</span><br><span class="line">    ProxyPass &quot;&#x2F;images&quot; &quot;http:&#x2F;&#x2F;www.example.com&#x2F;&quot;</span><br><span class="line">    ProxyPassReverse &quot;&#x2F;images&quot; http:&#x2F;&#x2F;www.example.com&#x2F;</span><br><span class="line">	</span><br><span class="line">	示例：</span><br><span class="line">    &lt;VirtualHost *&gt;</span><br><span class="line">        ServerName www.example.com</span><br><span class="line">        ProxyPass &#x2F; http:&#x2F;&#x2F;localhost:8080&#x2F;</span><br><span class="line">        ProxyPassReverse &#x2F; http:&#x2F;&#x2F;localhost:8080&#x2F;</span><br><span class="line">    &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -467,6 +789,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
 
       
       
@@ -476,8 +804,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/24/mysql/" rel="next" title="mysql">
-                <i class="fa fa-chevron-left"></i> mysql
+              <a href="/2020/06/22/nginx/" rel="next" title="nginx">
+                <i class="fa fa-chevron-left"></i> nginx
               </a>
             
           </div>
@@ -485,6 +813,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/24/mysql1/" rel="prev" title="MySQL（一）">
+                MySQL（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -536,8 +868,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -558,7 +899,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +921,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/about/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -611,6 +952,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internet"><span class="nav-number">1.</span> <span class="nav-text">Internet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是互联网Internet？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是互联网Internet？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Internet与中国"><span class="nav-number">1.2.</span> <span class="nav-text">Internet与中国</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP-IP协议"><span class="nav-number">1.3.</span> <span class="nav-text">TCP&#x2F;IP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#跨Internet的主机间通讯"><span class="nav-number">1.4.</span> <span class="nav-text">跨Internet的主机间通讯</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Socket套接字"><span class="nav-number">1.5.</span> <span class="nav-text">Socket套接字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http服务通信过程"><span class="nav-number">1.6.</span> <span class="nav-text">http服务通信过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Http相关术语"><span class="nav-number">1.7.</span> <span class="nav-text">Http相关术语</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http协议"><span class="nav-number">2.</span> <span class="nav-text">http协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#协议介绍"><span class="nav-number">2.1.</span> <span class="nav-text">协议介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http工作机制"><span class="nav-number">2.2.</span> <span class="nav-text">http工作机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#URI"><span class="nav-number">2.3.</span> <span class="nav-text">URI</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Web服务请求处理步骤"><span class="nav-number">2.4.</span> <span class="nav-text">Web服务请求处理步骤</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http服务器应用"><span class="nav-number">3.</span> <span class="nav-text">http服务器应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#http服务器程序"><span class="nav-number">3.1.</span> <span class="nav-text">http服务器程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用程序服务器"><span class="nav-number">3.2.</span> <span class="nav-text">应用程序服务器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#市场占有率统计"><span class="nav-number">3.3.</span> <span class="nav-text">市场占有率统计</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Httpd介绍"><span class="nav-number">4.</span> <span class="nav-text">Httpd介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Httpd"><span class="nav-number">4.1.</span> <span class="nav-text">Httpd</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特性："><span class="nav-number">4.2.</span> <span class="nav-text">特性：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MPM工作模式"><span class="nav-number">4.3.</span> <span class="nav-text">MPM工作模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程角色"><span class="nav-number">4.4.</span> <span class="nav-text">进程角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#httpd功能特性"><span class="nav-number">4.5.</span> <span class="nav-text">httpd功能特性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Httpd安装"><span class="nav-number">5.</span> <span class="nav-text">Httpd安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#版本"><span class="nav-number">5.1.</span> <span class="nav-text">版本:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装方式："><span class="nav-number">5.2.</span> <span class="nav-text">安装方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CentOS-6-httpd程序环境："><span class="nav-number">5.3.</span> <span class="nav-text">CentOS 6 httpd程序环境：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CentOS-7-httpd程序环境"><span class="nav-number">5.4.</span> <span class="nav-text">CentOS 7 httpd程序环境</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -638,7 +995,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.8k</span>
+    <span title="Site words total count">29.4k</span>
   
 </div>
 

@@ -113,7 +113,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -128,18 +128,19 @@
 
 
 
-<meta name="description" content="mysql">
+<meta name="description" content="https介绍与实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql">
-<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/24/mysql/index.html">
+<meta property="og:title" content="https">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/29/https/index.html">
 <meta property="og:site_name" content="yingjie&#39;s blog">
-<meta property="og:description" content="mysql">
-<meta property="og:image" content="http://www.xieyingjie.tech/images/lamp.jpg">
-<meta property="article:published_time" content="2020-06-24T03:45:57.000Z">
-<meta property="article:modified_time" content="2020-06-24T07:31:34.493Z">
+<meta property="og:description" content="https介绍与实现">
+<meta property="og:image" content="http://www.xieyingjie.tech/images/https/https1.jpg">
+<meta property="article:published_time" content="2020-06-29T03:42:23.000Z">
+<meta property="article:modified_time" content="2020-06-29T16:28:20.942Z">
 <meta property="article:author" content="Ying Jie">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.xieyingjie.tech/images/lamp.jpg">
+<meta name="twitter:image" content="http://www.xieyingjie.tech/images/https/https1.jpg">
 
 
 
@@ -169,13 +170,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/24/mysql/"/>
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/29/https/"/>
 
 
 
 
 
-  <title>mysql | yingjie's blog</title>
+  <title>https | yingjie's blog</title>
   
 
 
@@ -348,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/24/mysql/">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/29/https/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ying Jie">
@@ -365,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mysql</h1>
+          <h1 class="post-title" itemprop="name headline">https</h1>
         
 
         <div class="post-meta">
@@ -377,8 +378,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-24T11:45:57+08:00">
-                2020-06-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-29T11:42:23+08:00">
+                2020-06-29
               </time>
             
 
@@ -388,6 +389,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -399,41 +422,10 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
 
           
               <div class="post-description">
-                  mysql
+                  https介绍与实现
               </div>
           
 
@@ -453,9 +445,9 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="/images/lamp.jpg" rel="gallery_ckbt1u48i0001psvkb6uxcv7l"
+                 href="/images/https/https1.jpg" rel="gallery_ckbzyhuk7000324vk0i0h1w1w"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="/images/lamp.jpg" itemprop="contentUrl"/>
+                <img src="/images/https/https1.jpg" itemprop="contentUrl"/>
               </a>
             
           
@@ -466,7 +458,37 @@
       
 
       
-        <p><strong>MySQL</strong></p>
+        <h5 id="https"><a href="#https" class="headerlink" title="https"></a>https</h5><blockquote>
+<p>http over ssl</p>
+<p>SSL会话的简化过程<br>(1) 客户端发送可供选择的加密方式，并向服务器请求证书<br>(2) 服务器端发送证书以及选定的加密方式给客户端<br>(3) 客户端取得证书并进行证书验证</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 如果信任给其发证书的CA<br>(a) 验证证书来源的合法性；用CA的公钥解密证书上数字签名<br>(b) 验证证书的内容的合法性：完整性验证<br>(c) 检查证书的有效期限<br>(d) 检查证书是否被吊销<br>(e) 证书中拥有者的名字，与访问的目标主机要一致</li>
+</ul>
+<p>(4) 客户端生成临时会话密钥（对称密钥），并使用服务器端的公钥加密此数据发送给服务器，完成密钥交换<br>(5) 服务用此密钥加密用户请求的资源，响应给客户端</p>
+<p>注意： SSL是基于IP地址实现,单IP的主机仅可以使用一个https虚拟主机  </p>
+</blockquote>
+<h5 id="https实现"><a href="#https实现" class="headerlink" title="https实现"></a>https实现</h5><p>(1) 为服务器申请数字证书</p>
+<blockquote>
+<p>测试：通过私建CA发证书<br>(a) 创建私有CA<br>(b) 在服务器创建证书签署请求<br>(c) CA签证</p>
+</blockquote>
+<p>(2) 配置httpd支持使用ssl，及使用的证书</p>
+<blockquote>
+<p>yum -y install mod_ssl<br>配置文件： /etc/httpd/conf.d/ssl.conf<br>DocumentRoot<br>ServerName<br>SSLCertificateFile<br>SSLCertificateKeyFile</p>
+</blockquote>
+<p>(3) 测试基于https访问相应的主机</p>
+<blockquote>
+<p>openssl s_client [-connect host:port] [-cert filename] [-CApath directory] [-CAfile filename]  </p>
+</blockquote>
+<h5 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h5><blockquote>
+<p>HTTP Strict Transport Security</p>
+<p>服务器端配置支持HSTS后，会在给浏览器返回的HTTP首部中携带HSTS字段。浏览器获取到该信息后，会将所有HTTP访问请求在内部做307跳转到HTTPS。而无需任何网络过程</p>
+</blockquote>
+<h5 id="HSTS-preload-list"><a href="#HSTS-preload-list" class="headerlink" title="HSTS preload list"></a>HSTS preload list</h5><blockquote>
+<p>是Chrome浏览器中的HSTS预载入列表，在该列表中的网站，使用Chrome浏览器访问时，会自动转换成HTTPS。 Firefox、 Safari、Edge浏览器也会采用这个列表</p>
+<p>实现HSTS示例<br>vim /etc/httpd/conf/httpd.conf<br>Header always set Strict-Transport-Security “maxage=31536000”<br>RewriteEngine on<br>RewriteRule ^(/.*)$ https://%{HTTP_HOST}$1 [redirect=302]  </p>
+</blockquote>
+<h5 id="基于httpd实现https应用"><a href="#基于httpd实现https应用" class="headerlink" title="基于httpd实现https应用"></a>基于httpd实现https应用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">准备两台服务器</span><br><span class="line">node1: webserver (centos 6)</span><br><span class="line">node2: caserver	 (centos 7)</span><br><span class="line"></span><br><span class="line">1. ca自签名</span><br><span class="line">[root@ca CA]#cd &#x2F;etc&#x2F;pki&#x2F;CA</span><br><span class="line">[root@ca CA]#touch index.txt</span><br><span class="line">[root@ca CA]#echo 01 &gt; serial </span><br><span class="line">#创建CA私钥</span><br><span class="line">[root@ca CA]#(umask 077;openssl genrsa -out private&#x2F;cakey.pem 2048) </span><br><span class="line">#自颁发证书</span><br><span class="line">[root@ca CA]# openssl req -new -x509 -key private&#x2F;cakey.pem -out cacert.pem -days 3650</span><br><span class="line"></span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &#39;.&#39;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [XX]:CN        国家</span><br><span class="line">State or Province Name (full name) []:GD   省名称</span><br><span class="line">Locality Name (eg, city) [Default City]:gz    城市名称</span><br><span class="line">Organization Name (eg, company) [Default Company Ltd]:example.com 公司</span><br><span class="line">Organizational Unit Name (eg, section) []:ca      部门</span><br><span class="line">Common Name (eg, your name or your server&#39;s hostname) []:ca.example.com 申请者</span><br><span class="line">Email Address []:</span><br><span class="line"></span><br><span class="line">2. web端准备证书申请</span><br><span class="line">#创建存放ssl证书目录</span><br><span class="line">[root@websrvs conf.d]# mkdir &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl</span><br><span class="line">[root@websrvs conf.d]# cd &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl</span><br><span class="line"></span><br><span class="line">#创建私钥和证书申请文件</span><br><span class="line">[root@websrvs ssl]# (umask 077;openssl genrsa -out httpd.key)</span><br><span class="line">[root@websrvs ssl]# openssl req -new -key httpd.key -out httpd.csr</span><br><span class="line"></span><br><span class="line">#将证书申请文件发送给Ca签名</span><br><span class="line">[root@websrvs ssl]# scp httpd.csr caserver_IP:&#x2F;etc&#x2F;pki&#x2F;CA</span><br><span class="line"></span><br><span class="line">3. CA签证并将证书文件发送给web端</span><br><span class="line">#签证</span><br><span class="line">[root@ca CA]# openssl ca -in httpd.csr  -out certs&#x2F;httpd.crt -days 360</span><br><span class="line">#将自签名证书和签署证书传回给web服务器</span><br><span class="line">[root@ca CA]# scp certs&#x2F;httpd.crt webserver_IP:&#x2F;etc&#x2F;http&#x2F;conf.d&#x2F;ssl</span><br><span class="line">[root@ca CA]# scp cacert.pem 192.168.68.138:&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl</span><br><span class="line"></span><br><span class="line">4. 配置httpd服务实现https</span><br><span class="line">#安装支持ssl模块</span><br><span class="line">[root@websrvs ssl]# yum -y install mod_ssl</span><br><span class="line">#修改httpd配置文件的默认证书目录</span><br><span class="line">[root@centos6 ssl]#vim &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl.conf</span><br><span class="line">Listen 443   https侦听端口</span><br><span class="line">ServerName  www.a.com:443  网站域名</span><br><span class="line">SSLCertificateFile  &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl&#x2F;httpd.crt  证书文件</span><br><span class="line">SSLCertificateKeyFile &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl&#x2F;httpd.key 私钥文件</span><br><span class="line">SSLCACertificatefile &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl&#x2F;cacert.pem CA证书文件</span><br><span class="line"></span><br><span class="line">5.重启httpd服务并查看监听端口 </span><br><span class="line">[root@websrvs ssl]# service httpd restart</span><br><span class="line">[root@websrvs ssl]# ss -ntl|grep 443</span><br><span class="line">LISTEN     0      128                      :::443                     :::*   </span><br><span class="line"></span><br><span class="line">6.客户端进行测试</span><br><span class="line">openssl s_client [-connect host:port] [-cert filename] [-CApath directory] [-CAfile filename]</span><br><span class="line">#示例</span><br><span class="line">[root@centos7 ~]#curl -k https:&#x2F;&#x2F;www.a.com  忽略证书检查</span><br><span class="line">[root@centos7 ~]#openssl s_client -connect www.a.com:443</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -492,6 +514,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
 
       
       
@@ -501,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/22/nginx/" rel="next" title="nginx">
-                <i class="fa fa-chevron-left"></i> nginx
+              <a href="/2020/06/29/httpd/" rel="next" title="centos6编译安装httpd-2.4">
+                <i class="fa fa-chevron-left"></i> centos6编译安装httpd-2.4
               </a>
             
           </div>
@@ -510,10 +538,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/24/http/" rel="prev" title="http">
-                http <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -565,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -587,7 +620,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -609,7 +642,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/about/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -640,6 +673,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#https"><span class="nav-number">1.</span> <span class="nav-text">https</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https实现"><span class="nav-number">2.</span> <span class="nav-text">https实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HSTS"><span class="nav-number">3.</span> <span class="nav-text">HSTS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HSTS-preload-list"><span class="nav-number">4.</span> <span class="nav-text">HSTS preload list</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于httpd实现https应用"><span class="nav-number">5.</span> <span class="nav-text">基于httpd实现https应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -667,7 +716,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.8k</span>
+    <span title="Site words total count">29.4k</span>
   
 </div>
 

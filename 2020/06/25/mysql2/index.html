@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="yingjie's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="MySQL（二）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL（二）">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/25/mysql2/index.html">
+<meta property="og:site_name" content="yingjie&#39;s blog">
+<meta property="og:description" content="MySQL（二）">
+<meta property="og:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
+<meta property="article:published_time" content="2020-06-25T04:00:57.000Z">
+<meta property="article:modified_time" content="2020-06-30T17:55:04.679Z">
+<meta property="article:author" content="Ying Jie">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/25/mysql2/"/>
+
+
+
+
+
+  <title>MySQL（二） | yingjie's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/xieyingjie" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yingjie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">keep learning & keep it simple</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/25/mysql2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ying Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingjie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-25T12:00:57+08:00">
+                2020-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  MySQL（二）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/images/mysql/mysql1.png" rel="gallery_ckc21gkrw00002ovke3z62zti"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/images/mysql/mysql1.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h4 id="一、SQL概述"><a href="#一、SQL概述" class="headerlink" title="一、SQL概述"></a>一、SQL概述</h4><h5 id="常见组件"><a href="#常见组件" class="headerlink" title="常见组件"></a><strong>常见组件</strong></h5><p>数据库： database</p>
+<p>表： table<br>• 行： row<br>• 列： column</p>
+<p>索引： index</p>
+<p>视图： view</p>
+<p>用户： user</p>
+<p>权限： privilege</p>
+<p>存储过程： procedure，无返回值</p>
+<p>存储函数： function，有返回值</p>
+<p>触发器： trigger</p>
+<p>事件调度器： event scheduler，任务计划  </p>
+<p>命名规则：<br>• 必须以字母开头<br>• 可包括数字和三个特殊字符（ # _ $）<br>• 不要使用MySQL的保留字<br>• 同一database(Schema)下的对象不能同名  </p>
+<h5 id="SQL语言的兴起与语法标准"><a href="#SQL语言的兴起与语法标准" class="headerlink" title="SQL语言的兴起与语法标准"></a><strong>SQL语言的兴起与语法标准</strong></h5><blockquote>
+<p>20世纪70年代， IBM开发出SQL，用于DB2</p>
+<p>1981年， IBM推出SQL/DS数据库</p>
+<p>业内标准微软和Sybase的T-SQL， Oracle的PL/SQL</p>
+<p>SQL作为关系型数据库所使用的标准语言，最初是基于IBM的实现在1986年被批准的。 1987年，“国际标准化组织(ISO)”把ANSI(美国国家标准化组织) SQL作为国际标准。</p>
+<p>SQL： ANSI SQL, SQL-86, SQL-89, SQL-92, SQL-99, SQL-03  </p>
+</blockquote>
+<h5 id="SQL语言规范"><a href="#SQL语言规范" class="headerlink" title="SQL语言规范"></a><strong>SQL语言规范</strong></h5><blockquote>
+<p>在数据库系统中， SQL语句不区分大小写(建议用大写)</p>
+<p>字符串常量区分大小写</p>
+<p>SQL语句可单行或多行书写，以“;”结尾</p>
+<p>关键词不能跨多行或简写</p>
+<p>用空格和缩进来提高语句的可读性</p>
+<p>子句通常位于独立行，便于编辑，提高可读性</p>
+<p>注释：<br>SQL标准：<br>• /<em>注释内容</em>/ 多行注释<br>• – 注释内容 单行注释，注意有空格<br>MySQL注释：#</p>
+</blockquote>
+<h5 id="SQL语句分类"><a href="#SQL语句分类" class="headerlink" title="SQL语句分类"></a><strong>SQL语句分类</strong></h5><p>DDL: Data Defination Language<br>• CREATE, DROP, ALTER</p>
+<p>DML: Data Manipulation Language<br>• INSERT, DELETE, UPDATE</p>
+<p>DCL： Data Control Language<br>•GRANT, REVOKE</p>
+<p>DQL： Data Query Language<br>•SELECT  </p>
+<h5 id="SQL语句构成"><a href="#SQL语句构成" class="headerlink" title="SQL语句构成"></a><strong>SQL语句构成</strong></h5><blockquote>
+<p>SQL语句构成：keyword组成clause，多条clause组成语句</p>
+<p>示例：<br>•SELECT * SELECT子句<br>•FROM products FROM子句<br>•WHERE price&gt;400 WHERE子句</p>
+<p>说明：此为一组SQL语句，由三个子句构成，SELECT,FROM和WHERE都是关键字  </p>
+</blockquote>
+<h5 id="SQL数据类型"><a href="#SQL数据类型" class="headerlink" title="SQL数据类型"></a>SQL数据类型</h5><p>数据长什么样？</p>
+<p>数据需要多少空间来存放？</p>
+<p>系统内置数据类型和用户定义数据类型</p>
+<p>MySql支持多种列类型：</p>
+<blockquote>
+<p>数值类型</p>
+<p>日期/时间类型</p>
+<p>字符串(字符)类型</p>
+<p>选择正确的数据类型对于获得高性能至关重要，三大原则：<br>1、更小的通常更好，尽量使用可正确存储数据的最小数据类型<br>2、简单就好，简单数据类型的操作通常需要更少的CPU周期<br>3、尽量避免NULL，包含为NULL的列，对MySQL更难优化  </p>
+</blockquote>
+<p>整型</p>
+<blockquote>
+<p>tinyint(m) 1个字节 范围(-128—127)<br>smallint(m) 2个字节 范围(-32768—32767)<br>mediumint(m) 3个字节 范围(-8388608—8388607)<br>int(m) 4个字节 范围(-2147483648—2147483647)<br>bigint(m) 8个字节 范围(+-9.22*10的18次方)</p>
+<p>取值范围如果加了unsigned，则最大值翻倍，如tinyint unsigned<br>的取值范围为(0~255)</p>
+<p>int(m)里的m是表示SELECT查询结果集中的显示宽度，并不影响实际的取值范围，规定了MySQL的一些交互工具（例如MySQL命令行客户端）用来显示字符的个数。对于存储和计算来说， Int(1)和Int(20)是相同的</p>
+<p>BOOLEAN：布尔型， 是TINYINT(1)的同义词。zero值被视为假。非zero值视为真 </p>
+</blockquote>
+<p>浮点型(float和double)，近似值</p>
+<blockquote>
+<p>float(m,d) 单精度浮点型 8位精度(4字节) m总个数， d小数</p>
+<p>double(m,d) 双精度浮点型16位精度(8字节) m总个数， d小数位</p>
+<p>设一个字段定义为float(6,3)，如果插入一个数123.45678,实际数据库里存的是123.457，但总个数还以实际为准，即6位  </p>
+</blockquote>
+<p>定点数</p>
+<blockquote>
+<p>在数据库中存放的是精确值,存为十进制</p>
+<p>decimal(m,d) 参数m&lt;65 是总个数， d&lt;30且 d&lt;m 是小数位</p>
+<p>MySQL5.0和更高版本将数字打包保存到一个二进制字符串中（每4个字节存9个数字）。例如， decimal(18,9)小数点两边将各存储9个数字，一共使用9个字节：小数点前的数字用4个字节，小数点后的数字用4个字节，小数点本身占1个字节</p>
+<p>浮点类型在存储同样范围的值时，通常比decimal使用更少的空间。 float使用4个字节存储。 double占用8个字节</p>
+<p>因为需要额外的空间和计算开销，所以应该尽量只在对小数进行精确计算时才使用decimal——例如存储财务数据。但在数据量比较大的时候，可以考虑使用big  </p>
+</blockquote>
+<p>字符串(char,varchar,_text)</p>
+<blockquote>
+<p>char(n) 固定长度，最多255个字符</p>
+<p>varchar(n)可变长度，最多65535个字符</p>
+<p>tinytext可变长度，最多255个字符</p>
+<p>text 可变长度，最多65535个字符</p>
+<p>mediumtext 可变长度，最多2的24次方-1个字符</p>
+<p>longtext可变长度，最多2的32次方-1个字符</p>
+<p>BINARY(M) 固定长度，可存二进制或字符，长度为0-M字节</p>
+<p>VARBINARY(M) 可变长度，可存二进制或字符，允许长度为0-M字节</p>
+<p>内建类型： ENUM枚举, SET集合  </p>
+<p>char和varchar：<br>• char(n) 若存入字符数小于n，则以空格补于其后，查询之时再将空格去掉。所以char类型存储的字符串末尾不能有空格， varchar不限于此。<br>• char(n) 固定长度， char(4)不管是存入几个字符，都将占用4个字节<br>• varchar是存入的实际字符数+1个字节（ n&lt; n&gt;255)，所以varchar(4),存入3个字符将占用4个字节。<br>• char类型的字符串检索速度要比varchar类型的快</p>
+<p>varchar和text：<br>• varchar可指定n，text不能指定，内部存储varchar是存入的实际字符数+1个字节（ n&lt; n&gt;255)， text是实际字符数+2个字节。<br>• text类型不能有默认值<br>• varchar可直接创建索引，text创建索引要指定前多少个字符。<br>• varchar查询速度快于text  </p>
+</blockquote>
+<p>二进制数据： BLOB</p>
+<blockquote>
+<p>BLOB和text存储方式不同， TEXT以文本方式存储，英文存储区分大小写，而Blob是以二进制方式存储，不分大小写</p>
+<p>BLOB存储的数据只能整体读出</p>
+<p>TEXT可以指定字符集， BLOB不用指定字符集</p>
+</blockquote>
+<p>日期时间类型</p>
+<blockquote>
+<p>date 日期 ‘2008-12-2’</p>
+<p>time 时间 ‘12:25:36’</p>
+<p>datetime 日期时间 ‘2008-12-2 22:06:44’</p>
+<p>timestamp 自动存储记录修改时间</p>
+<p>YEAR(2), YEAR(4)：年份</p>
+<p>timestamp字段里的时间数据会随其他字段修改的时候自动刷新，这个数据类型的字段可以存放这条记录最后被修改的时间  </p>
+</blockquote>
+<p>所有类型</p>
+<blockquote>
+<p>NULL 数据列可包含NULL值<br>NOT NULL 数据列不允许包含NULL值<br>DEFAULT 默认值<br>PRIMARY KEY 主键<br>UNIQUE KEY 唯一键<br>CHARACTER SET name 指定一个字符集</p>
+</blockquote>
+<p>数值型</p>
+<blockquote>
+<p>AUTO_INCREMENT 自动递增，适用于整数类型</p>
+<p>UNSIGNED 无符号  </p>
+</blockquote>
+<h4 id="二、SQL语句"><a href="#二、SQL语句" class="headerlink" title="二、SQL语句"></a>二、SQL语句</h4><h5 id="1、DDL"><a href="#1、DDL" class="headerlink" title="1、DDL"></a>1、DDL</h5><p><strong>数据库操作</strong></p>
+<p>创建数据库<br>CREATE DATABASE|SCHEMA [IF NOT EXISTS] ‘DB_NAME’;<br>• CHARACTER SET ‘character set name’<br>•COLLATE ‘collate name’</p>
+<p>删除数据库<br>DROP DATABASE|SCHEMA [IF EXISTS] ‘DB_NAME’;</p>
+<p>查看支持所有字符集： SHOW CHARACTER SET;</p>
+<p>查看支持所有排序规则： SHOW COLLATION;</p>
+<p>获取命令使用帮助：<br>mysql&gt; HELP KEYWORD;</p>
+<p>查看数据库列表：<br>mysql&gt; SHOW DATABASES;  </p>
+<p><strong>表操作</strong> </p>
+<p>表：二维关系</p>
+<p>设计表：遵循规范</p>
+<p>定义：字段，索引<br>• 字段：字段名，字段数据类型，修改符<br>• 约束，索引：应该创建在经常用作查询条件的字段上  </p>
+<p>创建表： CREATE TABLE</p>
+<blockquote>
+<p>(1) 直接创建</p>
+<p>(2) 通过查询现存表创建；新表会被直接插入查询而来的数据<br>CREATE [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name [(create_definition,…)]  [table_options] [partition_options] select_statement</p>
+</blockquote>
+<blockquote>
+<p>(3) 通过复制现存的表的表结构创建，但不复制数据<br>CREATE [TEMPORARY] TABLE [IF NOT EXISTS]<br>tbl_name { LIKE old_tbl_name | (LIKE old_tbl_name) }</p>
+<p>(4) CREATE TABLE [IF NOT EXISTS] ‘tbl_name’ (col1 type1修饰符,col2 type2 修饰符, …)</p>
+<p>字段信息<br>• col type1<br>• PRIMARY KEY(col1,…)<br>• INDEX(col1, …)<br>• UNIQUE KEY(col1, …)</p>
+<p>表选项：<br>• ENGINE [=] engine_name<br>• ROW_FORMAT [=]<br>{DEFAULT|DYNAMIC|FIXED|COMPRESSED|REDUNDANT|COMPACT}</p>
+<p>注意：<br>• Storage Engine是指表类型，也即在表创建时指明其使用的存储引擎，<br>• 同一库中不同表可以使用不同的存储引擎<br>• 同一个库中表建议要使用同一种存储引擎类</p>
+</blockquote>
+<p>删除表：DROP TABLE [IF EXISTS] ‘tbl_name’;</p>
+<p>修改表：ALTER TABLE ‘tbl_name’</p>
+<blockquote>
+<p>添加字段： add<br>ADD col1 data_type [FIRST|AFTER col_name]</p>
+<p>删除字段： drop</p>
+<p>修改字段：<br>alter（默认值） , change（字段名） , modify（字段属性）</p>
+<p>添加索引： add index</p>
+<p>删除索引: drop index</p>
+<p>查看表上的索引： SHOW INDEXES FROM [db_name.]tbl_name;</p>
+<p>查看帮助： Help ALTER TABLE  </p>
+<p>修改表示例：<br>ALTER TABLE students ADD gender ENUM(‘m’,’f’)</p>
+<p>ALETR TABLE students CHANGE id sid int UNSIGNED NOT NULL PRIMARY KEY;</p>
+<p>ALTER TABLE students ADD UNIQUE KEY(name);</p>
+<p>ALTER TABLE students ADD INDEX(age);</p>
+<p>DESC students;</p>
+<p>SHOW INDEXES FROM students;</p>
+<p>ALTER TABLE students DROP age;  </p>
+</blockquote>
+<p>查看表</p>
+<blockquote>
+<p>查看所有的引擎： SHOW ENGINES<br>查看表： SHOW TABLES [FROM db_name]<br>查看表结构： DESC [db_name.]tb_name<br>查看表创建命令： SHOW CREATE TABLE tbl_name<br>查看表状态： SHOW TABLE STATUS LIKE ‘tbl_name’<br>查看库中所有表状态： SHOW TABLE STATUS FROM db_name  </p>
+</blockquote>
+<p>获取帮助： mysql&gt; HELP CREATE TABLE;  </p>
+<h5 id="2、DML"><a href="#2、DML" class="headerlink" title="2、DML"></a>2、DML</h5><p><strong>增、删、改、查</strong></p>
+<p><strong>INSERT（增）</strong></p>
+<blockquote>
+<p>INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]<br>• [[INTO] tbl_name [(col_name,…)]<br>• {VALUES | VALUE} ({expr | DEFAULT},…),(…),…<br>• [ ON DUPLICATE KEY UPDATE 如果重复更新之<br>• col_name=expr [, col_name=expr] … ]</p>
+<p>简化写法：<br>INSERT tbl_name [(col1,…)] VALUES (val1,…), (val21,…)  </p>
+<p>INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]<br>• [INTO] tbl_name<br>• SET col_name={expr | DEFAULT}, …<br>• [ ON DUPLICATE KEY UPDATE<br>•col_name=expr[, col_name=expr] … ]  </p>
+<p>INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]<br>• [INTO] tbl_name [(col_name,…)]<br>• SELECT …<br>• [ ON DUPLICATE KEY UPDATE<br>•col_name=expr[, col_name=expr] … ]  </p>
+</blockquote>
+<p><strong>DELETE（删）</strong></p>
+<blockquote>
+<p>DELETE [LOW_PRIORITY] [QUICK] [IGNORE] FROM<br>• tbl_name<br>• [WHERE where_condition]<br>• [ORDER BY …]<br>• [LIMIT row_count]</p>
+<p>可先排序再指定删除的行数</p>
+<p>注意：一定要有限制条件，否则将清空表中的所有数据</p>
+<p>限制条件：<br>WHERE<br>LIMIT</p>
+<p>清空表：TRUNCATE TABLE tbl_name</p>
+</blockquote>
+<p><strong>UPDATE（改）</strong></p>
+<blockquote>
+<p>UPDATE [LOW_PRIORITY] [IGNORE] table_reference<br>• SET col_name1={expr1|DEFAULT} [,<br>• col_name2={expr2|DEFAULT}] …<br>• [WHERE where_condition]<br>• [ORDER BY …]<br>• [LIMIT row_count]</p>
+<p>注意：一定要有限制条件，否则将修改所有行的指定字段</p>
+<p>限制条件：<br>WHERE<br>LIMIT</p>
+<p>Mysql 选项： –safe-updates| –i-am-a-dummy|-U  </p>
+</blockquote>
+<p><strong>SELECT（查）</strong></p>
+<blockquote>
+<p>SELECT [ALL | DISTINCT | DISTINCTROW ] [SQL_CACHE |SQL_NO_CACHE] select_expr [, select_expr…]<br>• [FROM table_references<br>• [WHERE where_condition]<br>• [GROUP BY {col_name | expr | position} [ASC | DESC], … [WITH ROLLUP]]<br>• [HAVING where_condition]<br>• [ORDER BY {col_name | expr | position} [ASC | DESC], …]<br>• [LIMIT {[offset,] row_count | row_count OFFSET offset}]<br>• [FOR UPDATE | LOCK IN SHARE MODE]  </p>
+<p>字段显示可以使用别名：col1 AS alias1, col2 AS alias2, …</p>
+<p>WHERE子句：指明过滤条件以实现“选择”的功能<br>• 过滤条件：布尔型表达式<br>• 算术操作符： +, -, *, /, %<br>• 比较操作符： =, !=, &lt;&gt;, &lt;=&gt;, &gt;, &gt;=, &lt;, &lt;=<br>• BETWEEN min_num AND max_num<br>• IN (element1, element2, …)<br>• IS NULL<br>• IS NOT NULL </p>
+<p>LIKE:<br>%: 任意长度的任意字符<br>_：任意单个字符</p>
+<p>RLIKE：正则表达式，索引失效，不建议使用</p>
+<p>REGEXP：匹配字符串可用正则表达式书写模式，同上</p>
+<p>逻辑操作符<br>NOT<br>AND<br>OR<br>XOR   </p>
+<p>GROUP：根据指定的条件把查询结果进行“分组”以用于做“聚合”运算<br>• avg(), max(), min(), count(), sum()<br>• HAVING: 对分组聚合运算后的结果指定过滤条件</p>
+<p>ORDER BY: 根据指定的字段对查询结果进行排序<br>• 升序： ASC<br>• 降序： DESC</p>
+<p>LIMIT [[offset,]row_count]：对查询的结果进行输出行数数量限制</p>
+<p>对查询结果中的数据请求施加“锁”<br>• FOR UPDATE: 写锁，独占或排它锁，只有一个读和写<br>• LOCK IN SHARE MODE: 读锁，共享锁，同时多个读  </p>
+</blockquote>
+<p>SQL增删改查示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DESC students;</span><br><span class="line"></span><br><span class="line">INSERT INTO students VALUES(1,&#39;tom&#39;， &#39;m&#39;),(2,&#39;alice&#39;,&#39;f&#39;);</span><br><span class="line">INSERT INTO students(id,name) VALUES(3,&#39;jack&#39;),(4,&#39;allen&#39;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM students WHERE id &lt; 3;</span><br><span class="line">SELECT * FROM students WHERE gender&#x3D;&#39;m&#39;;</span><br><span class="line">SELECT * FROM students WHERE gender IS NULL;</span><br><span class="line">SELECT * FROM students WHERE gender IS NOT NULL;</span><br><span class="line">SELECT * FROM students ORDER BY name DESC LIMIT 2;</span><br><span class="line">SELECT * FROM students ORDER BY name DESC LIMIT 1,2;</span><br><span class="line">SELECT * FROM students WHERE id &gt;&#x3D;2 and id &lt;&#x3D;4</span><br><span class="line">SELECT * FROM students WHERE BETWEEN 2 AND 4</span><br><span class="line">SELECT * FROM students WHERE name LIKE ‘t%’</span><br><span class="line">SELECT * FROM students WHERE name RLIKE &#39;.*[lo].*&#39;;</span><br><span class="line">SELECT id stuid,name as stuname FROM students</span><br></pre></td></tr></table></figure>
+
+<p><strong>多表查询</strong></p>
+<p><img src="/images/mysql2/mysql5.jpg" alt=""></p>
+<p>交叉连接：笛卡尔乘积</p>
+<p>内连接：</p>
+<blockquote>
+<p>等值连接：让表之间的字段以“等值”建立连接关系；</p>
+<p>不等值连接</p>
+<p>自然连接:去掉重复列的等值连接</p>
+<p>自连接</p>
+</blockquote>
+<p>外连接：</p>
+<blockquote>
+<p>左外连接：FROM tb1 LEFT JOIN tb2 ON tb1.col=tb2.col<br>右外连接：FROM tb1 RIGHT JOIN tb2 ON tb1.col=tb2.col</p>
+</blockquote>
+<p>子查询</p>
+<blockquote>
+<p>在查询语句嵌套着查询语句，性能较差，基于某语句的查询结果再次进行的查询</p>
+<p>WHERE子句中的子查询</p>
+<ul>
+<li>用于比较表达式中的子查询；仅能返回单个值<br>SELECT Name,Age FROM students WHERE Age&gt;(SELECT avg(Age) FROM students);</li>
+<li>用于IN中的子查询：子查询应该单键查询并返回一个或多个值从构成列表<br>SELECT Name,Age FROM students WHERE Age IN (SELECT Age FROM teachers);</li>
+<li>用于EXISTS  </li>
+</ul>
+<p>用于FROM子句中的子查询</p>
+<ul>
+<li>SELECT tb_alias.col1,… FROM (SELECT clause) AS tb_alias WHERE Clause;</li>
+<li>示例：<br>SELECT s.age, s.ClassID FROM ( SELECT avg(Age) AS aage,ClassID FROM students WHERE ClassID IS NOT NULL GROUP BY ClassID ) AS s WHERE s.age&gt;30;</li>
+</ul>
+<p>联合查询</p>
+<ul>
+<li>SELECT Name,Age FROM students UNION SELECT Name,Age FROM teachers;  </li>
+</ul>
+</blockquote>
+<h5 id="3、DCL"><a href="#3、DCL" class="headerlink" title="3、DCL"></a>3、DCL</h5><p><strong>MySQL用户和权限管理</strong></p>
+<blockquote>
+<p>元数据数据库： mysql<br>系统授权表：db, host, user，columns_priv, tables_priv, procs_priv, proxies_priv</p>
+</blockquote>
+<p><strong>用户账号：‘USERNAME’@’HOST’</strong></p>
+<blockquote>
+<p>@’HOST’：主机<br>• IP地址或网段;<br>• 通配符：%, _: 172.16.%.%  </p>
+</blockquote>
+<p><strong>用户管理</strong>  </p>
+<blockquote>
+<p>创建用户： CREATE USER ‘USERNAME’@’HOST’ [IDENTIFIED BY ‘password’]；<br>默认权限： USAGE</p>
+<p>用户重命名：RENAME USER old_user_name TO new_user_name</p>
+<p>删除用户：DROP USER ‘USERNAME’@’HOST‘</p>
+<p>修改密码：<br>① SET PASSWORD FOR ‘user’@’host’ =PASSWORD(‘password’);<br>② UPDATE mysql.user SET password=PASSWORD(‘your_password’) WHERE clause;<br>此方法需要执行下面指令同步到内存中：FLUSH PRIVILEGES;<br>③ mysqladmin -u root –poldpass password ‘newpass‘</p>
+<p>忘记管理员密码的解决办法：<br>①启动mysqld进程时，为其使用如下选项：–skip-grant-tables –skip-networking<br>•使用UPDATE命令修改管理员密码<br>•关闭mysqld进程，移除上述两个选项，重启mysqld   </p>
+<p>②修改mysql配置文件my.cnf,在[mysqld]添加内容：skip-grant-tables<br>•重启mysqld服务<br>•免密码登录后使用UPDATE命令修改管理员密码<br>•FLUSH PRIVILEGES;<br>•移除skip-grant-tables，重启mysqld服务</p>
+</blockquote>
+<p><strong>MySQL权限管理</strong></p>
+<p>权限类别</p>
+<blockquote>
+<p>数据库级别<br>表级别<br>字段级别<br>管理类<br>程序类  </p>
+</blockquote>
+<p>库和表级别（DATABASE、TABLE）</p>
+<blockquote>
+<p>ALTER<br>CREATE<br>CREATE VIEW<br>DROP<br>INDEX<br>SHOW VIEW<br>GRANT OPTION：能将自己获得的权限转赠给其他用户 </p>
+</blockquote>
+<p>程序类（FUNCTION、 PROCEDURE、 TRIGGER）</p>
+<blockquote>
+<p>CREATE<br>ALTER<br>DROP<br>EXCUTE   </p>
+</blockquote>
+<p>管理类</p>
+<blockquote>
+<p>CREATE TEMPORARY TABLES<br>CREATE USER<br>FILE<br>SUPER<br>SHOW DATABASES<br>RELOAD<br>SHUTDOWN<br>REPLICATION SLAVE<br>REPLICATION CLIENT<br>LOCK TABLES<br>PROCESS  </p>
+</blockquote>
+<p>字段级别</p>
+<blockquote>
+<p>SELECT(col1,col2,…)<br>UPDATE(col1,col2,…)<br>INSERT(col1,col2,…)<br>DELETE(col1,col2,…)</p>
+</blockquote>
+<p>所有权限： ALL PRIVILEGES 或 ALL  </p>
+<p>授权：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">参考： https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;5.7&#x2F;en&#x2F;grant.html</span><br><span class="line"></span><br><span class="line">GRANT priv_type [(column_list)],... ON [object_type] priv_level</span><br><span class="line">TO &#39;user&#39;@&#39;host&#39; [IDENTIFIED BY &#39;password&#39;] [WITH GRANT OPTION];</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">priv_type：ALL [PRIVILEGES]</span><br><span class="line">object_type：TABLE | FUNCTION | PROCEDURE</span><br><span class="line">priv_level: *(所有库) | *.* | db_name.* | db_name.tbl_name| tbl_name(当前库的表) | db_name.routine_name(指定库的函数,存储过程,触发器)</span><br><span class="line">with_option: GRANT OPTION</span><br><span class="line">| MAX_QUERIES_PER_HOUR count</span><br><span class="line">| MAX_UPDATES_PER_HOUR count</span><br><span class="line">| MAX_CONNECTIONS_PER_HOUR count</span><br><span class="line">| MAX_USER_CONNECTIONS count</span><br><span class="line"></span><br><span class="line">示例：GRANT SELECT (col1), INSERT (col1,col2) ON mydb.mytbl TO &#39;someuser&#39;@&#39;somehost&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>回收授权：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">REVOKE priv_type [(column_list)] [, priv_type [(column_list)]] ... </span><br><span class="line">ON [object_type] priv_level </span><br><span class="line">FROM user [, user] ...</span><br><span class="line"></span><br><span class="line">示例： REVOKE DELETE ON testdb.* FROM &#39;testuser&#39;@&#39;%‘</span><br><span class="line"></span><br><span class="line">查看指定用户获得的授权：</span><br><span class="line">Help SHOW GRANTS</span><br><span class="line">SHOW GRANTS FOR &#39;user&#39;@&#39;host&#39;;</span><br><span class="line">SHOW GRANTS FOR CURRENT_USER[()];</span><br><span class="line"></span><br><span class="line">注意：MariaDB服务进程启动时会读取mysql库中所有授权表至内存</span><br><span class="line">(1) GRANT或REVOKE等执行权限操作会保存于系统表中， MariaDB的服</span><br><span class="line">务进程通常会自动重读授权表，使之生效</span><br><span class="line">(2) 对于不能够或不能及时重读授权表的命令，可手动让MariaDB的服务进</span><br><span class="line">程重读授权表：FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="三、SQL组件"><a href="#三、SQL组件" class="headerlink" title="三、SQL组件"></a><strong>三、SQL组件</strong></h4><h5 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h5><p>视图： VIEW,虚表，保存有实表的查询结果</p>
+<p>创建视图：</p>
+<blockquote>
+<p>CREATE VIEW view_name [(column_list)]<br>AS select_statement [WITH [CASCADED | LOCAL] CHECK OPTION]</p>
+</blockquote>
+<p>查看视图定义： SHOW CREATE VIEW view_name</p>
+<p>删除视图：</p>
+<blockquote>
+<p>DROP VIEW [IF EXISTS] view_name [, view_name] …<br>[RESTRICT | CASCADE]</p>
+</blockquote>
+<p>视图中的数据事实上存储于“基表”中，因此，其修改操作也会针对基表实现；其修改操作受基表限制  </p>
+<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><p>函数：系统函数和自定义函数</p>
+<p>系统函数：<a href="https://dev.mysql.com/doc/refman/5.7/en/func-opsummary-ref.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/func-opsummary-ref.html</a></p>
+<p>自定义函数 (user-defined function UDF)</p>
+<blockquote>
+<p>保存在mysql.proc表中</p>
+<p>创建UDF:<br>CREATE [AGGREGATE] FUNCTION<br>• function_name (parameter_name type,[parameter_name type,…])<br>• RETURNS {STRING|INTEGER|REAL}<br>• runtime_body</p>
+<p>说明：<br>参数可以有多个,也可以没有参数<br>必须有且只有一个返回值</p>
+<p>删除UDF：DROP FUNCTION function_name</p>
+<p>调用自定义函数语法：SELECT function_name(parameter_value,…)    </p>
+<p>查看函数列表：SHOW FUNCTIOIN STATUS;</p>
+<p>查看函数定义：SHOW CREATE FUNCTION function_name</p>
+<p>示例：无参UDF<br>CREATE FUNCTION simpleFun()<br>RETURNS VARCHAR(20) RETURN “Hello World!” ;</p>
+<p>示例：有参数UDF<br>DELIMITER //</p>
+<p>CREATE FUNCTION deleteById(uid SMALLINT UNSIGNED) RETURNS VARCHAR(20)</p>
+<p>BEGIN<br>DELETE FROM students WHERE stuid = uid;<br>RETURN (SELECT COUNT(uid) FROM students);<br>END //</p>
+<p>DELIMITER ;  </p>
+</blockquote>
+<p>自定义函数中定义局部变量语法:</p>
+<blockquote>
+<p>DECLARE 变量1[,变量2,… ]变量类型 [DEFAULT 默认值]</p>
+<p>说明：局部变量的作用范围是在BEGIN…END程序中,而且定义局部变量语句必须在BEGIN…END的第一行定义</p>
+<p>示例:<br>DELIMITER //</p>
+<p>CREATE FUNCTION add(x SMALLINT UNSIGNED, Y SMALLINT UNSIGNED)</p>
+<p>RETURNS SMALLINT</p>
+<p>BEGIN</p>
+<p>DECLARE a, b SMALLINT UNSIGNED DEFAULT 10;<br>SET a = x, b = y;<br>RETURN a+b;</p>
+<p>END//  </p>
+<p>为变量赋值语法<br>SET parameter_name = value[,parameter_name = value…]<br>SELECT INTO parameter_name</p>
+<p>示例:<br>DECLARE x int;<br>SELECT COUNT(id) FROM tdb_name INTO x;<br>RETURN x; </p>
+</blockquote>
+<h5 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h5><p>存储过程：存储过程保存在mysql.proc表中</p>
+<p>创建存储过程</p>
+<blockquote>
+<p>CREATE PROCEDURE sp_name ([ proc_parameter [,proc_parameter …]])<br>routime_body</p>
+<p>说明：<br>proc_parameter : [IN|OUT|INOUT]<br>parameter_name type</p>
+<p>其中IN表示输入参数，OUT表示输出参数，INOUT表示既可以输入也可以输出； param_name表示参数名称； type表示参数的类型</p>
+<p>查看存储过程列表<br>SHOW PROCEDURE STATUS  </p>
+</blockquote>
+<p>查看存储过程定义</p>
+<blockquote>
+<p>SHOW CREATE PROCEDURE sp_name</p>
+</blockquote>
+<p>调用存储过程</p>
+<blockquote>
+<p>CALL sp_name ([ proc_parameter [,proc_parameter…]])</p>
+<p>说明:当无参时,可以省略”()”,当有参数时,不可省略”()”</p>
+<p>存储过程修改：删除重建<br>ALTER语句修改存储过程只能修改存储过程的注释等无关紧要的东西,不能修改存储过程体</p>
+</blockquote>
+<p>删除存储过程</p>
+<blockquote>
+<p>DROP PROCEDURE [IF EXISTS] sp_name  </p>
+</blockquote>
+<p>存储过程示例</p>
+<blockquote>
+<p>创建无参存储过程:<br>delimiter //</p>
+<p>CREATE PROCEDURE showTime()BEGIN<br>SELECT now();<br>END//</p>
+<p>delimiter ;</p>
+<p>CALL showTime;  </p>
+<p>创建含参存储过程：只有一个IN参数<br>delimiter //</p>
+<p>CREATE PROCEDURE seleById(IN id SMALLINT UNSIGNED)<br>BEGIN<br>SELECT * FROM students WHERE stuid = id;<br>END//</p>
+<p>delimiter ;</p>
+<p>call seleById(2);  </p>
+<p>创建含参存储过程:包含IN参数和OUT参数<br>delimiter //</p>
+<p>CREATE PROCEDURE deleteById(IN id SMALLINT UNSIGNED, OUT num SMALLINT UNSIGNED)<br>BEGIN<br>DELETE FROM students WHERE stuid = id;<br>SELETE row_count() into num;<br>END//</p>
+<p>delimiter ;</p>
+<p>call seleById(2,@Line);</p>
+<p>SELETE @Line;</p>
+<p>说明:<br>创建存储过程deleteById,包含一个IN参数和一个OUT参数。调用时,传入删除的ID和保存被修改的行数值的用户变量@Line<br>select @Line 输出被影响行数.  </p>
+</blockquote>
+<p>存储过程优势</p>
+<blockquote>
+<p>存储过程把经常使用的SQL语句或业务逻辑封装起来,预编译保存在数据库中,当需要时从数据库中直接调用,省去了编译的过程</p>
+<p>提高了运行速度，同时降低网络数据传输量</p>
+<p>存储过程与自定义函数的区别:<br>• 存储过程实现的过程要复杂一些,而函数的针对性较强<br>• 存储过程可以有多个返回值,而自定义函数只有一个返回值<br>• 存储过程一般独立的来执行,而函数往往是作为其他SQL语句的一部分来使用  </p>
+</blockquote>
+<h5 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h5><p>存储过程和函数中可以使用流程控制来控制语句的执行</p>
+<p>流程控制</p>
+<blockquote>
+<p>IF：用来进行条件判断。根据是否满足条件，执行不同语句<br>CASE：用来进行条件判断，可实现比IF语句更复杂的条件判断<br>LOOP：重复执行特定的语句，实现一个简单的循环<br>LEAVE：用于跳出循环控制<br>ITERATE：跳出本次循环，然后直接进入下一次循环<br>REPEAT：有条件控制的循环语句。当满足特定条件时，就会跳出循环语句<br>WHILE：有条件控制的循环语句  </p>
+</blockquote>
+<h5 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h5><p>触发器的执行不是由程序调用，也不是由手工启动，而是由事件来触发、激活从而实现执行</p>
+<p>创建触发器</p>
+<blockquote>
+<p>CREATE [DEFINER = { user | CURRENT_USER }] TRIGGER<br>• trigger_name<br>• trigger_time trigger_event<br>• ON tbl_name FOR EACH ROW<br>• trigger_body</p>
+<p>说明：<br>trigger_name：触发器的名称<br>trigger_time： { BEFORE | AFTER }，表示在事件之前或之后触发<br>trigger_event:： { INSERT |UPDATE | DELETE }，触发的具体事件<br>tbl_name：该触发器作用的表名  </p>
+<p>示例：创建触发器，在向学生表INSERT数据时，学生数增加，DELETE学生时，学生数减少</p>
+<p>CREATE TRIGGER trigger_student_count_insert<br>• AFTER<br>• INSERT ON student_info FOR EACH ROW<br>• UPDATE student_count SET student_count=student_count+1;</p>
+<p>CREATE TRIGGER trigger_student_count_delete<br>• AFTER<br>• DELETE ON student_info FOR EACH ROW<br>• UPDATE student_count SET student_count=student_count-1;  </p>
+</blockquote>
+<p>查看触发器</p>
+<blockquote>
+<p>SHOW TRIGGERS</p>
+<p>查询系统表information_schema.triggers的方式指定查询条件，查看指定的触发器信息。<br>mysql&gt; USE information_schema ;<br>mysql&gt; SELECT * FROM triggers WHERE<br>trigger_name=’trigger_student_count_insert’;</p>
+</blockquote>
+<p>删除触发器</p>
+<blockquote>
+<p>DROP TRIGGER trigger_name;  </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/24/mysql1/" rel="next" title="MySQL（一）">
+                <i class="fa fa-chevron-left"></i> MySQL（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/26/mysql3/" rel="prev" title="MySQL（三）">
+                MySQL（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			  <a href="/">
+			    <img class="site-author-image" itemprop="image"
+				  src="/images/avatar.jpg"
+				  alt="Ying Jie" />
+			  </a>
+            
+              <p class="site-author-name" itemprop="name">Ying Jie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/about/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、SQL概述"><span class="nav-number">1.</span> <span class="nav-text">一、SQL概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常见组件"><span class="nav-number">1.1.</span> <span class="nav-text">常见组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言的兴起与语法标准"><span class="nav-number">1.2.</span> <span class="nav-text">SQL语言的兴起与语法标准</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言规范"><span class="nav-number">1.3.</span> <span class="nav-text">SQL语言规范</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句分类"><span class="nav-number">1.4.</span> <span class="nav-text">SQL语句分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句构成"><span class="nav-number">1.5.</span> <span class="nav-text">SQL语句构成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL数据类型"><span class="nav-number">1.6.</span> <span class="nav-text">SQL数据类型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、SQL语句"><span class="nav-number">2.</span> <span class="nav-text">二、SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、DDL"><span class="nav-number">2.1.</span> <span class="nav-text">1、DDL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、DML"><span class="nav-number">2.2.</span> <span class="nav-text">2、DML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、DCL"><span class="nav-number">2.3.</span> <span class="nav-text">3、DCL</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、SQL组件"><span class="nav-number">3.</span> <span class="nav-text">三、SQL组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#视图"><span class="nav-number">3.1.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数"><span class="nav-number">3.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储过程"><span class="nav-number">3.3.</span> <span class="nav-text">存储过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程控制"><span class="nav-number">3.4.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#触发器"><span class="nav-number">3.5.</span> <span class="nav-text">触发器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ying Jie</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">29.4k</span>
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a></div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
