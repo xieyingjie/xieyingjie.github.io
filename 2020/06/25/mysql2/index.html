@@ -136,7 +136,7 @@
 <meta property="og:description" content="MySQL（二）">
 <meta property="og:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
 <meta property="article:published_time" content="2020-06-25T04:00:57.000Z">
-<meta property="article:modified_time" content="2020-06-30T17:55:04.679Z">
+<meta property="article:modified_time" content="2020-07-01T08:06:25.649Z">
 <meta property="article:author" content="Ying Jie">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -838,6 +838,114 @@
 <blockquote>
 <p>DROP TRIGGER trigger_name;  </p>
 </blockquote>
+<h5 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h5><p>索引是特殊数据结构：定义在查找时作为查找条件的字段</p>
+<p>优点：提高查询速度，缺点：占用额外空间，影响插入速度</p>
+<p>索引实现在存储引擎</p>
+<p>索引类型：</p>
+<blockquote>
+<p>聚簇（集）索引、非聚簇索引：数据是否与索引存储在一起</p>
+<p>主键索引、辅助索引</p>
+<p>稠密索引、稀疏索引：是否索引了每一个数据项</p>
+<p>B+ TREE、 HASH、 R TREE</p>
+<p>简单索引、组合索引</p>
+<p>左前缀索引：取前面的字符做索引</p>
+<p>覆盖索引：从索引中即可取出要查询的数据，性能高  </p>
+</blockquote>
+<p>聚簇和非聚簇索引，主键和二级索引  </p>
+<img src="/images/mysql2/mysql10.jpg" style="zoom: 33%;" />
+
+<p><strong>B+TREE索引</strong>  </p>
+<p>1、B+ Tree索引：顺序存储，每一个叶子节点到根结点的距离是相同的；左前缀索引，适合查询范围类的数据</p>
+<p>2、可以使用B-Tree索引的查询类型：</p>
+<blockquote>
+<p>全值匹配：精确所有索引列，如：姓wang，名xiaochun，年龄30</p>
+<p>匹配最左前缀：即只使用索引的第一列，如：姓wang</p>
+<p>匹配列前缀：只匹配一列值开头部分，如：姓以w开头的</p>
+<p>匹配范围值：如：姓ma和姓wang之间</p>
+<p>精确匹配某一列并范围匹配另一列：如：姓wang,名以x开头的</p>
+<p>只访问索引的查询  </p>
+</blockquote>
+<img src="/images/mysql2/mysql9.jpg" style="zoom:33%;" />
+
+<img src="/images/mysql2/mysql11.jpg" style="zoom: 33%;" />
+
+<p>3、B-Tree索引的限制：</p>
+<blockquote>
+<p>如果不从最左列开始，则无法使用索引：如：查找名为xiaochun，或姓为g结尾</p>
+<p>不能跳过索引中的列：如：查找姓wang,年龄30的，只能使用索引第一列</p>
+<p>如果查询中某个列是为范围查询，那么其右侧的列都无法再使用索引：如：姓wang,名x%,年龄30，只能利用姓和名上面的索引</p>
+<p>特别提示：<br>a. 索引列的顺序和查询语句的写法应相匹配，才能更好的利用索引</p>
+<p>b. 为优化性能，可能需要针对相同的列但顺序不同创建不同<br>的索引来满足不同类型的查询需求  </p>
+</blockquote>
+<p><strong>Hash索引</strong></p>
+<p>Hash索引：基于哈希表实现，只有精确匹配索引中的所有列的查询才有效，索引自身只存储索引列对应的哈希值和数据指针，索引结构紧凑，查询性能好</p>
+<p>只有Memory存储引擎支持显式hash索引</p>
+<p>适用场景：只支持等值比较查询，包括=, IN(), &lt;=&gt;</p>
+<p>不适合使用hash索引的场景：</p>
+<blockquote>
+<p>不适用于顺序查询：索引存储顺序的不是值的顺序</p>
+<p>不支持模糊匹配</p>
+<p>不支持范围查询</p>
+<p>不支持部分索引列匹配查找：如A， B列索引，只查询A列索引<br>无效  </p>
+</blockquote>
+<p><strong>空间索引（ R-Tree）：</strong></p>
+<p>MyISAM支持空间索引，可以使用任意维度组合查询，使用特有的函数访问，常用于做地理数据存储，使用不多</p>
+<p><strong>全文索引(FULLTEXT)：</strong>在文本中查找关键词，而不是直接比较索引中的值，类似搜索引擎</p>
+<p><strong>索引优点：</strong></p>
+<blockquote>
+<p>索引可以降低服务需要扫描的数据量，减少了IO次数<br>索引可以帮助服务器避免排序和使用临时表<br>索引可以帮助将随机I/O转为顺序I/O  </p>
+</blockquote>
+<p><strong>优化索引策略</strong>：</p>
+<blockquote>
+<p>独立地使用列：尽量避免其参与运算，独立的列指索引列不能是表达式的一部分，也不能是函数的参数，在where条件中，始终将索引列单独放在比较符号的一侧</p>
+<p>左前缀索引：构建指定索引字段的左侧的字符数，要通过索引选择性来评估</p>
+<p>索引选择性：不重复的索引值和数据表的记录总数的比值</p>
+<p>多列索引： AND操作时更适合使用多列索引，而非为每个列创建单独的索引</p>
+<p>选择合适的索引列顺序：无排序和分组时，将选择性最高放左侧</p>
+<p>冗余和重复索引：（ A），（ A， B）即为冗余索引，不好的索引使用策略，建议扩展索引，而非冗余  </p>
+<p>只要列中含有NULL值，就最好不要在此例设置索引，复合索引如果有NULL值，此列在使用时也不会使用索引</p>
+<p>尽量使用短索引，如果可以，应该制定一个前缀长度</p>
+<p>对于经常在where子句使用的列，最好设置索引</p>
+<p>对于有多个列where或者order by子句，应该建立复合索引</p>
+<p>对于like语句，以%或者‘-’开头的不会使用索引，以%结尾会使用索引</p>
+<p>尽量不要在列上进行运算（函数操作和表达式操作）</p>
+<p>尽量不要使用not in和&lt;&gt;操作  </p>
+</blockquote>
+<p><strong>通过EXPLAIN来分析索引的有效性：</strong></p>
+<blockquote>
+<p>EXPLAIN SELECT clause<br>获取查询执行计划信息，用来查看查询优化器如何执行查询</p>
+<p>输出信息说明：参考 <a href="https://dev.mysql.com/doc/refman/5.7/en/explainoutput.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/explainoutput.html</a></p>
+<p>id: 当前查询语句中，每个SELECT语句的编号</p>
+<p>复杂类型的查询有三种：<br>1、简单子查询<br>2、用于FROM中的子查询<br>3、联合查询： UNION</p>
+<p>注意： UNION查询的分析结果会出现一个额外匿名临时表  </p>
+<p>select_type：简单查询为SIMPLE</p>
+<p>复杂查询：<br>SUBQUERY: 简单子查询<br>PRIMARY:最外面的SELECT<br>DERIVED: 用于FROM中的子查询<br>UNION： UNION语句的第一个之后的SELECT语句<br>UNION RESULT: 匿名临时表</p>
+<p>table： SELECT语句关联到的  </p>
+<p>type：关联类型或访问类型，即MySQL决定的如何去查询表中的行的方式，以下顺序，性能从低到高<br>1、ALL: 全表扫描<br>2、index：根据索引的次序进行全表扫描；如果在Extra列出现<br>“Using index”表示了使用覆盖索引，而非全表扫描<br>3、range：有范围限制的根据索引实现范围扫描；扫描位置始于索引中的某一点，结束于另一点<br>4、ref: 根据索引返回表中匹配某单个值的所有行<br>5、eq_ref：仅返回一个行，但与需要额外与某个参考值做比较<br>6、const, system: 直接返回单个行</p>
+<p>possible_keys：查询可能会用到的索引</p>
+<p>key: 查询中使用到的索引</p>
+<p>key_len: 在索引使用的字节数  </p>
+<p>ref: 在利用key字段所表示的索引完成查询时所用的列或某常<br>量值</p>
+<p>rows： MySQL估计为找所有的目标行而需要读取的行数</p>
+<p>Extra：额外信息<br>Using index： MySQL将会使用覆盖索引，以避免访问表<br>Using where： MySQL服务器将在存储引擎检索后，再进行一次过滤<br>Using temporary： MySQL对结果排序时会使用临时表<br>Using filesort：对结果使用一个外部索引排  </p>
+</blockquote>
+<p><strong>管理索引</strong></p>
+<blockquote>
+<p>创建索引：<br>CREATE INDEX index_name ON tbl_name (index_col_name,…);<br>help CREATE INDEX</p>
+<p>删除索引：<br>DROP INDEX index_name ON tbl_name;</p>
+<p>查看索引：<br>SHOW INDEXES FROM [db_name.]tbl_name;</p>
+<p>优化表空间：<br>OPTIMIZE TABLE tb_name  </p>
+</blockquote>
+<p><strong>SQL语句性能优化</strong></p>
+<blockquote>
+<p>查询时，能不要就✬不用✬，尽量写全字段名</p>
+<p>大部分情况连接效率远大于子查询</p>
+<p>多表连接时，尽量小表驱动大表，即小表 join 大表</p>
+<p>在千万级分页时使用limit</p>
+<p>对于经常使用的查询，可以开启缓存</p>
+<p>多使用explain和profile分析查询语句</p>
+<p>查看慢查询日志，找出执行时间长的sql语句优化  </p>
+</blockquote>
 
       
     </div>
@@ -973,7 +1081,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -984,7 +1092,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -995,7 +1103,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/about/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1035,7 +1143,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、SQL概述"><span class="nav-number">1.</span> <span class="nav-text">一、SQL概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常见组件"><span class="nav-number">1.1.</span> <span class="nav-text">常见组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言的兴起与语法标准"><span class="nav-number">1.2.</span> <span class="nav-text">SQL语言的兴起与语法标准</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言规范"><span class="nav-number">1.3.</span> <span class="nav-text">SQL语言规范</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句分类"><span class="nav-number">1.4.</span> <span class="nav-text">SQL语句分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句构成"><span class="nav-number">1.5.</span> <span class="nav-text">SQL语句构成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL数据类型"><span class="nav-number">1.6.</span> <span class="nav-text">SQL数据类型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、SQL语句"><span class="nav-number">2.</span> <span class="nav-text">二、SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、DDL"><span class="nav-number">2.1.</span> <span class="nav-text">1、DDL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、DML"><span class="nav-number">2.2.</span> <span class="nav-text">2、DML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、DCL"><span class="nav-number">2.3.</span> <span class="nav-text">3、DCL</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、SQL组件"><span class="nav-number">3.</span> <span class="nav-text">三、SQL组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#视图"><span class="nav-number">3.1.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数"><span class="nav-number">3.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储过程"><span class="nav-number">3.3.</span> <span class="nav-text">存储过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程控制"><span class="nav-number">3.4.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#触发器"><span class="nav-number">3.5.</span> <span class="nav-text">触发器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、SQL概述"><span class="nav-number">1.</span> <span class="nav-text">一、SQL概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常见组件"><span class="nav-number">1.1.</span> <span class="nav-text">常见组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言的兴起与语法标准"><span class="nav-number">1.2.</span> <span class="nav-text">SQL语言的兴起与语法标准</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言规范"><span class="nav-number">1.3.</span> <span class="nav-text">SQL语言规范</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句分类"><span class="nav-number">1.4.</span> <span class="nav-text">SQL语句分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句构成"><span class="nav-number">1.5.</span> <span class="nav-text">SQL语句构成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL数据类型"><span class="nav-number">1.6.</span> <span class="nav-text">SQL数据类型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、SQL语句"><span class="nav-number">2.</span> <span class="nav-text">二、SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、DDL"><span class="nav-number">2.1.</span> <span class="nav-text">1、DDL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、DML"><span class="nav-number">2.2.</span> <span class="nav-text">2、DML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、DCL"><span class="nav-number">2.3.</span> <span class="nav-text">3、DCL</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、SQL组件"><span class="nav-number">3.</span> <span class="nav-text">三、SQL组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#视图"><span class="nav-number">3.1.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数"><span class="nav-number">3.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储过程"><span class="nav-number">3.3.</span> <span class="nav-text">存储过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程控制"><span class="nav-number">3.4.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#触发器"><span class="nav-number">3.5.</span> <span class="nav-text">触发器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引"><span class="nav-number">3.6.</span> <span class="nav-text">索引</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1069,7 +1177,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">29.4k</span>
+    <span title="Site words total count">48.9k</span>
   
 </div>
 

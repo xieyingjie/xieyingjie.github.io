@@ -558,24 +558,22 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">安装顺序：mariadb--&gt;httpd--&gt;php </span><br><span class="line"></span><br><span class="line">#创建存放源码包的目录，便于管理</span><br><span class="line">[root@centos6 ~]#mkdir &#x2F;usr&#x2F;local&#x2F;src&#x2F;lamp</span><br><span class="line"></span><br><span class="line">#上传相关源码包</span><br><span class="line">[root@centos6 ~]#cd &#x2F;usr&#x2F;local&#x2F;src&#x2F;lamp</span><br><span class="line">[root@centos6 lamp]#rz -e</span><br><span class="line">[root@centos6 lamp]# ls -l</span><br><span class="line">total 480548</span><br><span class="line">-rw-r--r--  1 root root    854100 Jun 29 22:18 apr-1.6.3.tar.bz2</span><br><span class="line">-rw-r--r--  1 root root    428595 Jun 29 22:18 apr-util-1.6.1.tar.bz2</span><br><span class="line">-rw-r--r--  1 root root   6567926 Jun 29 22:18 httpd-2.4.29.tar.bz2</span><br><span class="line">-rw-r--r--  1 root root 458949807 Jun 29 22:27 mariadb-10.2.12-linux-x86_64.tar.gz</span><br><span class="line">-rw-r--r--  1 root root  14980278 Jun 29 22:18 php-7.2.1.tar.bz2</span><br><span class="line">-rw-r--r--  1 root root  10130710 Jun 29 22:18 wordpress-4.9.1-zh_CN.tar.gz</span><br><span class="line">-rw-r--r--  1 root root    148392 Jun 29 22:18 xcache-3.2.0.tar.bz2</span><br><span class="line"></span><br><span class="line">#安装编译相关开发工具包</span><br><span class="line">[root@centos6 ~]#yum groupinstall &quot;development tools&quot; -y </span><br><span class="line">[root@centos6 ~]#yum install pcre-devel openssl-devel expat-devel -y</span><br></pre></td></tr></table></figure>
 
 <p>b、编译安装mariadb</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#解压缩</span><br><span class="line">[root@centos6 lamp]# tar zxvf mariadb-10.2.12-linux-x86_64.tar.gz -C&#x2F;usr&#x2F;local&#x2F;mariadb-10.2.12</span><br><span class="line"></span><br><span class="line">#创建软连接，方便版本升级</span><br><span class="line">[root@centos6 local]# ln -sv mariadb-10.2.12 mysql </span><br><span class="line"></span><br><span class="line">#创建mysql用户</span><br><span class="line">[root@centos6 local]# useradd -r -s &#x2F;sbin&#x2F;nologin mysql </span><br><span class="line"></span><br><span class="line">#创建数据库目录并更改权限</span><br><span class="line">[root@centos6 local]# mkdir &#x2F;data&#x2F;mysqldb -pv</span><br><span class="line">[root@centos6 local]# chown -R mysql.mysql &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line"></span><br><span class="line">#初始化数据库</span><br><span class="line">[root@centos6 bin]#cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line">[root@centos6 mysql]#.&#x2F;scripts&#x2F;mysql_install_db --datadir&#x3D;&#x2F;data&#x2F;mysqldb --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#修改my.cnf配置文件</span><br><span class="line">[root@centos6 mysql]# cp support-files&#x2F;my-innodb-heavy-4G.cnf  &#x2F;etc&#x2F;my.cnf</span><br><span class="line">[root@centos6 mysql]# vim &#x2F;etc&#x2F;my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">port     &#x3D; 3306</span><br><span class="line">datadir&#x3D;&#x2F;data&#x2F;maysqldb</span><br><span class="line"></span><br><span class="line">#创建开机自启动脚本</span><br><span class="line">[root@centos6 mysql]# cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;mysqld</span><br><span class="line">[root@centos6 mysql]# chkconfig --add mysqld</span><br><span class="line"></span><br><span class="line">#启动服务并查看监听端口</span><br><span class="line">[root@centos6 mysql]# service mysqld start</span><br><span class="line">[root@centos6 mysql]# ss -ntl|grep 3306</span><br><span class="line">LISTEN     0      50                       :::3306                    :::* </span><br><span class="line"></span><br><span class="line">#安全初始化mysql数据库</span><br><span class="line">[root@centos6 mysql]# .&#x2F;bin&#x2F;mysql_secure_installation</span><br></pre></td></tr></table></figure>
-
-<p>c、编译安装httpd</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#解压缩</span><br><span class="line">[root@centos6 lamp]# tar xf apr-1.6.3.tar.bz2 </span><br><span class="line">[root@centos6 lamp]# tar xf apr-util-1.6.1.tar.bz2 </span><br><span class="line">[root@centos6 lamp]# tar xf httpd-2.4.29.tar.bz2 </span><br><span class="line"></span><br><span class="line">#编译安装</span><br><span class="line">[root@centos6 lamp]# mv apr-1.6.3 httpd-2.4.29&#x2F;srclib&#x2F;apr</span><br><span class="line">[root@centos6 lamp]# mv apr-util-1.6.1 httpd-2.4.29&#x2F;srclib&#x2F;apr-util</span><br><span class="line">[root@centos6 lamp]# cd httpd-2.4.29</span><br><span class="line">[root@centos6 httpd-2.4.29]# .&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;httpd2.4 \</span><br><span class="line">&gt; --enable-so \</span><br><span class="line">&gt; --enable-ssl \</span><br><span class="line">&gt; --enable-cgi \</span><br><span class="line">&gt; --with-zlib \</span><br><span class="line">&gt; --with-pcre \</span><br><span class="line">&gt; --with-included-apr \</span><br><span class="line">&gt; --enable-modules&#x3D;most \</span><br><span class="line">&gt; --enable-mpms-shared&#x3D;all \</span><br><span class="line">&gt; --with-mpm&#x3D;prefork</span><br><span class="line">[root@centos6 http-2.4.29]#make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#创建程序运行用户</span><br><span class="line">[root@centos6 httpd-2.4.29]#useradd -r -s &#x2F;sbin&#x2F;nologin apache</span><br><span class="line"></span><br><span class="line">#修改运行httpd进程的用户身份</span><br><span class="line">[root@centos6 httpd-2.4.29]#vim &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;conf&#x2F;http.conf  </span><br><span class="line">User apache  </span><br><span class="line">Group apache</span><br><span class="line"></span><br><span class="line">#启动服务并查看监听端口</span><br><span class="line">[root@centos6 local]# &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;bin&#x2F;apachectl start</span><br><span class="line">[root@centos6 local]# ss -ntl|grep 80</span><br><span class="line">LISTEN     0      128                      :::80                      :::*</span><br></pre></td></tr></table></figure>
-
-<p>d、编译安装php</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#解压缩</span><br><span class="line">[root@centos6 lamp]# tar xvf php-7.2.1.tar.bz2</span><br><span class="line"></span><br><span class="line">#安装相关开发工具包</span><br><span class="line">[root@centos6 lamp]# yum install libxml2-devel bzip2-devel libmcrypt-devel openssl-devel -y</span><br><span class="line"></span><br><span class="line">#编译安装</span><br><span class="line">[root@centos6 lamp]# cd php-7.2.1</span><br><span class="line">[root@centos6 php-7.2.1]#.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php-7.2.1 \</span><br><span class="line">--enable-mysqlnd \</span><br><span class="line">--with-mysqli&#x3D;mysqlnd \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-pdo-mysql&#x3D;mysqlnd \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-png-dir \</span><br><span class="line">--with-zlib \</span><br><span class="line">--with-libxml-dir&#x3D;&#x2F;usr \</span><br><span class="line">--enable-xml \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--with-config-file-path&#x3D;&#x2F;etc \</span><br><span class="line">--with-config-file-scan-dir&#x3D;&#x2F;etc&#x2F;php.d \</span><br><span class="line">--enable-maintainer-zts \</span><br><span class="line">--disable-fileinfo</span><br><span class="line">[root@centos6 php-7.2.1]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#准备配置文件</span><br><span class="line">[root@centos6 php-7.2.1]#cp php.ini-production &#x2F;etc&#x2F;php.ini  </span><br><span class="line">[root@centos6 php-7.2.1]#cp &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.conf.default &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.conf</span><br><span class="line">[root@centos6 php-7.2.1]#cp &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.d&#x2F;www.conf.default &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.d&#x2F;www.conf</span><br><span class="line"></span><br><span class="line">#创建服务脚本</span><br><span class="line">[root@centos6 php-7.2.1]#cp sapi&#x2F;fpm&#x2F;init.d.php-fpm &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;php-fpm </span><br><span class="line">[root@centos6 php-7.2.1]#chmod +x &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;php-fpm </span><br><span class="line">[root@centos6 php-7.2.1]#chkconfig --add php-fpm</span><br><span class="line">[root@centos6 php-7.2.1]#chkconfig php-fpm on</span><br><span class="line"></span><br><span class="line">#启动服务并查看监听端口</span><br><span class="line">[root@centos6 php-7.2.1]#service php-fpm start</span><br><span class="line">[root@centos6 php-7.2.1]# ss -ntl|grep 9000</span><br><span class="line">LISTEN     0      128               127.0.0.1:9000                     *:*</span><br></pre></td></tr></table></figure>
-
-<p>e、后续配置并测试lamp</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编辑配置文件httpd.conf，以支持php</span><br><span class="line">[root@centos6 ~]# vim &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;conf&#x2F;httpd.conf </span><br><span class="line">#取消以下模块的注释</span><br><span class="line">LoadModule proxy_module modules&#x2F;mod_proxy.so    </span><br><span class="line">LoadModule proxy_fcgi_module modules&#x2F;mod_proxy_fcgi.so </span><br><span class="line"></span><br><span class="line">#修改index文件为php格式</span><br><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">  DirectoryIndex index.php index.html  </span><br><span class="line">&lt;&#x2F;IfModule&gt;</span><br><span class="line"></span><br><span class="line">#新增内容</span><br><span class="line">AddType application&#x2F;x-httpd-php .php   </span><br><span class="line">AddType application&#x2F;x-httpd-php-source .phps</span><br><span class="line">ProxyRequests Off</span><br><span class="line">ProxyPassMatch ^&#x2F;(.*\.php)$ fcgi:&#x2F;&#x2F;localhost:9000&#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;$1</span><br><span class="line"></span><br><span class="line">#测试</span><br><span class="line">[root@centos6 ~]# cd &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs</span><br><span class="line">[root@centos6 htdocs]#vim info.php</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">浏览器访问测试 http:&#x2F;&#x2F;server_IP&#x2F;info.php</span><br></pre></td></tr></table></figure>
-
-<p>f、lamp实现wordpress应用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#创建wordpress数据库和账号</span><br><span class="line">[root@centos6 lamp]# mysql -uroot -p</span><br><span class="line">mysql&gt; create database blog;</span><br><span class="line">mysql&gt; grant all on blog.* to admin@&#39;localhost&#39; identified by &#39;123456&#39;;</span><br><span class="line"></span><br><span class="line">#安装wordpress并配置</span><br><span class="line">[root@centos6 lamp]# tar xvf wordpress-4.9.1-zh_CN.tar.gz</span><br><span class="line">[root@centos6 lamp]# mkdir &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;blog</span><br><span class="line">[root@centos6 lamp]# mv wordpress&#x2F;* &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;blog</span><br><span class="line">[root@centos6 lamp]#cd &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;blog</span><br><span class="line">[root@centos6 blog]# ls</span><br><span class="line">index.php        wp-admin              wp-content         wp-load.php      wp-signup.php</span><br><span class="line">license.txt      wp-blog-header.php    wp-cron.php        wp-login.php     wp-trackback.php</span><br><span class="line">readme.html      wp-comments-post.php  wp-includes        wp-mail.php      xmlrpc.php</span><br><span class="line">wp-activate.php  wp-config-sample.php  wp-links-opml.php  wp-settings.php</span><br><span class="line"></span><br><span class="line">浏览器访问测试 http:&#x2F;&#x2F;server_IP&#x2F;blog</span><br><span class="line"></span><br><span class="line">#压力测试</span><br><span class="line">[root@centos6 blog]#ab -c 20 -n 100 http:&#x2F;&#x2F;server_ip&#x2F;blog</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#解压缩</span><br><span class="line">[root@centos6 lamp]# tar zxvf mariadb-10.2.12-linux-x86_64.tar.gz </span><br><span class="line">[root@centos6 lamp]# mv mariadb-10.2.12 &#x2F;usr&#x2F;local</span><br><span class="line"></span><br><span class="line">#创建软连接，方便版本升级</span><br><span class="line">[root@centos6 lamp]# ln -sv &#x2F;usr&#x2F;local&#x2F;mariadb-10.2.12 &#x2F;usr&#x2F;local&#x2F;mysql </span><br><span class="line"></span><br><span class="line">#创建mysql用户</span><br><span class="line">[root@centos6 local]# useradd -r -s &#x2F;sbin&#x2F;nologin mysql </span><br><span class="line"></span><br><span class="line">#创建数据库目录并更改权限</span><br><span class="line">[root@centos6 local]# mkdir &#x2F;data&#x2F;mysqldb -pv</span><br><span class="line">[root@centos6 local]# chown -R mysql.mysql &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line"></span><br><span class="line">#初始化数据库</span><br><span class="line">[root@centos6 bin]# cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line">[root@centos6 mysql]# .&#x2F;scripts&#x2F;mysql_install_db --datadir&#x3D;&#x2F;data&#x2F;mysqldb --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#修改my.cnf配置文件</span><br><span class="line">[root@centos6 mysql]# cp support-files&#x2F;my-innodb-heavy-4G.cnf  &#x2F;etc&#x2F;my.cnf</span><br><span class="line">[root@centos6 mysql]# vim &#x2F;etc&#x2F;my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">port     &#x3D; 3306</span><br><span class="line">datadir  &#x3D; &#x2F;data&#x2F;maysqldb</span><br><span class="line"></span><br><span class="line">#创建开机自启动脚本</span><br><span class="line">[root@centos6 mysql]# cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;mysqld</span><br><span class="line">[root@centos6 mysql]# chkconfig --add mysqld</span><br><span class="line"></span><br><span class="line">#启动服务并查看监听端口</span><br><span class="line">[root@centos6 mysql]# service mysqld start</span><br><span class="line">[root@centos6 mysql]# ss -ntl|grep 3306</span><br><span class="line">LISTEN     0      50                       :::3306                    :::* </span><br><span class="line"></span><br><span class="line">#安全初始化mysql数据库</span><br><span class="line">[root@centos6 mysql]# .&#x2F;bin&#x2F;mysql_secure_installation</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
+<p>c、编译安装httpd</p>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#解压缩</span><br><span class="line">[root@centos6 lamp]# tar xf apr-1.6.3.tar.bz2 </span><br><span class="line">[root@centos6 lamp]# tar xf apr-util-1.6.1.tar.bz2 </span><br><span class="line">[root@centos6 lamp]# tar xf httpd-2.4.29.tar.bz2 </span><br><span class="line"></span><br><span class="line">#编译安装</span><br><span class="line">[root@centos6 lamp]# mv apr-1.6.3 httpd-2.4.29&#x2F;srclib&#x2F;apr</span><br><span class="line">[root@centos6 lamp]# mv apr-util-1.6.1 httpd-2.4.29&#x2F;srclib&#x2F;apr-util</span><br><span class="line">[root@centos6 lamp]# cd httpd-2.4.29</span><br><span class="line">[root@centos6 httpd-2.4.29]# .&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;httpd2.4 \</span><br><span class="line">&gt; --enable-so \</span><br><span class="line">&gt; --enable-ssl \</span><br><span class="line">&gt; --enable-cgi \</span><br><span class="line">&gt; --with-zlib \</span><br><span class="line">&gt; --with-pcre \</span><br><span class="line">&gt; --with-included-apr \</span><br><span class="line">&gt; --enable-modules&#x3D;most \</span><br><span class="line">&gt; --enable-mpms-shared&#x3D;all \</span><br><span class="line">&gt; --with-mpm&#x3D;prefork</span><br><span class="line">[root@centos6 http-2.4.29]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#创建程序运行用户</span><br><span class="line">[root@centos6 httpd-2.4.29]# useradd -r -s &#x2F;sbin&#x2F;nologin apache</span><br><span class="line"></span><br><span class="line">#修改运行httpd进程的用户身份</span><br><span class="line">[root@centos6 httpd-2.4.29]# vim &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;conf&#x2F;http.conf  </span><br><span class="line">User apache  </span><br><span class="line">Group apache</span><br><span class="line"></span><br><span class="line">#启动服务并查看监听端口</span><br><span class="line">[root@centos6 local]# &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;bin&#x2F;apachectl start</span><br><span class="line">[root@centos6 local]# ss -ntl|grep 80</span><br><span class="line">LISTEN     0      128                      :::80                      :::*</span><br></pre></td></tr></table></figure>
+
+<p>d、编译安装php</p>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#解压缩</span><br><span class="line">[root@centos6 lamp]# tar xvf php-7.2.1.tar.bz2</span><br><span class="line"></span><br><span class="line">#安装相关开发工具包</span><br><span class="line">[root@centos6 lamp]# yum install libxml2-devel bzip2-devel libmcrypt-devel openssl-devel -y</span><br><span class="line"></span><br><span class="line">#编译安装</span><br><span class="line">[root@centos6 lamp]# cd php-7.2.1</span><br><span class="line">[root@centos6 php-7.2.1]# .&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php-7.2.1 \</span><br><span class="line">--enable-mysqlnd \</span><br><span class="line">--with-mysqli&#x3D;mysqlnd \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-pdo-mysql&#x3D;mysqlnd \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-png-dir \</span><br><span class="line">--with-zlib \</span><br><span class="line">--with-libxml-dir&#x3D;&#x2F;usr \</span><br><span class="line">--enable-xml \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--with-config-file-path&#x3D;&#x2F;etc \</span><br><span class="line">--with-config-file-scan-dir&#x3D;&#x2F;etc&#x2F;php.d \</span><br><span class="line">--enable-maintainer-zts \</span><br><span class="line">--disable-fileinfo</span><br><span class="line">[root@centos6 php-7.2.1]# make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#准备配置文件</span><br><span class="line">[root@centos6 php-7.2.1]# cp php.ini-production &#x2F;etc&#x2F;php.ini  </span><br><span class="line">[root@centos6 php-7.2.1]# cp &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.conf.default &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.conf</span><br><span class="line">[root@centos6 php-7.2.1]# cp &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.d&#x2F;www.conf.default &#x2F;usr&#x2F;local&#x2F;php-7.2.1&#x2F;etc&#x2F;php-fpm.d&#x2F;www.conf</span><br><span class="line"></span><br><span class="line">#创建服务脚本</span><br><span class="line">[root@centos6 php-7.2.1]# cp sapi&#x2F;fpm&#x2F;init.d.php-fpm &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;php-fpm </span><br><span class="line">[root@centos6 php-7.2.1]# chmod +x &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;php-fpm </span><br><span class="line">[root@centos6 php-7.2.1]# chkconfig --add php-fpm</span><br><span class="line">[root@centos6 php-7.2.1]# chkconfig php-fpm on</span><br><span class="line"></span><br><span class="line">#启动服务并查看监听端口</span><br><span class="line">[root@centos6 php-7.2.1]# service php-fpm start</span><br><span class="line">[root@centos6 php-7.2.1]# ss -ntl|grep 9000</span><br><span class="line">LISTEN     0      128               127.0.0.1:9000                     *:*</span><br></pre></td></tr></table></figure>
+
+<p>e、后续配置并测试lamp</p>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编辑配置文件httpd.conf，以支持php</span><br><span class="line">[root@centos6 ~]# vim &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;conf&#x2F;httpd.conf </span><br><span class="line">#取消以下模块的注释</span><br><span class="line">LoadModule proxy_module modules&#x2F;mod_proxy.so    </span><br><span class="line">LoadModule proxy_fcgi_module modules&#x2F;mod_proxy_fcgi.so </span><br><span class="line"></span><br><span class="line">#修改index文件为php格式</span><br><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">  DirectoryIndex index.php index.html  </span><br><span class="line">&lt;&#x2F;IfModule&gt;</span><br><span class="line"></span><br><span class="line">#新增内容</span><br><span class="line">AddType application&#x2F;x-httpd-php .php   </span><br><span class="line">AddType application&#x2F;x-httpd-php-source .phps</span><br><span class="line">ProxyRequests Off</span><br><span class="line">ProxyPassMatch ^&#x2F;(.*\.php)$ fcgi:&#x2F;&#x2F;localhost:9000&#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;$1</span><br><span class="line"></span><br><span class="line">#测试</span><br><span class="line">[root@centos6 ~]# cd &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs</span><br><span class="line">[root@centos6 htdocs]#vim info.php</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">浏览器访问测试 http:&#x2F;&#x2F;server_IP&#x2F;info.php</span><br></pre></td></tr></table></figure>
+
+<p>f、lamp实现wordpress应用</p>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#创建wordpress数据库和账号</span><br><span class="line">[root@centos6 lamp]# mysql -uroot -p</span><br><span class="line">mysql&gt; create database blog;</span><br><span class="line">mysql&gt; grant all on blog.* to admin@&#39;localhost&#39; identified by &#39;123456&#39;;</span><br><span class="line"></span><br><span class="line">#安装wordpress并配置</span><br><span class="line">[root@centos6 lamp]# tar xvf wordpress-4.9.1-zh_CN.tar.gz</span><br><span class="line">[root@centos6 lamp]# mkdir &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;blog</span><br><span class="line">[root@centos6 lamp]# mv wordpress&#x2F;* &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;blog</span><br><span class="line">[root@centos6 lamp]#cd &#x2F;usr&#x2F;local&#x2F;httpd2.4&#x2F;htdocs&#x2F;blog</span><br><span class="line">[root@centos6 blog]# ls</span><br><span class="line">index.php        wp-admin              wp-content         wp-load.php      wp-signup.php</span><br><span class="line">license.txt      wp-blog-header.php    wp-cron.php        wp-login.php     wp-trackback.php</span><br><span class="line">readme.html      wp-comments-post.php  wp-includes        wp-mail.php      xmlrpc.php</span><br><span class="line">wp-activate.php  wp-config-sample.php  wp-links-opml.php  wp-settings.php</span><br><span class="line"></span><br><span class="line">浏览器访问测试 http:&#x2F;&#x2F;server_IP&#x2F;blog</span><br><span class="line"></span><br><span class="line">#压力测试</span><br><span class="line">[root@centos6 blog]#ab -c 20 -n 100 http:&#x2F;&#x2F;server_ip&#x2F;blog</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -587,40 +585,57 @@
   <entry>
     <title>nginx</title>
     <url>/2020/06/22/nginx/</url>
-    <content><![CDATA[<h4 id="Nginx介绍"><a href="#Nginx介绍" class="headerlink" title="Nginx介绍"></a>Nginx介绍</h4><blockquote>
+    <content><![CDATA[<h5 id="Nginx介绍"><a href="#Nginx介绍" class="headerlink" title="Nginx介绍"></a>Nginx介绍</h5><blockquote>
 <p>Nginx：engine X ，2002年，开源，商业版</p>
 <p>NGINX是免费，开源，高性能的HTTP和反向代理服务器，邮件代理服务器，通用TCP/UDP代理服务器</p>
 <p>解决C10K问题（10K Connections）</p>
 <p>官网：<a href="http://nginx.org（开源版）" target="_blank" rel="noopener">http://nginx.org（开源版）</a>&nbsp; &nbsp;  <a href="https://www.nginx.com" target="_blank" rel="noopener">https://www.nginx.com</a> (商业版)</p>
-<p>二次开发版：Tengine, OpenResty（章亦春）</p>
+<p>二次发行版：</p>
+<p>1、Tengine：由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。 Tengine的性能和稳定性已经在大型的网站如淘宝网，天猫商城等得到了很好的检验。它的最终目标是打造一个高效、稳定、安全、易用的Web平台。从2011年12月开始， Tengine成为<br>一个开源项目，官网 <a href="http://tengine.taobao.org/" target="_blank" rel="noopener">http://tengine.taobao.org/</a></p>
+<p>2、OpenResty：基于 Nginx 与 Lua 语言的高性能 Web平台，官网<a href="http://openresty.org/cn/" target="_blank" rel="noopener">http://openresty.org/cn/</a> </p>
 </blockquote>
-<h5 id="特性："><a href="#特性：" class="headerlink" title="特性："></a>特性：</h5><blockquote>
+<p><strong>特性：</strong></p>
+<blockquote>
 <p>模块化设计，较好的扩展性</p>
 <p>高可靠性</p>
 <p>支持热部署：不停机更新配置文件，升级版本，更换日志文件</p>
 <p>低内存消耗：10000个keep-alive连接模式下的非活动连接，仅需要2.5M内存</p>
 <p>event-driven,aio,mmap，sendfile</p>
 </blockquote>
-<h5 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h5><blockquote>
+<p><strong>基本功能：</strong></p>
+<blockquote>
 <p>静态资源的web服务器</p>
 <p>http协议反向代理服务器</p>
 <p>pop3/imap4协议反向代理服务器</p>
 <p>FastCGI(LNMP),uWSGI(python)等协议</p>
 <p>模块化（非DSO），如zip，SSL模块     DSO：动态加载</p>
 </blockquote>
-<h5 id="nginx的程序架构"><a href="#nginx的程序架构" class="headerlink" title="nginx的程序架构"></a>nginx的程序架构</h5><img src="/images/nginx/33Nginx.jpg" style="zoom: 33%;" />
+<p><strong>web服务相关的功能：</strong></p>
+<blockquote>
+<p>虚拟主机（ server）</p>
+<p>支持 keep-alive 和管道连接</p>
+<p>访问日志（支持基于日志缓冲提高其性能）</p>
+<p>url rewirte</p>
+<p>路径别名</p>
+<p>基于IP及用户的访问控制</p>
+<p>支持速率限制及并发数限制</p>
+<p>重新配置和在线升级而无须中断客户的工作进程<br>Memcached 的 GET 接口  </p>
+</blockquote>
+<h5 id="nginx架构"><a href="#nginx架构" class="headerlink" title="nginx架构"></a>nginx架构</h5><img src="/images/nginx/33Nginx.jpg" style="zoom: 33%;" />
 
 
 
-<h5 id="master-worker结构"><a href="#master-worker结构" class="headerlink" title="master/worker结构"></a>master/worker结构</h5><blockquote>
+<p><strong>master/worker结构</strong></p>
+<blockquote>
 <p>一个master进程：负载加载和分析配置文件、管理worker进程、平滑升级</p>
 <p>一个或多个worker进程：处理并响应用户请求</p>
 </blockquote>
-<h5 id="缓存相关的进程："><a href="#缓存相关的进程：" class="headerlink" title="缓存相关的进程："></a><strong>缓存相关的进程：</strong></h5><blockquote>
+<p><strong>缓存相关的进程：</strong></p>
+<blockquote>
 <p>cache loader：载入缓存对象​</p>
 <p>cache manager：管理缓存对象</p>
 </blockquote>
-<h5 id="nginx模块："><a href="#nginx模块：" class="headerlink" title="nginx模块："></a><strong>nginx模块：</strong></h5><blockquote>
+<h5 id="nginx模块"><a href="#nginx模块" class="headerlink" title="nginx模块"></a><strong>nginx模块</strong></h5><blockquote>
 <p>nginx高度模块化，但其模块早期不支持DSO机制；1.9.11版本支持动态装载和卸载</p>
 <p>核心模块：core module</p>
 <p>标准模块：</p>
@@ -631,7 +646,7 @@
 </ul>
 <p>第三方模块</p>
 </blockquote>
-<h5 id="nginx的功用："><a href="#nginx的功用：" class="headerlink" title="nginx的功用："></a><strong>nginx的功用：</strong></h5><ul>
+<h5 id="nginx功用"><a href="#nginx功用" class="headerlink" title="nginx功用"></a><strong>nginx功用</strong></h5><ul>
 <li>静态的web资源服务器：html，图片，js，css，txt等静态资源</li>
 <li>结合FastCGI/uWSGI/SCGI等协议反向代理动态资源请求</li>
 <li>http/https协议的反向代理</li>
@@ -642,15 +657,115 @@
 
 
 
-<h4 id="nginx的安装"><a href="#nginx的安装" class="headerlink" title="nginx的安装"></a>nginx的安装</h4><ul>
-<li><p>官方：<a href="http://nginx.org/packages/centos/7/x86_64/RPMS" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/x86_64/RPMS</a></p>
-</li>
-<li><p>Fedora-EPEL源：<a href="https://mirrors.aliyun.com/epel/7/x86_64/" target="_blank" rel="noopener">https://mirrors.aliyun.com/epel/7/x86_64/</a></p>
-</li>
-<li><p>编译安装：(Centos 7系统)</p>
-</li>
+<h5 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h5><ul>
+<li>官方：<a href="http://nginx.org/packages/centos/7/x86_64/RPMS" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/x86_64/RPMS</a></li>
+<li>Fedora-EPEL源：<a href="https://mirrors.aliyun.com/epel/7/x86_64/" target="_blank" rel="noopener">https://mirrors.aliyun.com/epel/7/x86_64/</a></li>
+<li>编译安装：(Centos 7系统)</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum -y install pcre-devel openssl-devel zlib-devel</span><br><span class="line"></span><br><span class="line">cd /usr/local/src</span><br><span class="line"></span><br><span class="line">wget  https://nginx.org/download/nginx-1.18.0.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf nginx-1.18.0.tar.gz</span><br><span class="line"></span><br><span class="line">cd nginx-1.18.0</span><br><span class="line"></span><br><span class="line">useradd -r nginx</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line">	--prefix=/usr/local/nginx \</span><br><span class="line">    --conf-path=/etc/nginx/nginx.conf \</span><br><span class="line">    --error-log-path=/var/log/nginx/error.log \</span><br><span class="line">    --http-log-path=/var/log/nginx/access.log \</span><br><span class="line">    --pid-path=/var/run/nginx.pid \</span><br><span class="line">    --lock-path=/var/run/nginx.lock \</span><br><span class="line">    --user=nginx \</span><br><span class="line">    --group=nginx \</span><br><span class="line">    --with-http_ssl_module \</span><br><span class="line">    --with-http_v2_module \</span><br><span class="line">    --with-http_dav_module \</span><br><span class="line">    --with-http_stub_status_module \</span><br><span class="line">    --with-threads \</span><br><span class="line">    --with-file-aio \</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum -y install pcre-devel openssl-devel zlib-devel</span><br><span class="line"></span><br><span class="line">cd /usr/local/src</span><br><span class="line"></span><br><span class="line">wget  https://nginx.org/download/nginx-1.18.0.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf nginx-1.18.0.tar.gz</span><br><span class="line"></span><br><span class="line">cd nginx-1.18.0</span><br><span class="line"></span><br><span class="line">useradd -r nginx</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line">	--prefix=/usr/local/nginx \</span><br><span class="line">    --conf-path=/etc/nginx/nginx.conf \</span><br><span class="line">    --error-log-path=/var/log/nginx/error.log \</span><br><span class="line">    --http-log-path=/var/log/nginx/access.log \</span><br><span class="line">    --pid-path=/var/run/nginx.pid \</span><br><span class="line">    --lock-path=/var/run/nginx.lock \</span><br><span class="line">    --user=nginx \</span><br><span class="line">    --group=nginx \</span><br><span class="line">    --with-http_ssl_module \</span><br><span class="line">    --with-http_v2_module \</span><br><span class="line">    --with-http_dav_module \</span><br><span class="line">    --with-http_stub_status_module \</span><br><span class="line">    --with-threads \</span><br><span class="line">    --with-file-aio \</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">编译安装nginx选项：</span><br><span class="line">--prefix=/etc/nginx 安装路径</span><br><span class="line"></span><br><span class="line">--sbin-path=/usr/sbin/nginx 指明nginx程序文件安装路径</span><br><span class="line"></span><br><span class="line">--conf-path=/etc/nginx/nginx.conf 主配置文件安装位置</span><br><span class="line"></span><br><span class="line">--error-log-path=/var/log/nginx/error.log 错误日志文件安装位置</span><br><span class="line"></span><br><span class="line">--http-log-path=/var/log/nginx/access.log 访问日志文件安装位置</span><br><span class="line"></span><br><span class="line">--pid-path=/var/run/nginx.pid 指明pid文件安装位置</span><br><span class="line"></span><br><span class="line">--lock-path=/var/run/nginx.lock 锁文件安装位置</span><br><span class="line"></span><br><span class="line">--http-client-body-temppath=/var/cache/nginx/client_temp 客户端body部分的临时文件存放路径，如果服务器允许客户端使用put方法提交大数据时，临时存放的磁盘路径</span><br><span class="line"></span><br><span class="line">--http-proxy-temp-path=/var/cache/nginx/proxy_temp 作为代理服务器，服务器响应报文的临时文件存放路径</span><br><span class="line"></span><br><span class="line">--http-fastcgi-temppath=/var/cache/nginx/fastcgi_temp 作为fastcgi代理服务器，服务器响应报文的临时文件存放路径</span><br><span class="line"></span><br><span class="line">--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp 作为uwsgi代理服务器，服务器响应报文的临时文件存放路径</span><br><span class="line"></span><br><span class="line">--http-scgi-temp-path=/var/cache/nginx/scgi_temp 作为scgi反代服务器，服务器响应报文的临时文件存放路径</span><br><span class="line"></span><br><span class="line">--user=nginx 指明以那个身份运行worker进程，主控master进程一般由root运行</span><br><span class="line"></span><br><span class="line">--group=nginx</span><br><span class="line"></span><br><span class="line">--with-http_ssl_module 表示把指定模块编译进来</span><br></pre></td></tr></table></figure>
+
+<p><strong>目录结构和命令</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#html是测试页， sbin是主程序</span><br><span class="line">ls &#x2F;usr&#x2F;local&#x2F;nginx&#x2F; </span><br><span class="line"></span><br><span class="line">Nginx：默认为启动nginx</span><br><span class="line">-h 查看帮助选项</span><br><span class="line">-V 查看版本和配置选项</span><br><span class="line">-t 测试nginx语法错误</span><br><span class="line">-c filename 指定配置文件(default: &#x2F;etc&#x2F;nginx&#x2F;nginx.conf)</span><br><span class="line">-s signal 发送信号给master进程， signal可为： stop, quit,</span><br><span class="line">reopen, reload 示例： -s stop 停止nginx -s reload 加载配置文件</span><br><span class="line">-g directives 在命令行中指明全局指令</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a><strong>nginx配置</strong></h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主配置文件： nginx.conf</span><br><span class="line">子配置文件： include conf.d&#x2F;*.conf</span><br><span class="line">fastcgi， uwsgi， scgi等协议相关的配置文件</span><br><span class="line">mime.types：支持的mime类型</span><br><span class="line"></span><br><span class="line">主配置文件的配置指令：</span><br><span class="line">directive value [value2 ...];</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">(1) 指令必须以分号结尾</span><br><span class="line">(2) 支持使用配置变量</span><br><span class="line">    内建变量：由Nginx模块引入，可直接引用</span><br><span class="line">    自定义变量：由用户使用set命令定义	set variable_name value;</span><br><span class="line">    引用变量：$variable_name</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="主配置文件结构"><a href="#主配置文件结构" class="headerlink" title="主配置文件结构"></a><strong>主配置文件结构</strong></h6><pre><code>main block：主配置段，即全局配置段，对http,mail都有效
+
+event {
+    ...
+} 事件驱动相关的配置
+
+http {
+    ...
+} http/https 协议相关配置段
+
+mail {
+    ...
+} mail 协议相关配置段
+
+stream {
+    ...
+} stream 服务器相关配置段</code></pre><h6 id="Main-全局配置段"><a href="#Main-全局配置段" class="headerlink" title="Main 全局配置段"></a><strong>Main 全局配置段</strong></h6><p><strong>常见的配置指令分类</strong></p>
+<blockquote>
+<p>a.正常运行必备的配置<br>b.优化性能相关的配置<br>c.用于调试及定位问题相关的配置<br>d.事件驱动相关的配置</p>
+</blockquote>
+<p>帮助文档： <a href="http://nginx.org/en/docs/ngx_core_module.html" target="_blank" rel="noopener">http://nginx.org/en/docs/ngx_core_module.html</a></p>
+<p>一、正常运行必备的配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、 user </span><br><span class="line">指定worker进程的运行身份，如组不指定，默认和用户名同名</span><br><span class="line">Syntax:  user user [group];</span><br><span class="line">Default: user nobody nobody;</span><br><span class="line">Context: main </span><br><span class="line"></span><br><span class="line">2、 pid &#x2F;PATH&#x2F;TO&#x2F;PID_FILE</span><br><span class="line">指定存储nginx主进程PID的文件路径</span><br><span class="line"></span><br><span class="line">3、 include file | mask</span><br><span class="line">指明包含进来的其它配置文件片断</span><br><span class="line"></span><br><span class="line">4、 load_module file</span><br><span class="line">模块加载配置文件： &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;modules&#x2F;*.conf</span><br><span class="line">指明要装载的动态模块路径: &#x2F;usr&#x2F;lib64&#x2F;nginx&#x2F;modules</span><br></pre></td></tr></table></figure>
+
+<p>二、性能优化相关的配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、 worker_processes number | auto</span><br><span class="line">worker进程的数量；通常应该为当前主机的cpu的物理核心数</span><br><span class="line"></span><br><span class="line">2、 worker_cpu_affinity auto [cpumask] </span><br><span class="line">提高缓存命中率</span><br><span class="line">    CPU MASK： </span><br><span class="line">        00000001： 0号CPU</span><br><span class="line">        00000010： 1号CPU</span><br><span class="line">        10000000： 8号CPU</span><br><span class="line">    worker_cpu_affinity 0001 0010 0100 1000;</span><br><span class="line">    worker_cpu_affinity 0101 1010;</span><br><span class="line"></span><br><span class="line">3、 worker_priority number</span><br><span class="line">指定worker进程的nice值，设定worker进程优先级： [-20,20]</span><br><span class="line"></span><br><span class="line">4、 worker_rlimit_nofile number</span><br><span class="line">worker进程所能够打开的文件数量上限,如65535</span><br></pre></td></tr></table></figure>
+
+
+<p>三、调试和定位问题：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、 daemon on|off</span><br><span class="line">是否以守护进程方式运行nignx，默认是守护进程方式</span><br><span class="line"></span><br><span class="line">2、 master_process on|off</span><br><span class="line">是否以master&#x2F;worker模型运行nginx；默认为on，off将不启动worker</span><br><span class="line"></span><br><span class="line">3、 error_log file [level]</span><br><span class="line">错误日志文件及其级别；出于调试需要， 可设定为debug；但debug仅在编译时使用了“--with-debug”选项时才有效</span><br><span class="line"></span><br><span class="line">方式： </span><br><span class="line">file &#x2F;path&#x2F;logfile</span><br><span class="line">stderr:发送到标准错误</span><br><span class="line">syslog:server-address[,parameter&#x3D;values]:发送到syslog</span><br><span class="line">memory:size 内存</span><br><span class="line"></span><br><span class="line">level:debug|info|notice|warn|error|crit|alter|emerg</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="events事件驱动相关配置"><a href="#events事件驱动相关配置" class="headerlink" title="events事件驱动相关配置"></a><strong>events事件驱动相关配置</strong></h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、 worker_connections number</span><br><span class="line">每个worker进程所能够打开的最大并发连接数数量，如10240</span><br><span class="line">总最大并发数： worker_processes * worker_connections</span><br><span class="line"></span><br><span class="line">2、 use method</span><br><span class="line">指明并发连接请求的处理方法,默认自动选择最优方法 use epoll;</span><br><span class="line"></span><br><span class="line">3、 accept_mutex on | off </span><br><span class="line">互斥处理新的连接请求的方法；on指由各个worker轮流处理新请求，Off指每个新请求的到达都会通知(唤醒)所有的worker进程，但只有一个进程可获得连接，造成“惊群”，影响性能</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="http协议相关配置"><a href="#http协议相关配置" class="headerlink" title="http协议相关配置"></a><strong>http协议相关配置</strong></h5><p>模块：ngx_http_core_module  </p>
+<pre><code>http {
+        ...
+            ... 公共配置
+    server {  每个server用于定义一个虚拟主机
+        ...
+        server_name 虚拟主机名
+        root 主目录
+        alias 路径别名
+        location [OPERATOR] URL { 指定URL的特性
+            ...
+            if CONDITION {
+            ...
+            }
+        }
+    }
+}</code></pre><h6 id="与套接字相关"><a href="#与套接字相关" class="headerlink" title="与套接字相关"></a>与套接字相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、默认监听端口 </span><br><span class="line">listen PORT|address[:port]|unix:&#x2F;PATH&#x2F;TO&#x2F;SOCKET_FILE</span><br><span class="line">listen address[:port] [default_server] [ssl] [http2|spdy] [backlog&#x3D;number] [rcvbuf&#x3D;size] [sndbuf&#x3D;size]</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    default_server 设定为默认虚拟主机</span><br><span class="line">    ssl 限制仅能够通过ssl连接提供服务</span><br><span class="line">    backlog&#x3D;number 超过并发连接数后，新请求进入后援队列的长度</span><br><span class="line">    rcvbuf&#x3D;size 接收缓冲区大小</span><br><span class="line">    sndbuf&#x3D;size 发送缓冲区大小</span><br><span class="line">注意：</span><br><span class="line">    (1) 基于port；</span><br><span class="line">    listen PORT; 指令监听在不同的端口</span><br><span class="line">    </span><br><span class="line">    (2) 基于ip的虚拟主机</span><br><span class="line">    listen IP:PORT; IP地址不同</span><br><span class="line">    </span><br><span class="line">    (3) 基于hostname</span><br><span class="line">    server_name fqdn; 指令指向不同的主机名</span><br><span class="line">    </span><br><span class="line">2、server_name name ...;</span><br><span class="line">虚拟主机的主机名称后可跟多个由空白字符分隔的字符串</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    支持*通配任意长度的任意字符</span><br><span class="line">    server_name *.example.com www.example.*</span><br><span class="line">    </span><br><span class="line">    支持~起始的字符做正则表达式模式匹配，性能原因慎用，\d 表示 [0-9]</span><br><span class="line">    server_name ~^www\d+\.example\.com$</span><br><span class="line">     </span><br><span class="line">匹配优先级机制从高到低：</span><br><span class="line">    (1) 首先是字符串精确匹配 如： www.example.com</span><br><span class="line">    (2) 左侧*通配符 如： *.example.com</span><br><span class="line">    (3) 右侧*通配符 如： www.example.*</span><br><span class="line">    (4) 正则表达式  如： ~^.*\.example\.com$</span><br><span class="line">    (5) default_server</span><br><span class="line">    </span><br><span class="line">3、tcp_nodelay on | off;</span><br><span class="line">在keepalived模式下的连接是否启用TCP_NODELAY选项，当为off时，延迟发送，合并多个请求后再发送</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    默认On，不延迟发送</span><br><span class="line">    可用于： http, server, location</span><br><span class="line"></span><br><span class="line">4、sendfile on | off;</span><br><span class="line">是否启用sendfile功能，在内核中封装报文直接发送</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">	默认Off</span><br><span class="line"></span><br><span class="line">5、server_tokens on | off | build | string</span><br><span class="line">是否在响应报文的Server首部显示nginx版本</span><br><span class="line"></span><br><span class="line">6、配置一个虚拟主机</span><br><span class="line">server &#123;</span><br><span class="line">    listen address[:PORT]|PORT;</span><br><span class="line">    server_name SERVER_NAME;</span><br><span class="line">    root &#x2F;PATH&#x2F;TO&#x2F;DOCUMENT_ROOT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="定义路径相关"><a href="#定义路径相关" class="headerlink" title="定义路径相关"></a>定义路径相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、root</span><br><span class="line">设置web资源的路径映射；用于指明请求的URL所对应的文档的目录路径，可用于http, server, location, if in location</span><br><span class="line"></span><br><span class="line">root  --&gt;  (http:&#x2F;&#x2F;example.com&#x2F;）</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	...</span><br><span class="line">	root &#x2F;data&#x2F;www&#x2F;vhost; </span><br><span class="line">	</span><br><span class="line">	#当用户发起请求访问 (http:&#x2F;&#x2F;example.com)&#x2F;images&#x2F;logo.jpg</span><br><span class="line">	#服务器端nginx将会查找本机对应的路径 (&#x2F;data&#x2F;www&#x2F;vhosts&#x2F;)images&#x2F;logo.jpg</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line">2、location </span><br><span class="line">location [ &#x3D; | ~ | ~* | ^~ ] uri &#123; ... &#125;</span><br><span class="line">location @name &#123; ... &#125;</span><br><span class="line">在一个server中location配置段可存在多个，用于实现从uri到文件系统的路径映射；ngnix会根据用户请求的URI来检查定义的所有location，并找出一个最佳匹配，而后应用其配置</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">server &#123;...</span><br><span class="line">	server_name example.com;</span><br><span class="line">	root &#x2F;var&#x2F;share&#x2F;nginx&#x2F;html; </span><br><span class="line">	location &#x2F;images&#x2F; &#123;</span><br><span class="line">		root &#x2F;data&#x2F;imgs&#x2F;; #访问&#x2F;images时，此配置匹配</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(http:&#x2F;&#x2F;example.com&#x2F;)images&#x2F;logo.jpg --&gt; (&#x2F;data&#x2F;imgs&#x2F;)images&#x2F;logo.jpg</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    &#x3D;：对URI做精确匹配；</span><br><span class="line">    location &#x3D; &#x2F; &#123;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">    http:&#x2F;&#x2F;www.example.com&#x2F; 匹配</span><br><span class="line">    http:&#x2F;&#x2F;www.magedu.com&#x2F;index.html 不匹配</span><br><span class="line">    </span><br><span class="line">    ^~：对URI的最左边部分做匹配检查，不区分字符大小写</span><br><span class="line">    </span><br><span class="line">    ~：对URI做正则表达式模式匹配，区分字符大小写</span><br><span class="line">    </span><br><span class="line">    ~*：对URI做正则表达式模式匹配，不区分字符大小写</span><br><span class="line">    </span><br><span class="line">    不带符号：匹配起始于此uri的所有的uri</span><br><span class="line">    </span><br><span class="line">匹配优先级从高到低：</span><br><span class="line">	&#x3D;, ^~, ～ &#x2F;～ *, 不带符号</span><br><span class="line">	</span><br><span class="line">3、alias path;</span><br><span class="line">路径别名，文档映射的另一种机制；仅能用于location上下文</span><br><span class="line"></span><br><span class="line">alias与root比较</span><br><span class="line">    location &#x2F;bbs&#x2F; &#123;</span><br><span class="line">        alias &#x2F;web&#x2F;forum&#x2F;;</span><br><span class="line">        # (http:&#x2F;&#x2F;example.com&#x2F;bbs)&#x2F;index.php --&gt; (&#x2F;web&#x2F;forum)&#x2F;index.php</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    location &#x2F;bbs&#x2F; &#123;</span><br><span class="line">        root &#x2F;web&#x2F;forum&#x2F;;</span><br><span class="line">         # (http:&#x2F;&#x2F;example.com)&#x2F;bbs&#x2F;index.php --&gt; (&#x2F;web&#x2F;forum)&#x2F;bbs&#x2F;index.php</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">注意： location中使用root指令和alias指令的意义不同</span><br><span class="line">(a) root，给定的路径对应于location中的&#x2F;uri&#x2F;左侧的&#x2F;</span><br><span class="line">(b) alias，给定的路径对应于location中的&#x2F;uri&#x2F;右侧的&#x2F;</span><br><span class="line"></span><br><span class="line">4、index file ...;</span><br><span class="line">指定默认网页文件，模块：ngx_http_index_module</span><br><span class="line"></span><br><span class="line">5、error_page code ... [&#x3D;[response]] uri;</span><br><span class="line">定义错误页， 以指定的响应状态码进行响应，模块：ngx_http_core_module</span><br><span class="line">可用位置： http, server, location, if in location</span><br><span class="line">示例：</span><br><span class="line">    error_page 404 &#x2F;404.html</span><br><span class="line">    error_page 404 &#x3D;200 &#x2F;404.html</span><br><span class="line">    </span><br><span class="line">6、try_files file</span><br><span class="line">try_files file ... uri;</span><br><span class="line">try_files file ... &#x3D;code;</span><br><span class="line">按顺序检查文件是否存在，返回第一个找到的文件或文件夹（结尾加斜线表示为文件夹），如果所有的文件或文件夹都找不到，会进行一个内部重定向到最后一个参数。只有最后一个参数可以引起一个内部重定向，之前的参数只设置内部URI的指向。最后一个参数是回退URI且必须存在，否则会出现内部500错误</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">location &#x2F;images&#x2F; &#123;</span><br><span class="line">try_files $uri &#x2F;images&#x2F;default.gif;</span><br><span class="line">&#125;</span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">try_files $uri $uri&#x2F;index.html $uri.html &#x3D;404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="定义客户端请求"><a href="#定义客户端请求" class="headerlink" title="定义客户端请求"></a>定义客户端请求</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、keepalive_timeout timeout [header_timeout];</span><br><span class="line">设定保持连接超时时长， 0表示禁止长连接， 默认为75s</span><br><span class="line"></span><br><span class="line">2、keepalive_requests number;</span><br><span class="line">在一次长连接上所允许请求的资源的最大数量</span><br><span class="line">默认为100</span><br><span class="line"></span><br><span class="line">3、keepalive_disable none | browser ...</span><br><span class="line">对哪种浏览器禁用长连接</span><br><span class="line"></span><br><span class="line">4、send_timeout time;</span><br><span class="line">向客户端发送响应报文的超时时长，此处是指两次写操作之间的间隔时长，而非整个响应过程的传输时长  </span><br><span class="line"></span><br><span class="line">5、client_body_buffer_size size;</span><br><span class="line">用于接收每个客户端请求报文的body部分的缓冲区大小；默认为16k；超出此大小时，其将被暂存到磁盘上的由下面client_body_temp_path指令所定义的位置</span><br><span class="line"></span><br><span class="line">6、client_body_temp_path path [level1 [level2[level3]]];</span><br><span class="line">设定用于存储客户端请求报文的body部分的临时存储路径及子目录结构和数量</span><br><span class="line"></span><br><span class="line">目录名为16进制的数字；</span><br><span class="line">1 #1级目录占1位16进制，即2^4&#x3D;16个目录 0-f</span><br><span class="line">2 #2级目录占2位16进制，即2^8&#x3D;256个目录 00-ff</span><br><span class="line">2 #3级目录占2位16进制， 即2^8&#x3D;256个目录 00-ff</span><br></pre></td></tr></table></figure>
+
+<h6 id="对客户端进行限制"><a href="#对客户端进行限制" class="headerlink" title="对客户端进行限制"></a>对客户端进行限制</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、limit_rate rate;</span><br><span class="line">限制响应给客户端的传输速率，单位是bytes&#x2F;second</span><br><span class="line">默认值0表示无限制</span><br><span class="line"></span><br><span class="line">2、limit_except method ... &#123; ... &#125;</span><br><span class="line">限制客户端使用除了指定的请求方法之外的其它方法，仅用于location</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">	method:GET, HEAD, POST, PUT, DELETE，MKCOL, COPY, MOVE, OPTIONS, PROPFIND，PROPPATCH, 	LOCK, UNLOCK, PATCH</span><br><span class="line"></span><br><span class="line">示例：除了GET和HEAD之外其它方法仅允许192.168.1.0&#x2F;24网段主机使用</span><br><span class="line">    limit_except GET &#123;</span><br><span class="line">    	allow 192.168.1.0&#x2F;24;</span><br><span class="line">    	deny all;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="文件操作优化"><a href="#文件操作优化" class="headerlink" title="文件操作优化"></a>文件操作优化</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、aio on | off | threads[&#x3D;pool];</span><br><span class="line">是否启用aio功能</span><br><span class="line"></span><br><span class="line">2、directio size | off;</span><br><span class="line">当文件大于等于给定大小时，例如directio 4m，同步（直接）写磁盘，而非写缓存</span><br><span class="line"></span><br><span class="line">3、open_file_cache off;</span><br><span class="line">open_file_cache max&#x3D;N [inactive&#x3D;time];</span><br><span class="line"></span><br><span class="line">说明：nginx可以缓存以下三种信息</span><br><span class="line">(1) 文件元数据：文件的描述符、文件大小和最近一次的修改时间</span><br><span class="line">(2) 打开的目录结构</span><br><span class="line">(3) 没有找到的或者没有权限访问的文件的相关信息</span><br><span class="line">(4) max&#x3D;N：可缓存的缓存项上限；达到上限后会使用LRU算法实现管理</span><br><span class="line">(5) inactive&#x3D;time 缓存项的非活动时长，在此处指定的时长内未被命中的或</span><br><span class="line">命中的次数少于open_file_cache_min_uses指令所指定的次数的缓存项，即为非活动项，将被删除</span><br><span class="line"></span><br><span class="line">3、open_file_cache_errors on | off;</span><br><span class="line">是否缓存查找时发生错误的文件一类的信息</span><br><span class="line">默认值为off</span><br><span class="line"></span><br><span class="line">4、open_file_cache_min_uses number;</span><br><span class="line">open_file_cache指令的inactive参数指定的时长内，至少被命中此处指定的次数方可被归类为活动项</span><br><span class="line">默认值为1</span><br><span class="line"></span><br><span class="line">5、open_file_cache_valid time;</span><br><span class="line">缓存项有效性的检查频率</span><br><span class="line">默认值为60s</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="访问控制功能相关配置"><a href="#访问控制功能相关配置" class="headerlink" title="访问控制功能相关配置"></a>访问控制功能相关配置</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_access_module 模块</span><br><span class="line"></span><br><span class="line">实现基于ip的访问控制功能</span><br><span class="line">1、 allow address | CIDR | unix: | all;</span><br><span class="line">2、 deny address | CIDR | unix: | all;</span><br><span class="line"></span><br><span class="line">context：http, server, location, limit_except</span><br><span class="line">自上而下检查，一旦匹配，将生效，条件严格的置前</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">    deny 192.168.1.1;</span><br><span class="line">    allow 192.168.1.0&#x2F;24;</span><br><span class="line">    allow 10.1.1.0&#x2F;16;</span><br><span class="line">    allow 2001:0db8::&#x2F;32;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">ngx_http_auth_basic_module模块</span><br><span class="line">实现基于用户的访问控制，使用basic机制进行用户认证</span><br><span class="line">1、 auth_basic string | off;</span><br><span class="line">2、 auth_basic_user_file file;</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">location &#x2F;admin&#x2F; &#123;</span><br><span class="line">    auth_basic &quot;Admin Area&quot;;</span><br><span class="line">    auth_basic_user_file &#x2F;etc&#x2F;nginx&#x2F;.ngxpasswd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">说明：用户口令文件</span><br><span class="line">1、明文文本：格式name:password:comment</span><br><span class="line">2、加密文本：由htpasswd命令实现，httpd-tools所提供</span><br></pre></td></tr></table></figure>
+
+<h6 id="输出日志相关"><a href="#输出日志相关" class="headerlink" title="输出日志相关"></a>输出日志相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_stub_status_module模块</span><br><span class="line"></span><br><span class="line">用于输出nginx的基本状态信息</span><br><span class="line"></span><br><span class="line">输出信息示例：</span><br><span class="line">Active connections: 291</span><br><span class="line">server accepts handled requests</span><br><span class="line">16630948 16630948 31070465</span><br><span class="line">Reading: 6 Writing: 179 Waiting: 106</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    Active connections:当前状态，活动状态的连接数</span><br><span class="line">    accepts：统计总值，已经接受的客户端请求的总数</span><br><span class="line">    handled：统计总值，已经处理完成的客户端请求的总数</span><br><span class="line">    requests：统计总值，客户端发来的总的请求数</span><br><span class="line">    Reading：当前状态，正在读取客户端请求报文首部的连接的连接数</span><br><span class="line">    Writing：当前状态，正在向客户端发送响应报文过程中的连接数</span><br><span class="line">    Waiting：当前状态，正在等待客户端发出请求的空闲连接数</span><br><span class="line">    </span><br><span class="line">    示例： stub_status</span><br><span class="line">    location &#x2F;status &#123;</span><br><span class="line">        stub_status;</span><br><span class="line">        allow 172.16.0.0&#x2F;16;</span><br><span class="line">        deny all;</span><br><span class="line">    &#125;</span><br><span class="line">--------------------------------------------------------   </span><br><span class="line">ngx_http_log_module模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1、 指定日志格式记录请求</span><br><span class="line">log_format name string ...; string可以使用nginx核心模块及其它模块内嵌的变量</span><br><span class="line">access_log path [format [buffer&#x3D;size] [gzip[&#x3D;level]] [flush&#x3D;time] [if&#x3D;condition]];</span><br><span class="line">access_log off;</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">	log_format compression &#39;$remote_addr-$remote_user [$time_local]&#39;</span><br><span class="line">	&#39;&quot;$request&quot; $status $bytes_sent &#39;</span><br><span class="line">	&#39;&quot;$http_referer&quot; &quot;$http_user_agent&quot; &quot;$gzip_ratio&quot;&#39;;</span><br><span class="line">	</span><br><span class="line">	access_log &#x2F;spool&#x2F;logs&#x2F;nginx-access.log compression buffer&#x3D;32k;</span><br><span class="line">	</span><br><span class="line">3、缓存各日志文件相关的元数据信息 </span><br><span class="line">open_log_file_cache max&#x3D;N [inactive&#x3D;time] [min_uses&#x3D;N] [valid&#x3D;time];</span><br><span class="line">open_log_file_cache off;</span><br><span class="line"></span><br><span class="line">说明:</span><br><span class="line">    max：缓存的最大文件描述符数量</span><br><span class="line">    min_uses：在inactive指定的时长内访问大于等于此值方</span><br><span class="line">    可被当作活动项</span><br><span class="line">    inactive：非活动时长</span><br><span class="line">    valid： 验证缓存中各缓存项是否为活动项的时间间隔</span><br></pre></td></tr></table></figure>
+
+<p>八、数据压缩相关</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_gzip_module</span><br><span class="line">用gzip方法压缩响应数据，节约带宽</span><br><span class="line"></span><br><span class="line">1、gzip on | off;</span><br><span class="line">启用或禁用gzip压缩</span><br><span class="line"></span><br><span class="line">2、gzip_comp_level level;</span><br><span class="line">压缩比由低到高： 1 到 9</span><br><span class="line">默认： 1</span><br><span class="line"></span><br><span class="line">3、gzip_disable regex ...;</span><br><span class="line">匹配到客户端浏览器不执行压缩</span><br><span class="line"></span><br><span class="line">4、gzip_min_length length;</span><br><span class="line">启用压缩功能的响应报文大小阈值</span><br><span class="line"></span><br><span class="line">5、gzip_http_version 1.0 | 1.1;</span><br><span class="line">设定启用压缩功能时，协议的最小版本，默认： 1.1</span><br><span class="line"></span><br><span class="line">6、gzip_buffers number size;</span><br><span class="line">支持实现压缩功能时缓冲区数量及每个缓存区的大小</span><br><span class="line">默认： 32 4k 或 16 8k</span><br><span class="line"></span><br><span class="line">7、gzip_types mime-type ...;</span><br><span class="line">指明仅对哪些类型的资源执行压缩操作；即压缩过滤器</span><br><span class="line">默认包含有text&#x2F;html，不用显示指定，否则出错</span><br><span class="line"></span><br><span class="line">8、gzip_vary on | off;</span><br><span class="line">如果启用压缩，是否在响应报文首部插入“Vary: AcceptEncoding”</span><br><span class="line"></span><br><span class="line">9、gzip_proxied off | expired | no-cache | no-store | private | no_last_modified | no_etag | auth | any ...;</span><br><span class="line">nginx充当代理服务器时，对于后端服务器的响应报文，在何种条件下启用压缩功能</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    off：不启用压缩</span><br><span class="line">    expired,no-cache, no-store， private：对后端服务器的响应报文首部Cache-Control值任何一个，启用</span><br><span class="line">    压缩功能</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">gzip on;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_min_length 64;</span><br><span class="line">gzip_proxied any;</span><br><span class="line">gzip_types text&#x2F;xml text&#x2F;css application&#x2F;javascript;</span><br></pre></td></tr></table></figure>
+
+<h6 id="ssl加密相关"><a href="#ssl加密相关" class="headerlink" title="ssl加密相关"></a>ssl加密相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_ssl_module模块：</span><br><span class="line"></span><br><span class="line">1、 ssl on | off;</span><br><span class="line">为指定虚拟机启用HTTPS protocol， 建议用listen指令代替</span><br><span class="line"></span><br><span class="line">2、 ssl_certificate file;</span><br><span class="line">当前虚拟主机使用PEM格式的证书文件</span><br><span class="line"></span><br><span class="line">3、 ssl_certificate_key file;</span><br><span class="line">当前虚拟主机上与其证书匹配的私钥文件</span><br><span class="line"></span><br><span class="line">4、 ssl_protocols [SSLv2] [SSLv3] [TLSv1] [TLSv1.1] [TLSv1.2];支持ssl协议版本，默认为后三个</span><br><span class="line"></span><br><span class="line">5、 ssl_session_cache off | none | [builtin[:size]] [shared:name:size];</span><br><span class="line"></span><br><span class="line">说明：	</span><br><span class="line">    none: 通知客户端支持ssl session cache，但实际不支持</span><br><span class="line">    builtin[:size]：使用OpenSSL内建缓存，为每worker进程私有</span><br><span class="line">    [shared:name:size]：在各worker之间使用一个共享的缓存</span><br><span class="line">    </span><br><span class="line">6、 ssl_session_timeout time;</span><br><span class="line">客户端连接可以复用ssl session cache中缓存的ssl参数的有效时长，默认5m</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name www.example.com;</span><br><span class="line">        root &#x2F;vhosts&#x2F;ssl&#x2F;htdocs;</span><br><span class="line">        ssl on;</span><br><span class="line">        ssl_certificate &#x2F;etc&#x2F;nginx&#x2F;ssl&#x2F;nginx.crt;</span><br><span class="line">        ssl_certificate_key &#x2F;etc&#x2F;nginx&#x2F;ssl&#x2F;nginx.key;</span><br><span class="line">        ssl_session_cache shared:sslcache:20m;</span><br><span class="line">        ssl_session_timeout 10m;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="重定向相关"><a href="#重定向相关" class="headerlink" title="重定向相关"></a>重定向相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_rewrite_module模块</span><br><span class="line"></span><br><span class="line">将用户请求的URI基于PCRE regex所描述的模式进行检查，而后完成重定向替换</span><br><span class="line"></span><br><span class="line">1、 rewrite regex replacement [flag]</span><br><span class="line">将用户请求的URI基于regex所描述的模式进行检查，匹配到时将其替换为replacement指定的新的URI</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">    如果在同一级配置块中存在多个rewrite规则，那么会自下而下逐个检查；被某条件规则替换完成后，会重新一轮的</span><br><span class="line">    替换检查</span><br><span class="line">    </span><br><span class="line">    隐含有循环机制,但不超过10次；如果超过，提示500响应码， [flag]所表示的标志位用于控制此循环机制</span><br><span class="line">    </span><br><span class="line">    如果replacement是以http:&#x2F;&#x2F;或https:&#x2F;&#x2F;开头，则替换结果会直接以重向返回给客户端, 即永久重定向301</span><br><span class="line">    </span><br><span class="line">    [flag]：</span><br><span class="line">    last：重写完成后停止对当前URI在当前location中后续的其它重写操作，而后对新的URI启动新一轮重写检查；</span><br><span class="line">    提前重启新一轮循环，不建议在location中使用</span><br><span class="line">    </span><br><span class="line">    break：重写完成后停止对当前URI在当前location中后续的其它重写操作，而后直接跳转至重写规则配置块之后</span><br><span class="line">    的其它配置；结束循环，建议在location中使用</span><br><span class="line">    </span><br><span class="line">    redirect：临时重定向，重写完成后以临时重定向方式直接返回重写后生成的新URI给客户端，由客户端重新发起请</span><br><span class="line">    求；使用相对路径,或者http:&#x2F;&#x2F;或https:&#x2F;&#x2F;开头，状态码： 302</span><br><span class="line">    </span><br><span class="line">    permanent:重写完成后以永久重定向方式直接返回重写后生成的新URI给客户端，由客户端重新发起请求，状态</span><br><span class="line">    码：301</span><br><span class="line">    </span><br><span class="line">2、 return</span><br><span class="line">return code [text];</span><br><span class="line">return code URL;</span><br><span class="line">return URL;</span><br><span class="line">停止处理，并返回给客户端指定的响应码</span><br><span class="line"></span><br><span class="line">3、 rewrite_log on | off;</span><br><span class="line">是否开启重写日志, 发送至error_log（ notice level）</span><br><span class="line"></span><br><span class="line">4、 set $variable value;</span><br><span class="line">用户自定义变量，注意变量定义和调用都要以$开头</span><br><span class="line"></span><br><span class="line">5、 if (condition) &#123; ... &#125;</span><br><span class="line">引入新的上下文,条件满足时，执行配置块中的配置指令； server, location</span><br><span class="line"></span><br><span class="line">说明：condition</span><br><span class="line">    比较操作符：</span><br><span class="line">        &#x3D; 相同</span><br><span class="line">        !&#x3D; 不同</span><br><span class="line">        ~：模式匹配，区分字符大小写</span><br><span class="line">        ~*：模式匹配，不区分字符大小写</span><br><span class="line">        !~：模式不匹配，区分字符大小写</span><br><span class="line">        !~*：模式不匹配，不区分字符大小写</span><br><span class="line">    文件及目录存在性判断：</span><br><span class="line">        -e, !-e 存在（包括文件，目录，软链接）</span><br><span class="line">        -f, !-f 文件</span><br><span class="line">        -d, !-d 目录</span><br><span class="line">        -x, !-x 执行</span><br></pre></td></tr></table></figure>
+
+<h6 id="防盗链相关"><a href="#防盗链相关" class="headerlink" title="防盗链相关"></a>防盗链相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_referer_module模块：</span><br><span class="line">用来阻止Referer首部无有效值的请求访问，可防止盗链</span><br><span class="line"></span><br><span class="line">1、 valid_referers none|blocked|server_names|string ...;定义referer首部的合法可用值，不能匹配的将是非法值</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    none：请求报文首部没有referer首部</span><br><span class="line">    blocked：请求报文有referer首部，但无有效值</span><br><span class="line">    server_names：参数，其可以有值作为主机名或主机名模式</span><br><span class="line">    arbitrary_string：任意字符串，但可使用*作通配符</span><br><span class="line">    regular expression：被指定的正则表达式模式匹配到的字符串,要使用~开头，例如： ~.*\.example\.com</span><br><span class="line">    </span><br><span class="line">示例：</span><br><span class="line">	valid_referers none block server_names *.example.com;</span><br><span class="line">	if ($invalid_referer) &#123;</span><br><span class="line">		return 403 http:&#x2F;&#x2F;www.example.com;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="反向代理proxy-pass"><a href="#反向代理proxy-pass" class="headerlink" title="反向代理proxy_pass"></a>反向代理proxy_pass</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_proxy_module模块：</span><br><span class="line"></span><br><span class="line">1、 proxy_pass URL;</span><br><span class="line">转发请求至另一台主机</span><br><span class="line">Context:location, if in location, limit_except</span><br><span class="line"></span><br><span class="line">注意： proxy_pass后面路径不带uri时，会将location的uri传递（附加）给后端主机</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    ...</span><br><span class="line">    server_name HOSTNAME;</span><br><span class="line">    location &#x2F;uri&#x2F; &#123;</span><br><span class="line">    proxy_pass http:&#x2F;&#x2F;host[:port];  #最后没有&#x2F;</span><br><span class="line">    #proxy_pass http:&#x2F;&#x2F;host[:port]&#x2F;; 意味着http:&#x2F;&#x2F;HOSTNAME&#x2F;uri --&gt; http:&#x2F;&#x2F;host&#x2F; 即置换</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">如果location定义其uri时使用了正则表达式的模式，则</span><br><span class="line">proxy_pass之后必须不能使用uri; 用户请求时传递的uri将直接附加至后端服务器之后</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        server_name HOSTNAME;</span><br><span class="line">        location ~|~* &#x2F;uri&#x2F; &#123;</span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;host; 不能加&#x2F;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">    http:&#x2F;&#x2F;HOSTNAME&#x2F;uri&#x2F; --&gt; http:&#x2F;&#x2F;host&#x2F;uri&#x2F;</span><br><span class="line">    </span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">2、 proxy_set_header field value;</span><br><span class="line">设定发往后端主机的请求报文的请求首部的值</span><br><span class="line">Context: http, server, location</span><br><span class="line"></span><br><span class="line">proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line"></span><br><span class="line">请求报文的标准格式如下：X-Forwarded-For: client1, proxy1, proxy2</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">3、 proxy_cache_path;</span><br><span class="line">定义可用于proxy功能的缓存</span><br><span class="line">Context:http</span><br><span class="line"></span><br><span class="line">proxy_cache_path path [levels&#x3D;levels] [use_temp_path&#x3D;on|off] keys_zone&#x3D;name:size [inactive&#x3D;time] [max_size&#x3D;size] [manager_files&#x3D;number] </span><br><span class="line">[manager_sleep&#x3D;time][manager_threshold&#x3D;time] [loader_files&#x3D;number] </span><br><span class="line">[loader_sleep&#x3D;time] [loader_threshold&#x3D;time] [purger&#x3D;on|off] </span><br><span class="line">[purger_files&#x3D;number][purger_sleep&#x3D;time] [purger_threshold&#x3D;time];</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">4、 proxy_cache zone | off; 默认off</span><br><span class="line">指明调用的缓存，或关闭缓存机制</span><br><span class="line">Context:http,server, location</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">5、 proxy_cache_key string;</span><br><span class="line">缓存中用于“键”的内容</span><br><span class="line">默认值： proxy_cache_key $scheme$proxy_host$request_uri;</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">6、 proxy_cache_valid [code ...] time;</span><br><span class="line">定义对特定响应码的响应内容的缓存时长</span><br><span class="line">定义在http&#123;...&#125;中</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">    proxy_cache_valid 200 302 10m;</span><br><span class="line">    proxy_cache_valid 404 1m;</span><br><span class="line">    </span><br><span class="line">示例：在http配置定义缓存信息</span><br><span class="line">    proxy_cache_path &#x2F;var&#x2F;cache&#x2F;nginx&#x2F;proxy_cache levels&#x3D;1:1:1 keys_zone&#x3D;proxycache:20m</span><br><span class="line">    inactive&#x3D;120s max_size&#x3D;1g;</span><br><span class="line"></span><br><span class="line">说明:</span><br><span class="line">	proxycache:20m 指内存中缓存的大小，主要用于存放key和metadata（如：使用次数）</span><br><span class="line">    max_size&#x3D;1g 指磁盘存入文件内容的缓存空间最大值</span><br><span class="line">    </span><br><span class="line">    调用缓存功能，需要定义在相应的配置段，如server&#123;...&#125;；</span><br><span class="line">    proxy_cache proxycache;</span><br><span class="line">    proxy_cache_key $request_uri;</span><br><span class="line">    proxy_cache_valid 200 302 301 1h;</span><br><span class="line">    proxy_cache_valid any 1m;</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">7、 proxy_cache_use_stale;</span><br><span class="line">proxy_cache_use_stale error | timeout | invalid_header | updating | http_500 | http_502 |</span><br><span class="line">http_503 | http_504 | http_403 | http_404 | off ...</span><br><span class="line">在被代理的后端服务器出现哪种情况下，可以真接使用过期的缓存响应客户端</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">8、 proxy_cache_methods GET | HEAD | POST ...;</span><br><span class="line">对哪些客户端请求方法对应的响应进行缓存， GET和HEAD方法总是被缓存</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">9、 proxy_hide_header field;</span><br><span class="line">默认nginx在响应报文不传递后端服务器的首部字段Date,Server, X-Pad, X-Accel-等，用于隐藏后端服务器特定的响应首部</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">10、 proxy_connect_timeout time;</span><br><span class="line">定义与后端服务器建立连接的超时时长，如超时会出现502错误，默认为60s，一般不建议超出75s</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">11、 proxy_send_timeout time;</span><br><span class="line">将请求发送给后端服务器的超时时长；默认为60s</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">12、 proxy_read_timeout time;</span><br><span class="line">等待后端服务器发送响应报文的超时时长， 默认为60s</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="定义服务器组upstream"><a href="#定义服务器组upstream" class="headerlink" title="定义服务器组upstream"></a>定义服务器组upstream</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_upstream_module模块</span><br><span class="line">用于将多个服务器定义成服务器组，而由proxy_pass,fastcgi_pass等指令进行引用</span><br><span class="line"></span><br><span class="line">1、 upstream name &#123; ... &#125;</span><br><span class="line">定义后端服务器组，会引入一个新的上下文,默认调度算法是wrr</span><br><span class="line">Context: http</span><br><span class="line"></span><br><span class="line">upstream httpdsrvs &#123;</span><br><span class="line">    server ...</span><br><span class="line">    server...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    server address [parameters];</span><br><span class="line">    在upstream上下文中server成员，以及相关的参数；Context:upstream</span><br><span class="line">    </span><br><span class="line">    address的表示格式：</span><br><span class="line">        unix:&#x2F;PATH&#x2F;TO&#x2F;SOME_SOCK_FILE</span><br><span class="line">        IP[:PORT]</span><br><span class="line">        HOSTNAME[:PORT]</span><br><span class="line">    parameters：</span><br><span class="line">        weight&#x3D;number 权重，默认为1</span><br><span class="line">        max_conns 连接后端报务器最大并发活动连接数， 1.11.5后支持</span><br><span class="line">        max_fails&#x3D;number 失败尝试最大次数；超出此处指定的次数时，server将被标记为不可用,默认为1</span><br><span class="line">   		fail_timeout&#x3D;time 后端服务器标记为不可用状态的连接超时时长，默认10s</span><br><span class="line">		backup 将服务器标记为“备用”，即所有服务器均不可用时才启用</span><br><span class="line">		down 标记为“不可用”，配合ip_hash使用，实现灰度发布</span><br><span class="line">		</span><br><span class="line">    ip_hash 源地址hash调度方法</span><br><span class="line">    </span><br><span class="line">    least_conn 最少连接调度算法，当server拥有不同的权重时其为wlc，当所有后端主机连接数相同时，则使用</span><br><span class="line">    wrr，适用于长连接</span><br><span class="line">    </span><br><span class="line">    hash key [consistent] 基于指定的key的hash表来实现对请求的调度，此处的key可以直接文本、变量或二者</span><br><span class="line">    组合</span><br><span class="line">    </span><br><span class="line">    作用：将请求分类，同一类请求将发往同一个upstream server，使用consistent参数， 将使用ketama一致性</span><br><span class="line">    hash算法，</span><br><span class="line">    </span><br><span class="line">    适用于后端是Cache服务器（如varnish）时使用</span><br><span class="line">    hash $request_uri consistent;</span><br><span class="line">    hash $remote_addr;</span><br><span class="line">    </span><br><span class="line">    keepalive 连接数N;</span><br><span class="line">    为每个worker进程保留的空闲的长连接数量,可节约nginx端口，并减少连接管理的消耗</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="传输层调度器stream"><a href="#传输层调度器stream" class="headerlink" title="传输层调度器stream"></a>传输层调度器stream</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_stream_core_module模块</span><br><span class="line">模拟反代基于tcp或udp的服务连接，即工作于传输层的反代或调度器</span><br><span class="line"></span><br><span class="line">1、 stream &#123; ... &#125;</span><br><span class="line">定义stream相关的服务</span><br><span class="line">Context:main</span><br><span class="line"></span><br><span class="line">stream &#123;</span><br><span class="line">    upstream mysqlsrvs &#123;</span><br><span class="line">        server 192.168.22.2:3306;</span><br><span class="line">        server 192.168.22.3:3306;</span><br><span class="line">        least_conn;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 10.1.0.6:3306;</span><br><span class="line">        proxy_pass mysqlsrvs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">说明：listen</span><br><span class="line">	listen address:port [ssl] [udp] [proxy_protocol] [backlog&#x3D;number] </span><br><span class="line">	[bind] [ipv6only&#x3D;on|off] [reuseport]</span><br><span class="line">	[so_keepalive&#x3D;on|off|[keepidle]:[keepintvl]:[keepcnt]];</span><br><span class="line"></span><br><span class="line">----------------------------------------------------</span><br><span class="line"></span><br><span class="line">2、ngx_stream_proxy_module模块</span><br><span class="line">可实现代理基于TCP， UDP (1.9.13), UNIX-domain，sockets的数据流</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    proxy_pass address;</span><br><span class="line">    指定后端服务器地址</span><br><span class="line"> 	</span><br><span class="line"> 	proxy_timeout timeout;</span><br><span class="line">    无数据传输时，保持连接状态的超时时长，默认为10m</span><br><span class="line">    </span><br><span class="line">    proxy_connect_timeout time;</span><br><span class="line">    设置nginx与被代理的服务器尝试建立连接的超时时长，默认为60s</span><br><span class="line"></span><br><span class="line">----------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="自定义响应报文首部"><a href="#自定义响应报文首部" class="headerlink" title="自定义响应报文首部"></a>自定义响应报文首部</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_headers_module模块</span><br><span class="line">向由代理服务器响应给客户端的响应报文添加自定义首部，或修改指定首部的值</span><br><span class="line"></span><br><span class="line">1、 add_header name value [always];</span><br><span class="line">添加自定义首部</span><br><span class="line">add_header X-Via $server_addr;</span><br><span class="line">add_header X-Cache $upstream_cache_status;</span><br><span class="line">add_header X-Accel $server_name;</span><br><span class="line"></span><br><span class="line">2、 add_trailer name value [always];</span><br><span class="line">添加自定义响应信息的尾部</span><br></pre></td></tr></table></figure>
+
+<h6 id="fastcgi相关"><a href="#fastcgi相关" class="headerlink" title="fastcgi相关"></a>fastcgi相关</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngx_http_fastcgi_module模块</span><br><span class="line">转发请求到FastCGI服务器，不支持php模块方式</span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">1、 fastcgi_pass address;</span><br><span class="line">address为后端的fastcgi server的地址</span><br><span class="line">可用位置： location, if in location</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">2、 fastcgi_index name;</span><br><span class="line">fastcgi默认的主页资源</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line">3、 fastcgi_param parameter value [if_not_empty];</span><br><span class="line">设置传递给 FastCGI服务器的参数值，可以是文本，变量或组合</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">	1）在后端服务器先配置fpm server和mariadb-server</span><br><span class="line">	2）在前端nginx服务上做以下配置：</span><br><span class="line">    location ~* \.php$ &#123;</span><br><span class="line">        fastcgi_pass 后端fpm服务器IP:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html$fastcgi_script_name;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">        …</span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">       </span><br><span class="line">示例2：通过&#x2F;pm_status和&#x2F;ping来获取fpm server状态信息</span><br><span class="line">	location ~* ^&#x2F;(pm_status|ping)$ &#123;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">        fastcgi_pass 后端fpm服务器IP:9000;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">4、 fastcgi_cache_path path [levels&#x3D;levels] [use_temp_path&#x3D;on|off] keys_zone&#x3D;name:size [inactive&#x3D;time] [max_size&#x3D;size] [manager_files&#x3D;number] [manager_sleep&#x3D;time] [manager_threshold&#x3D;time] [loader_files&#x3D;number] [loader_sleep&#x3D;time] [loader_threshold&#x3D;time][purger&#x3D;on|off] [purger_files&#x3D;number] </span><br><span class="line">[purger_sleep&#x3D;time][purger_threshold&#x3D;time];</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">    path 缓存位置为磁盘上的文件系统</span><br><span class="line">    max_size&#x3D;size 磁盘path路径中用于缓存数据的缓存空间上限</span><br><span class="line">    levels&#x3D;levels：缓存目录的层级数量，以及每一级的目录数量</span><br><span class="line">    levels&#x3D;ONE:TWO:THREE</span><br><span class="line">    keys_zone&#x3D;name:size   k&#x2F;v映射的内存空间的名称及大小</span><br><span class="line">    inactive&#x3D;time 非活动时长</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">5、 fastcgi_cache zone | off;</span><br><span class="line">调用指定的缓存空间来缓存数据</span><br><span class="line">可用位置： http, server, location</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">6、 fastcgi_cache_key string;</span><br><span class="line">定义用作缓存项的key的字符串</span><br><span class="line">示例： fastcgi_cache_key $request_rui;</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">7、 fastcgi_cache_methods GET | HEAD | POST ...;</span><br><span class="line">为哪些请求方法使用缓存</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">8、 fastcgi_cache_min_uses number;</span><br><span class="line">缓存空间中的缓存项在inactive定义的非活动时间内至少要被访问到</span><br><span class="line">此处所指定的次数方可被认作活动项</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">9、 fastcgi_keep_conn on | off;</span><br><span class="line">收到后端服务器响应后， fastcgi服务器是否关闭连接，建议启用长连接</span><br><span class="line"></span><br><span class="line">----------------------------------------------</span><br><span class="line"></span><br><span class="line">10、 fastcgi_cache_valid [code ...] time;</span><br><span class="line">不同的响应码各自的缓存时长</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">http &#123;</span><br><span class="line">    fastcgi_cache_path &#x2F;var&#x2F;cache&#x2F;nginx&#x2F;fcgi_cache levels&#x3D;1:2:1 keys_zone&#x3D;fcgicache:20m inactive&#x3D;120s;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">    	location ~* \.php$ &#123;</span><br><span class="line">        	...</span><br><span class="line">            fastcgi_cache fcgicache;</span><br><span class="line">            fastcgi_cache_key $request_uri;</span><br><span class="line">            fastcgi_cache_valid 200 302 10m;</span><br><span class="line">            fastcgi_cache_valid 301 1h;</span><br><span class="line">            fastcgi_cache_valid any 1m;</span><br><span class="line">            ...</span><br><span class="line">     	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -1745,6 +1860,114 @@ code.google.com</code></pre></li>
 <blockquote>
 <p>DROP TRIGGER trigger_name;  </p>
 </blockquote>
+<h5 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h5><p>索引是特殊数据结构：定义在查找时作为查找条件的字段</p>
+<p>优点：提高查询速度，缺点：占用额外空间，影响插入速度</p>
+<p>索引实现在存储引擎</p>
+<p>索引类型：</p>
+<blockquote>
+<p>聚簇（集）索引、非聚簇索引：数据是否与索引存储在一起</p>
+<p>主键索引、辅助索引</p>
+<p>稠密索引、稀疏索引：是否索引了每一个数据项</p>
+<p>B+ TREE、 HASH、 R TREE</p>
+<p>简单索引、组合索引</p>
+<p>左前缀索引：取前面的字符做索引</p>
+<p>覆盖索引：从索引中即可取出要查询的数据，性能高  </p>
+</blockquote>
+<p>聚簇和非聚簇索引，主键和二级索引  </p>
+<img src="/images/mysql2/mysql10.jpg" style="zoom: 33%;" />
+
+<p><strong>B+TREE索引</strong>  </p>
+<p>1、B+ Tree索引：顺序存储，每一个叶子节点到根结点的距离是相同的；左前缀索引，适合查询范围类的数据</p>
+<p>2、可以使用B-Tree索引的查询类型：</p>
+<blockquote>
+<p>全值匹配：精确所有索引列，如：姓wang，名xiaochun，年龄30</p>
+<p>匹配最左前缀：即只使用索引的第一列，如：姓wang</p>
+<p>匹配列前缀：只匹配一列值开头部分，如：姓以w开头的</p>
+<p>匹配范围值：如：姓ma和姓wang之间</p>
+<p>精确匹配某一列并范围匹配另一列：如：姓wang,名以x开头的</p>
+<p>只访问索引的查询  </p>
+</blockquote>
+<img src="/images/mysql2/mysql9.jpg" style="zoom:33%;" />
+
+<img src="/images/mysql2/mysql11.jpg" style="zoom: 33%;" />
+
+<p>3、B-Tree索引的限制：</p>
+<blockquote>
+<p>如果不从最左列开始，则无法使用索引：如：查找名为xiaochun，或姓为g结尾</p>
+<p>不能跳过索引中的列：如：查找姓wang,年龄30的，只能使用索引第一列</p>
+<p>如果查询中某个列是为范围查询，那么其右侧的列都无法再使用索引：如：姓wang,名x%,年龄30，只能利用姓和名上面的索引</p>
+<p>特别提示：<br>a. 索引列的顺序和查询语句的写法应相匹配，才能更好的利用索引</p>
+<p>b. 为优化性能，可能需要针对相同的列但顺序不同创建不同<br>的索引来满足不同类型的查询需求  </p>
+</blockquote>
+<p><strong>Hash索引</strong></p>
+<p>Hash索引：基于哈希表实现，只有精确匹配索引中的所有列的查询才有效，索引自身只存储索引列对应的哈希值和数据指针，索引结构紧凑，查询性能好</p>
+<p>只有Memory存储引擎支持显式hash索引</p>
+<p>适用场景：只支持等值比较查询，包括=, IN(), &lt;=&gt;</p>
+<p>不适合使用hash索引的场景：</p>
+<blockquote>
+<p>不适用于顺序查询：索引存储顺序的不是值的顺序</p>
+<p>不支持模糊匹配</p>
+<p>不支持范围查询</p>
+<p>不支持部分索引列匹配查找：如A， B列索引，只查询A列索引<br>无效  </p>
+</blockquote>
+<p><strong>空间索引（ R-Tree）：</strong></p>
+<p>MyISAM支持空间索引，可以使用任意维度组合查询，使用特有的函数访问，常用于做地理数据存储，使用不多</p>
+<p><strong>全文索引(FULLTEXT)：</strong>在文本中查找关键词，而不是直接比较索引中的值，类似搜索引擎</p>
+<p><strong>索引优点：</strong></p>
+<blockquote>
+<p>索引可以降低服务需要扫描的数据量，减少了IO次数<br>索引可以帮助服务器避免排序和使用临时表<br>索引可以帮助将随机I/O转为顺序I/O  </p>
+</blockquote>
+<p><strong>优化索引策略</strong>：</p>
+<blockquote>
+<p>独立地使用列：尽量避免其参与运算，独立的列指索引列不能是表达式的一部分，也不能是函数的参数，在where条件中，始终将索引列单独放在比较符号的一侧</p>
+<p>左前缀索引：构建指定索引字段的左侧的字符数，要通过索引选择性来评估</p>
+<p>索引选择性：不重复的索引值和数据表的记录总数的比值</p>
+<p>多列索引： AND操作时更适合使用多列索引，而非为每个列创建单独的索引</p>
+<p>选择合适的索引列顺序：无排序和分组时，将选择性最高放左侧</p>
+<p>冗余和重复索引：（ A），（ A， B）即为冗余索引，不好的索引使用策略，建议扩展索引，而非冗余  </p>
+<p>只要列中含有NULL值，就最好不要在此例设置索引，复合索引如果有NULL值，此列在使用时也不会使用索引</p>
+<p>尽量使用短索引，如果可以，应该制定一个前缀长度</p>
+<p>对于经常在where子句使用的列，最好设置索引</p>
+<p>对于有多个列where或者order by子句，应该建立复合索引</p>
+<p>对于like语句，以%或者‘-’开头的不会使用索引，以%结尾会使用索引</p>
+<p>尽量不要在列上进行运算（函数操作和表达式操作）</p>
+<p>尽量不要使用not in和&lt;&gt;操作  </p>
+</blockquote>
+<p><strong>通过EXPLAIN来分析索引的有效性：</strong></p>
+<blockquote>
+<p>EXPLAIN SELECT clause<br>获取查询执行计划信息，用来查看查询优化器如何执行查询</p>
+<p>输出信息说明：参考 <a href="https://dev.mysql.com/doc/refman/5.7/en/explainoutput.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/explainoutput.html</a></p>
+<p>id: 当前查询语句中，每个SELECT语句的编号</p>
+<p>复杂类型的查询有三种：<br>1、简单子查询<br>2、用于FROM中的子查询<br>3、联合查询： UNION</p>
+<p>注意： UNION查询的分析结果会出现一个额外匿名临时表  </p>
+<p>select_type：简单查询为SIMPLE</p>
+<p>复杂查询：<br>SUBQUERY: 简单子查询<br>PRIMARY:最外面的SELECT<br>DERIVED: 用于FROM中的子查询<br>UNION： UNION语句的第一个之后的SELECT语句<br>UNION RESULT: 匿名临时表</p>
+<p>table： SELECT语句关联到的  </p>
+<p>type：关联类型或访问类型，即MySQL决定的如何去查询表中的行的方式，以下顺序，性能从低到高<br>1、ALL: 全表扫描<br>2、index：根据索引的次序进行全表扫描；如果在Extra列出现<br>“Using index”表示了使用覆盖索引，而非全表扫描<br>3、range：有范围限制的根据索引实现范围扫描；扫描位置始于索引中的某一点，结束于另一点<br>4、ref: 根据索引返回表中匹配某单个值的所有行<br>5、eq_ref：仅返回一个行，但与需要额外与某个参考值做比较<br>6、const, system: 直接返回单个行</p>
+<p>possible_keys：查询可能会用到的索引</p>
+<p>key: 查询中使用到的索引</p>
+<p>key_len: 在索引使用的字节数  </p>
+<p>ref: 在利用key字段所表示的索引完成查询时所用的列或某常<br>量值</p>
+<p>rows： MySQL估计为找所有的目标行而需要读取的行数</p>
+<p>Extra：额外信息<br>Using index： MySQL将会使用覆盖索引，以避免访问表<br>Using where： MySQL服务器将在存储引擎检索后，再进行一次过滤<br>Using temporary： MySQL对结果排序时会使用临时表<br>Using filesort：对结果使用一个外部索引排  </p>
+</blockquote>
+<p><strong>管理索引</strong></p>
+<blockquote>
+<p>创建索引：<br>CREATE INDEX index_name ON tbl_name (index_col_name,…);<br>help CREATE INDEX</p>
+<p>删除索引：<br>DROP INDEX index_name ON tbl_name;</p>
+<p>查看索引：<br>SHOW INDEXES FROM [db_name.]tbl_name;</p>
+<p>优化表空间：<br>OPTIMIZE TABLE tb_name  </p>
+</blockquote>
+<p><strong>SQL语句性能优化</strong></p>
+<blockquote>
+<p>查询时，能不要就✬不用✬，尽量写全字段名</p>
+<p>大部分情况连接效率远大于子查询</p>
+<p>多表连接时，尽量小表驱动大表，即小表 join 大表</p>
+<p>在千万级分页时使用limit</p>
+<p>对于经常使用的查询，可以开启缓存</p>
+<p>多使用explain和profile分析查询语句</p>
+<p>查看慢查询日志，找出执行时间长的sql语句优化  </p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -1756,10 +1979,10 @@ code.google.com</code></pre></li>
   <entry>
     <title>MySQL（三）</title>
     <url>/2020/06/26/mysql3/</url>
-    <content><![CDATA[<h4 id="MySQL-Server"><a href="#MySQL-Server" class="headerlink" title="MySQL Server"></a><strong>MySQL Server</strong></h4><h5 id="设置系统变量三种方法"><a href="#设置系统变量三种方法" class="headerlink" title="设置系统变量三种方法"></a><strong>设置系统变量三种方法</strong></h5><p>① 在命令行中设置:<br>shell&gt; ./mysqld_safe –aria_group_commit=”hard“</p>
+    <content><![CDATA[<h5 id="设置系统变量"><a href="#设置系统变量" class="headerlink" title="设置系统变量"></a><strong>设置系统变量</strong></h5><p>✱ 三种方式<br>① 在命令行中设置:<br>shell&gt; ./mysqld_safe –aria_group_commit=”hard“</p>
 <p>② 在配置文件my.cnf中设置：aria_group_commit = “hard”</p>
 <p>③ 在mysql客户端使用SET命令：SET GLOBAL aria_group_commit=”hard”;  </p>
-<h5 id="服务器端变量设置"><a href="#服务器端变量设置" class="headerlink" title="服务器端变量设置"></a><strong>服务器端变量设置</strong></h5><p>✱ 修改服务器变量的值：mysql&gt; help SET</p>
+<p>✱ 修改服务器变量的值：mysql&gt; help SET</p>
 <p>✱ 修改全局变量：仅对修改后新创建的会话有效；对已经建立的会话无效<br>mysql&gt; SET GLOBAL system_var_name=value;<br>mysql&gt; SET @@global.system_var_name=value;</p>
 <p>✱ 修改会话变量：<br>mysql&gt; SET [SESSION] system_var_name=value;<br>mysql&gt; SET @@[session.]system_var_name=value;</p>
 <p>✱状态变量（只读）：用于保存mysqld运行中的统计数据的变量，不可更改<br>mysql&gt; SHOW GLOBAL STATUS;<br>mysql&gt; SHOW [SESSION] STATUS;  </p>
@@ -1823,6 +2046,154 @@ code.google.com</code></pre></li>
 <p><strong>命中率</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">命中率和内存使用率估算</span><br><span class="line">query_cache_min_res_unit ≈ (query_cache_size -Qcache_free_memory) &#x2F;Qcache_queries_in_cache</span><br><span class="line"></span><br><span class="line">查询缓存命中率 ≈ (Qcache_hits – Qcache_inserts) &#x2F; Qcache_hits * 100%</span><br><span class="line"></span><br><span class="line">查询缓存内存使用率 ≈ (query_cache_size – qcache_free_memory) &#x2F; query_cache_size * 100%</span><br></pre></td></tr></table></figure>
 
+<h5 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h5><p>InnoDB存储引擎的缓冲池: 通常InnoDB存储引擎缓冲池的命中不应该小于99%</p>
+<blockquote>
+<p>查看相关状态变量：show global status like ‘innodb%read%’\G<br>Innodb_buffer_pool_reads: 表示从物理磁盘读取页的次数<br>Innodb_buffer_pool_read_ahead: 预读的次数<br>Innodb_buffer_pool_read_ahead_evicted: 预读页，但是没有读取就从缓冲池中被替换的页数量，一般用来判断预读的效率<br>Innodb_buffer_pool_read_requests: 从缓冲池中读取页次数<br>Innodb_data_read: 总共读入的字节数<br>Innodb_data_reads: 发起读取请求的次数，每次读取可能需要读取多个页  </p>
+</blockquote>
+<h5 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h5><p>锁粒度：</p>
+<blockquote>
+<p>表级锁<br>行级锁</p>
+</blockquote>
+<p>锁：</p>
+<blockquote>
+<p>读锁：共享锁，只读不可写，多个读互不阻塞，<br>写锁：独占锁,排它锁，一个写锁会阻塞其它读和它锁</p>
+</blockquote>
+<p>实现：</p>
+<blockquote>
+<p>存储引擎：自行实现其锁策略和锁粒度<br>服务器级：实现了锁，表级锁；用户可显式请求</p>
+</blockquote>
+<p>分类：</p>
+<blockquote>
+<p>隐式锁：由存储引擎自动施加锁<br>显式锁：用户手动请求  </p>
+</blockquote>
+<p>锁策略：在锁粒度及数据安全性寻求的平衡机制</p>
+<p>显示使用锁</p>
+<blockquote>
+<p>LOCK TABLES tbl_name [[AS] alias] lock_type [, tbl_name [[AS] alias] lock_type] …</p>
+<p>✱lock_type: READ ， WRITE</p>
+<p>UNLOCK TABLES 解锁</p>
+<p>FLUSH TABLES tb_name[,…] [WITH READ LOCK]<br>关闭正在打开的表（清除查询缓存），通常在备份前加全局读锁</p>
+<p>SELECT clause [FOR UPDATE | LOCK IN SHARE MODE]<br>查询时加写或读锁  </p>
+</blockquote>
+<h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><p>事务Transactions：一组原子性的SQL语句，或一个独立工作单元</p>
+<p>事务日志：记录事务信息，实现undo,redo等故障恢复功能</p>
+<p>ACID特性：</p>
+<blockquote>
+<p>A： atomicity原子性；整个事务中的所有操作要么全部成功执行，要么全部失败后回滚</p>
+<p>C： consistency一致性；数据库总是从一个一致性状态转换为另一个一致性状态</p>
+<p>I： Isolation隔离性；一个事务所做出的操作在提交之前，是不能为其它事务所见；隔离有多种隔离级别，实现并发</p>
+<p>D： durability持久性；一旦事务提交，其所做的修改会永<br>久保存于数据库中  </p>
+</blockquote>
+<p>启动事务： START TRANSACTION</p>
+<p>结束事务：<br>(1) COMMIT：提交<br>(2) ROLLBACK: 回滚</p>
+<p>注意：只有事务型存储引擎方能支持此类操作</p>
+<p>建议：显式请求和提交事务，而不要使用“自动提交”功能<br>set autocommit={1|0}</p>
+<p>事务支持保存点： savepoint</p>
+<blockquote>
+<p>SAVEPOINT identifier<br>ROLLBACK [WORK] TO [SAVEPOINT] identifier<br>RELEASE SAVEPOINT identifier  </p>
+</blockquote>
+<p>事务隔离级别：从上至下更加严格</p>
+<blockquote>
+<p>READ UNCOMMITTED 可读取到未提交数据，产生脏读</p>
+<p>READ COMMITTED 可读提交数据，但未提交数据不可读，产生不可重复读，即可读取到多个提交数据，导致每次读取数据不一致</p>
+<p>REPEATABLE READ 可重复读，多次读取数据都一致，产生幻读，即读取过程中，即使有其它提交的事务修改数据，仍只能读取到未修改前的旧数据。此为MySQL默认设置</p>
+<p>SERIALIZABILE 可串行化，未提交的读事务阻塞修改事务，或者未提交的修改事务阻塞读事务。导致并发性能差</p>
+<p>MVCC: 多版本并发控制，和事务级别相关  </p>
+</blockquote>
+<p>指定事务隔离级别：</p>
+<blockquote>
+<p>服务器变量tx_isolation指定，默认为REPEATABLE READ，可在GLOBAL和SESSION级进行设置</p>
+<p>SET tx_isolation=’’<br>1、READ-UNCOMMITTED<br>2、READ-COMMITTED<br>3、REPEATABLE-READ<br>4、SERIALIZABLE</p>
+<p>服务器选项中指定<br>vim /etc/my.cnf<br>[mysqld]<br>transaction-isolation=SERIALIZABLE  </p>
+</blockquote>
+<p>死锁：</p>
+<blockquote>
+<p>两个或多个事务在同一资源相互占用，并请求锁定对方占用的资源的状态</p>
+</blockquote>
+<h5 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h5><p>事务日志： transaction log<br>错误日志： error log<br>查询日志： query log<br>慢查询日志： slow query log<br>二进制日志： binary log<br>中继日志： reley log  </p>
+<p>1、事务日志： transaction log</p>
+<blockquote>
+<p>事务日志的写入类型为“追加”，因此其操作为“顺序IO”；通常也被称为：预写式日志 write ahead logging</p>
+<p>日志文件： ib_logfile0， ib_logfile1  </p>
+<p>事务型存储引擎自行管理和使用<br>redo log<br>undo log</p>
+<p>Innodb事务日志相关配置<br>show variables like ‘%innodb_log%’;<br>• innodb_log_file_size 5242880 每个日志文件大小<br>• innodb_log_files_in_group 2 日志组成员个数<br>• innodb_log_group_home_dir ./ 事务文件路径</p>
+</blockquote>
+<p>2、中继日志： relay log</p>
+<blockquote>
+<p>主从复制架构中，从服务器用于保存从主服务器的二进制日志中读取到的事件  </p>
+</blockquote>
+<p>3、错误日志</p>
+<blockquote>
+<p>mysqld启动和关闭过程中输出的事件信息</p>
+<p>mysqld运行中产生的错误信息</p>
+<p>event scheduler运行一个event时产生的日志信息</p>
+<p>在主从复制架构中的从服务器上启动从服务器线程时产生的信息</p>
+<p>错误日志相关配置<br>SHOW GLOBAL VARIABLES LIKE ‘log_error’</p>
+<p>错误文件路径：log_error=/PATH/TO/LOG_ERROR_FILE</p>
+<p>是否记录警告信息至错误日志文件<br>log_warnings=1|0 默认值1  </p>
+</blockquote>
+<p>4、查询日志：记录查询操作</p>
+<blockquote>
+<p>文件： file，默认值<br>表： table</p>
+<p>查询日志相关设置<br>general_log=ON|OFF<br>general_log_file=HOSTNAME.log<br>log_output=TABLE|FILE|NONE  </p>
+</blockquote>
+<p>5、慢查询日志</p>
+<blockquote>
+<p>记录执行查询时长超出指定时长的操作</p>
+<p>slow_query_log=ON|OFF 开启或关闭慢查询</p>
+<p>long_query_time=N 慢查询的阀值，单位秒</p>
+<p>slow_query_log_file=HOSTNAME-slow.log 慢查询日志文件</p>
+<p>log_slow_filter = admin,filesort,filesort_on_disk,full_join,</p>
+<p>full_scan,query_cache,query_cache_miss,tmp_table,tmp_tabl<br>e_on_disk</p>
+<p>log_queries_not_using_indexes=ON 不使用索引也没有达到慢查询阀值的语句是否记录日志，默认OFF，即不记录</p>
+<p>log_slow_rate_limit = 1 多少次查询才记录， mariadb特有</p>
+</blockquote>
+<p>6、二进制日志</p>
+<p><strong>注意：建议二进制日志和数据文件分开存放</strong></p>
+<p>a. 记录导致数据改变或潜在导致数据改变的SQL语句<br>b. 功能：通过“重放”日志文件中的事件来生成数据副本</p>
+<p>二进制日志相关配置</p>
+<blockquote>
+<p>查看mariadb自行管理使用中的二进制日志文件列表<br>SHOW {BINARY | MASTER} LOGS</p>
+<p>查看使用中的二进制日志文件<br>SHOW MASTER STATUS</p>
+<p>查看二进制文件中的指定内容<br>SHOW BINLOG EVENTS [IN ‘log_name’] [FROM pos] [LIMIT [offset,] row_count]</p>
+<p>show binlog events in ‘mariadb-bin.000001’ from 6516 limit 2,3  </p>
+</blockquote>
+<p>二进制日志记录格式</p>
+<blockquote>
+<p>基于“语句”记录： statement，记录语句，默认模式</p>
+<p>基于“行”记录： row，记录数据，日志量较大</p>
+<p>混合模式： mixed, 让系统自行判定该基于哪种方式进行</p>
+<p>格式配置<br>show variables like ‘%binlog_format%’;</p>
+</blockquote>
+<p>二进制日志文件的构成</p>
+<blockquote>
+<p>日志文件： mysql|mariadb-bin.文件名后缀，二进制格式 如： mysql-bin.000001<br>索引文件： mysql|mariadb-bin.index，文本格式  </p>
+</blockquote>
+<p>二进制日志相关的服务器变量：</p>
+<blockquote>
+<p>sql_log_bin=ON|OFF：是否记录二进制日志，默认ON</p>
+<p>log_bin=/PATH/BIN_LOG_FILE：指定文件位置； 默认OFF，表示不启用二进制日志功能，上述两项都开启才可</p>
+<p>binlog_format=STATEMENT|ROW|MIXED：二进制日志记录的格式，默认STATEMENT</p>
+<p>max_binlog_size=1073741824：单个二进制日志文件的最大体积， 到达最大值会自动滚动，默认为1G<br>说明：文件达到上限时的大小未必为指定的精确值</p>
+<p>sync_binlog=1|0：设定是否启动二进制日志即时同步磁盘功能，默认0，由操作系统负责同步日志到磁盘</p>
+<p>expire_logs_days=N：二进制日志可以自动删除的天数。默认为0，即不自动删除  </p>
+</blockquote>
+<p>mysqlbinlog：二进制日志的客户端命令工具</p>
+<blockquote>
+<p>命令格式：<br>mysqlbinlog [OPTIONS] log_file…<br>–start-position=# 指定开始位置<br>–stop-position=#<br>–start-datetime=<br>–stop-datetime=</p>
+<p>时间格式： YYYY-MM-DD hh:mm:ss –base64-output[=name]</p>
+<p>示例：<br>mysqlbinlog –start-position=6787 –stop-position=7527 /var/lib/mysql/mariadb-bin.000003<br>mysqlbinlog –start-datetime=”2018-01-30 20:30:10” – stop-datetime=”2018-01-30 20:35:22” mariadb-bin.000003;  </p>
+</blockquote>
+<p>二进制日志事件的格式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># at 328</span><br><span class="line"># 151105 16:31:40 server id 1 end_log_pos 431 Query thread_id&#x3D;1 exec_time&#x3D;0 error_code&#x3D;0</span><br><span class="line">use &#96;mydb&#96;&#x2F;*!*&#x2F;;</span><br><span class="line">SET TIMESTAMP&#x3D;1446712300&#x2F;*!*&#x2F;;</span><br><span class="line">CREATE TABLE tb1 (id int, name char(30))</span><br><span class="line">&#x2F;*!*&#x2F;;</span><br><span class="line"></span><br><span class="line">事件发生的日期和时间： 151105 16:31:40</span><br><span class="line">事件发生的服务器标识： server id 1</span><br><span class="line">事件的结束位置： end_log_pos 431</span><br><span class="line">事件的类型： Query</span><br><span class="line">事件发生时所在服务器执行此事件的线程的ID： thread_id&#x3D;1</span><br><span class="line">语句的时间戳与将其写入二进制文件中的时间差： exec_time&#x3D;0</span><br><span class="line">错误代码： error_code&#x3D;0</span><br><span class="line">事件内容：GTID： Global Transaction ID， mysql5.6以mariadb10以上版本专属属性</span><br></pre></td></tr></table></figure>
+
+<p>清除指定二进制日志：</p>
+<blockquote>
+<p>PURGE { BINARY | MASTER } LOGS { TO ‘log_name’ | BEFORE datetime_expr }</p>
+<p>示例：<br>PURGE BINARY LOGS TO ‘mariadb-bin.000003’;删除此文件前日志<br>PURGE BINARY LOGS BEFORE ‘2017-01-23’;<br>PURGE BINARY LOGS BEFORE ‘2017-03-22 09:25:30’;</p>
+<p>删除所有二进制日志， index文件重新记数<br>RESET MASTER [TO #]; 日志文件从#开始记数，默认从1开始，一般是master第一次启动时执行， MariaDB10.1.6开始支持TO #</p>
+<p>切换日志文件<br>FLUSH LOGS;  </p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -2121,8 +2492,8 @@ code.google.com</code></pre></li>
 <p>登录系统： mysql –uroot –p</p>
 <p>客户端命令：本地执行，每个命令都完整形式和简写格式<br>mysql&gt; help<br>mysql&gt; status 或 \s</p>
 <p>服务端命令：通过mysql协议发往服务器执行并取回结果，每个命令都必须命令结束符号；默认为分号。SELECT VERSION();  </p>
-<h4 id="七、三种安装方式实现"><a href="#七、三种安装方式实现" class="headerlink" title="七、三种安装方式实现"></a>七、三种安装方式实现</h4><p>一、yum安装（最简单）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install mariadb-server -y</span><br></pre></td></tr></table></figure>
+<h4 id="七、三种安装方式实现"><a href="#七、三种安装方式实现" class="headerlink" title="七、三种安装方式实现"></a>七、三种安装方式实现</h4><p>一、yum或rpm安装（最简单）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#yum方式</span><br><span class="line">yum install mariadb-server -y</span><br><span class="line"></span><br><span class="line">#包含客户端安装</span><br><span class="line">yum install mariadb mariadb-devel mariadb-server MariaDB-shared -y</span><br><span class="line"></span><br><span class="line">---------------------------------------------------</span><br><span class="line">#rpm方式</span><br><span class="line">1、卸载系统自带的 mariadb-lib</span><br><span class="line">rpm -qa|grep mariadb</span><br><span class="line">rpm -e mariadb-libs-5.5.44-2.el7.centos.x86_64 --nodeps</span><br><span class="line"></span><br><span class="line">2、下载 rpm 安装包并解压</span><br><span class="line">wget http:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-5.7&#x2F;mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">tar xvf mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line"></span><br><span class="line">3、安装（几个包有依赖关系，注意执行顺序）</span><br><span class="line">rpm -ivh mysql-community-common-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-server-5.7.13-1.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">4、数据库初始化</span><br><span class="line">mysqld --initialize --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">5、数据库密码</span><br><span class="line">cat &#x2F;var&#x2F;log&#x2F;mysqld.log|grep &quot;temporary password&quot; </span><br><span class="line"></span><br><span class="line">6、启动服务</span><br><span class="line">systemctl start mysqld</span><br><span class="line"></span><br><span class="line">---------------------------------------------------</span><br><span class="line">#客户端单独安装</span><br><span class="line">1、官网下载地址 https:&#x2F;&#x2F;dev.mysql.com&#x2F;downloads&#x2F;mysql&#x2F;</span><br><span class="line"></span><br><span class="line">2、下载三个rpm包</span><br><span class="line">mysql-community-client-5.7.27-1.el7.x86_64.rpm</span><br><span class="line">mysql-community-common-5.7.27-1.el7.x86_64.rpm</span><br><span class="line">mysql-community-libs-5.7.27-1.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">3、卸载系统自带的开发库</span><br><span class="line">~]#yum remove  mariadb-libs -y</span><br><span class="line"></span><br><span class="line">4、安装顺序</span><br><span class="line">~]#rpm -ivh mysql-community-common-5.7.27-1.el7.x86_64.rpm</span><br><span class="line">~]#rpm -ivh mysql-community-libs-5.7.27-1.el7.x86_64.rpm</span><br><span class="line">~]#rpm -ivh mysql-community-client-5.7.27-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
 
 <p>二、通用二进制安装</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#以CentOS系统为例</span><br><span class="line"></span><br><span class="line">#确保本机没有安装mysql服务器端程序</span><br><span class="line">[root@centos7 ~]# rpm -qa &quot;mysql*&quot;</span><br><span class="line">[root@centos7 ~]# rpm -qa &quot;mariadb*&quot;</span><br><span class="line"></span><br><span class="line">#获取安装包</span><br><span class="line">mmariadb-10.2.12-Linux-x86_64.tar.gz(二进制)</span><br><span class="line"></span><br><span class="line">#创建账号</span><br><span class="line">getent passwd mysql</span><br><span class="line">useradd -r -s &#x2F;sbin&#x2F;nologin mysql</span><br><span class="line"></span><br><span class="line">#解压安装包（&#x2F;usr&#x2F;local&#x2F;mysql）</span><br><span class="line">tar xvf mariadb-10.2.12-linux-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line"></span><br><span class="line">#创建目录软连接，方便管理</span><br><span class="line">cd &#x2F;usr&#x2F;local</span><br><span class="line">mv mariadb-10.2.12-linux-x86_64 mariadb-10.2.12</span><br><span class="line">ln -sv mariadb-10.2.12 mysql </span><br><span class="line"></span><br><span class="line">#更改所有者，所属组</span><br><span class="line">chown -R mysql.mysql mysql&#x2F;</span><br><span class="line"></span><br><span class="line">#创建环境变量</span><br><span class="line">echo &#39;PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin:$PATH&#39; &gt; &#x2F;etc&#x2F;profile.d&#x2F;mysql.sh</span><br><span class="line">source &#x2F;etc&#x2F;profile.d&#x2F;mysql.sh</span><br><span class="line"></span><br><span class="line">#准备存放数据库的目录  </span><br><span class="line">#注意：存放数据库和存放操作系统的空间不在同一块，可使用逻辑卷</span><br><span class="line">#创建用于数据库的lVM空间</span><br><span class="line"></span><br><span class="line">#分区</span><br><span class="line">fdisk &#x2F;dev&#x2F;sda</span><br><span class="line">    n</span><br><span class="line">    Using default value</span><br><span class="line">    +50G</span><br><span class="line">    t</span><br><span class="line">    L</span><br><span class="line">    8e</span><br><span class="line">    w</span><br><span class="line">lsblk</span><br><span class="line"></span><br><span class="line">#同步磁盘和内存信息</span><br><span class="line">partprobe</span><br><span class="line"></span><br><span class="line">#创建逻辑卷</span><br><span class="line">pvcreate &#x2F;dev&#x2F;sda6</span><br><span class="line">vgcreate vg0 &#x2F;dev&#x2F;sda6 -s 16M</span><br><span class="line">lvcreate -n lv_mysqldata -l 100%FREE vg0</span><br><span class="line"></span><br><span class="line">#创建文件系统</span><br><span class="line">mkfs.xfs &#x2F;dev&#x2F;vg0&#x2F;lv_mysqldata  </span><br><span class="line"></span><br><span class="line">#创建挂载目录</span><br><span class="line">mkdir &#x2F;data&#x2F;mysqldb -pv </span><br><span class="line"></span><br><span class="line">#将挂载信息保存到文件中，开机自动挂载</span><br><span class="line">blkid </span><br><span class="line">vim &#x2F;etc&#x2F;fstab  </span><br><span class="line">UUID&#x3D;611fbf6d-d210-4ebc-a18b-8d8d5ea59ec9 &#x2F;data&#x2F;mysqldb xfs defaults 0 0</span><br><span class="line"></span><br><span class="line">#更新挂载信息</span><br><span class="line">mount -a</span><br><span class="line"></span><br><span class="line">#修改权限</span><br><span class="line">chowm -R mysql.mysql &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line">chmod 770 &#x2F;data&#x2F;mysqldb&#x2F;</span><br><span class="line"></span><br><span class="line">#创建系统数据库</span><br><span class="line">yum install  libaio-devel.x86_64 -y </span><br><span class="line">cd &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">scripts&#x2F;mysql_install_db --datadir&#x3D;&#x2F;data&#x2F;mysqldb --user&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#创建配置文件</span><br><span class="line">cp my-innodb-heavy-4G.cnf &#x2F;etc&#x2F;my.cnf</span><br><span class="line">vim &#x2F;etc&#x2F;my.cnf</span><br><span class="line">port            &#x3D; 3306</span><br><span class="line">datadir         &#x3D; &#x2F;data&#x2F;mysqldb</span><br><span class="line">socket          &#x3D; &#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">#innodb_additional_mem_pool_size &#x3D; 16M</span><br><span class="line"></span><br><span class="line">#创建服务脚本，并启动服务</span><br><span class="line">chkconfig --list</span><br><span class="line">cp &#x2F;urs&#x2F;local&#x2F;mysql&#x2F;supportfile&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">chkconfig --add mysqld </span><br><span class="line">chkconfig --list</span><br><span class="line">service mysql start </span><br><span class="line"></span><br><span class="line">#安全初始化</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;mysql_secure_installation</span><br><span class="line"></span><br><span class="line">#手动修改mysql数据库用户密码</span><br><span class="line">.&#x2F;bin&#x2F;mysqladmin -u root password &#39;new-password&#39;</span><br><span class="line">.&#x2F;bin&#x2F;mysqladmin -u root -h localhost password &#39;new-password&#39;</span><br></pre></td></tr></table></figure>
@@ -2135,6 +2506,390 @@ code.google.com</code></pre></li>
       </categories>
       <tags>
         <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL（四）</title>
+    <url>/2020/06/26/mysql4/</url>
+    <content><![CDATA[<h4 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h4><h5 id="1、为什么要备份-？"><a href="#1、为什么要备份-？" class="headerlink" title="1、为什么要备份 ？"></a><strong>1、为什么要备份 ？</strong></h5><p>灾难恢复：硬件故障、软件故障、自然灾害、黑客攻击、误操作测试等数据丢失场景</p>
+<p>备份要点</p>
+<blockquote>
+<p>能容忍最多丢失多少数据<br>恢复数据需要在多长时间内完成<br>需要恢复哪些数据</p>
+</blockquote>
+<p>还原要点</p>
+<blockquote>
+<p>做还原测试，用于测试备份的可用性<br>还原演练  </p>
+</blockquote>
+<p>备份类型：</p>
+<blockquote>
+<p>完全备份：整个数据集</p>
+<p>部分备份：只备份数据子集，如部分库或表</p>
+</blockquote>
+<p>完全备份、增量备份、差异备份</p>
+<blockquote>
+<p>增量备份：仅备份最近一次完全备份或增量备份（如果存在增量）以来变化的数据，备份较快，还原复杂<br>差异备份：仅备份最近一次完全备份以来变化的数据，备份较慢，还原简单</p>
+</blockquote>
+<p><strong>注意：二进制日志文件不应该与数据文件放在同一磁盘</strong>  </p>
+<p>冷、温、热备份</p>
+<blockquote>
+<p>冷备：读写操作均不可进行<br>温备：读操作可执行；但写操作不可执行<br>热备：读写操作均可执行</p>
+<p>MyISAM：温备，不支持热备<br>InnoDB: 都支持</p>
+</blockquote>
+<p>物理和逻辑备份</p>
+<blockquote>
+<p>物理备份：直接复制数据文件进行备份，与存储引擎有关，占用较多的空间，速度快</p>
+<p>逻辑备份：从数据库中“导出”数据另存而进行的备份，与存储引擎无关，占用空间少，速度慢，可能丢失精度  </p>
+</blockquote>
+<p>备份时需要考虑的因素</p>
+<blockquote>
+<p>温备的持锁多久<br>备份产生的负载<br>备份过程的时长<br>恢复过程的时长</p>
+</blockquote>
+<p><strong>备份什么</strong></p>
+<blockquote>
+<p>数据<br>二进制日志、 InnoDB的事务日志<br>程序代码（存储过程、存储函数、触发器、事件调度器）<br>服务器的配置文件</p>
+</blockquote>
+<p>设计备份方案</p>
+<blockquote>
+<p>数据集：完全+增量<br>备份手段：物理，逻辑 </p>
+</blockquote>
+<h5 id="2、备份工具"><a href="#2、备份工具" class="headerlink" title="2、备份工具"></a><strong>2、备份工具</strong></h5><p>mysqldump：逻辑备份工具，适用所有存储引擎，温备；支持完全或部分备份；对InnoDB存储引擎支持热备</p>
+<p>cp, tar等复制归档工具：物理备份工具，适用所有存储引擎；只支持冷备；完全和部分备份</p>
+<p>LVM的快照：先加锁，做快照后解锁，几乎热备；借助文件系统管理工具进行备份</p>
+<p>mysqlhotcopy：几乎冷备；仅适用于MyISAM存储引擎   </p>
+<p><strong>备份工具的选择</strong></p>
+<ol>
+<li><p>mysqldump+复制binlog：</p>
+<blockquote>
+<p>mysqldump：完全备份<br>复制binlog中指定时间范围的event：增量备份</p>
+</blockquote>
+</li>
+<li><p>LVM快照+复制binlog：</p>
+<blockquote>
+<p>LVM快照：使用cp或tar等做物理备份；完全备份</p>
+<p>复制binlog中指定时间范围的event：增量备份</p>
+</blockquote>
+</li>
+<li><p>xtrabackup：</p>
+<blockquote>
+<p>由Percona提供支持对InnoDB做热备(物理备份)的工具，支持完全备份、增量备份</p>
+</blockquote>
+</li>
+<li><p>MariaDB Backup： 从MariaDB 10.1.26开始集成，基于Percona XtraBackup 2.3.8实现</p>
+</li>
+<li><p>mysqlbackup：热备份， MySQL Enterprise Edition组件  </p>
+</li>
+</ol>
+<p>逻辑备份工具： mysqldump, mydumper, phpMyAdmin</p>
+<p>Schema和数据存储在一起、巨大的SQL语句、单个巨大的备份文件</p>
+<h5 id="3、mysqldump工具："><a href="#3、mysqldump工具：" class="headerlink" title="3、mysqldump工具："></a><strong>3、mysqldump工具：</strong></h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">客户端命令，通过mysql协议连接至mysqld服务器进行备份</span><br><span class="line"></span><br><span class="line">mysqldump [OPTIONS] database [tables]</span><br><span class="line">mysqldump [OPTIONS] –B DB1 [DB2 DB3...]</span><br><span class="line">mysqldump [OPTIONS] –A [OPTIONS]</span><br><span class="line"></span><br><span class="line">mysqldump参考：https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;5.7&#x2F;en&#x2F;mysqldump.html  </span><br><span class="line"></span><br><span class="line">mysqldump常见选项：</span><br><span class="line">-A， --all-databases 备份所有数据库，含create database</span><br><span class="line"></span><br><span class="line">-B , --databases db_name… 指定备份的数据库，包括create database语句</span><br><span class="line"></span><br><span class="line">-E, --events：备份相关的所有event scheduler</span><br><span class="line"></span><br><span class="line">-R, --routines：备份所有存储过程和存储函数</span><br><span class="line"></span><br><span class="line">--triggers：备份表相关的触发器，默认启用,用--skiptriggers，不备份触发器</span><br><span class="line"></span><br><span class="line">--master-data[&#x3D;#]： 此选项须启用二进制日志</span><br><span class="line">    1：所备份的数据之前加一条记录为CHANGE MASTER TO语句，非注释，不指定#，默认为1</span><br><span class="line">    2：记录为注释的CHANGE MASTER TO语句，此选项会自动关闭--lock-tables功能，自动打开--lock-		all-tables功能（ 除非开启--single-transaction）  </span><br><span class="line"></span><br><span class="line">-F, --flush-logs ：备份前滚动日志，锁定表完成后，执行flush logs命令,生成新的二进制日志文件，配合-A时，会导致刷新多次数据库，在同一时刻执行转储和日志刷新，则应同时使用--flush-logs和-x， --master-data或-single-transaction,此时只刷新一次，建议：和-x， --master-data或 --single-transaction一起使用</span><br><span class="line"></span><br><span class="line">--compact 去掉注释，适合调试，生产不使用</span><br><span class="line"></span><br><span class="line">-d, --no-data 只备份表结构</span><br><span class="line"></span><br><span class="line">-t, --no-create-info 只备份数据,不备份create table</span><br><span class="line"></span><br><span class="line">-n,--no-create-db 不备份create database，可被-A或-B覆盖</span><br><span class="line"></span><br><span class="line">--flush-privileges 备份mysql或相关时需要使用</span><br><span class="line"></span><br><span class="line">-f, --force 忽略SQL错误，继续执行</span><br><span class="line"></span><br><span class="line">--hex-blob 使用十六进制符号转储二进制列（例如，“abc”变为0x616263），受影响的数据类型包括BINARY， VARBINARY，BLOB， BIT</span><br><span class="line"></span><br><span class="line">-q, --quick 不缓存查询，直接输出，加快备份速度 </span><br><span class="line"></span><br><span class="line">MyISAM备份选项：</span><br><span class="line">	支持温备；不支持热备，所以必须先锁定要备份的库，而后启动备份操作</span><br><span class="line"></span><br><span class="line">    锁定方法如下：</span><br><span class="line">    -x,--lock-all-tables：加全局读锁，锁定所有库的所有表，同时加--single-transaction或--lock-	tables选项会关闭此选项功能</span><br><span class="line"></span><br><span class="line">    注意：数据量大时，可能会导致长时间无法并发访问数据库</span><br><span class="line"></span><br><span class="line">    -l,--lock-tables：对于需要备份的每个数据库，在启动备份之前分别锁定其所有表，默认为on,--skip-		lock-tables选项可禁用,对备份MyISAM的多个库,可能会造成数据不一致</span><br><span class="line"></span><br><span class="line">    注意：以上选项对InnoDB表一样生效，实现温备，但不推荐使用</span><br><span class="line">    </span><br><span class="line">InnoDB备份选项：</span><br><span class="line">    支持热备，可用温备但不建议用</span><br><span class="line">    </span><br><span class="line">    --single-transaction</span><br><span class="line">    1、此选项Innodb中推荐使用，不适用MyISAM，此选项会开始备份前，先执行START TRANSACTION指令，并</span><br><span class="line">    且在备份期间，不允许对数据进行修改操作</span><br><span class="line">    </span><br><span class="line">    2、此选项和--lock-tables（此选项隐含提交挂起的事务）选项是相互排斥</span><br><span class="line">    </span><br><span class="line">    3、备份大型表时，建议将--single-transaction选项和--quick结合一起使用</span><br></pre></td></tr></table></figure>
+
+<h5 id="4、生产备份策略"><a href="#4、生产备份策略" class="headerlink" title="4、生产备份策略"></a><strong>4、生产备份策略</strong></h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#InnoDB建议备份策略</span><br><span class="line">mysqldump –uroot –A –F –E –R --single-transaction --master-data&#x3D;1 --flush-privileges --triggers --hexblob &gt;$BACKUP_DIR&#x2F;fullbak_$BACKUP_TIME.sql</span><br><span class="line"></span><br><span class="line">#MyISAM建议备份策略</span><br><span class="line">mysqldump –uroot –A –F –E –R –x --master-data&#x3D;1 --flush-privileges --triggers --hex-blob &gt;$BACKUP_DIR&#x2F;fullbak_$BACKUP_TIME.sql</span><br></pre></td></tr></table></figure>
+
+<h5 id="5、基于LVM的备份"><a href="#5、基于LVM的备份" class="headerlink" title="5、基于LVM的备份"></a><strong>5、基于LVM的备份</strong></h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1) 请求锁定所有表</span><br><span class="line">mysql&gt; FLUSH TABLES WITH READ LOCK;</span><br><span class="line"></span><br><span class="line">(2) 记录二进制日志文件及事件位置</span><br><span class="line">mysql&gt; FLUSH LOGS;</span><br><span class="line">mysql&gt; SHOW MASTER STATUS;</span><br><span class="line">mysql -e &#39;SHOW MASTER STATUS&#39; &gt; &#x2F;PATH&#x2F;TO&#x2F;SOMEFILE</span><br><span class="line"></span><br><span class="line">(3) 创建快照</span><br><span class="line">lvcreate -L # -s -p r -n NAME &#x2F;DEV&#x2F;VG_NAME&#x2F;LV_NAME</span><br><span class="line"></span><br><span class="line">(4) 释放锁</span><br><span class="line">mysql&gt; UNLOCK TABLES;</span><br><span class="line"></span><br><span class="line">(5) 挂载快照卷，执行数据备份</span><br><span class="line"></span><br><span class="line">(6) 备份完成后，删除快照卷</span><br><span class="line"></span><br><span class="line">(7) 制定好策略，通过原卷备份二进制日志</span><br></pre></td></tr></table></figure>
+
+<h4 id="xtrabackup"><a href="#xtrabackup" class="headerlink" title="xtrabackup"></a>xtrabackup</h4><p><strong>1、Percona</strong></p>
+<p>官网： <a href="http://www.percona.com" target="_blank" rel="noopener">www.percona.com</a></p>
+<p>percona-server</p>
+<p>InnoDB –&gt; XtraDB</p>
+<p><strong>2、Xtrabackup</strong><br>percona提供的mysql数据库备份工具，惟一开源的能够对innodb和xtradb数据库进行热备的工具</p>
+<p>特点：<br>(1)备份还原过程快速、可靠<br>(2)备份过程不会打断正在执行的事务<br>(3)能够基于压缩等功能节约磁盘空间和流量<br>(4)自动实现备份检验<br>(5)开源，免费  </p>
+<p><strong>3、Xtrabackup2.2版之前包括4个可执行文件：</strong></p>
+<blockquote>
+<p>Innobackupex: perl 脚本<br>Xtrabackup: C/C++ 编译的二进制<br>Xbcrypt:加解密<br>Xbstream:支持并发写的流文件格式</p>
+</blockquote>
+<p>xtrabackup是用来备份 InnoDB 表的，不能备份非 InnoDB 表，和 mysqld server 没有交互；</p>
+<p> innobackupex 脚本用来备份非InnoDB 表，同时会调用 xtrabackup 命令来备份 InnoDB 表，还<br>会和 mysqld server 发送命令进行交互，如加读锁（ FTWRL）、获取位点（ SHOW SLAVE STATUS）等。即innobackupex是在xtrabackup 之上做了一层封装实现的。</p>
+<p>虽然目前一般不用 MyISAM 表，只是mysql 库下的系统表是MyISAM 的，因此备份基本都通innobackupex 命令进行  </p>
+<p><strong>4、Xtrabackup备份过程</strong>  </p>
+<img src="/images/mysql4/mysql13.jpg" style="zoom:50%;" />
+
+<p><strong>5、Xtrabackup的新版变化</strong>  </p>
+<p>xtrabackup版本升级到2.4后， 相比之前的2.1有了比较大的变化： innobackupex 功能全部集成到 xtrabackup 里面，只有一个 binary程序， 另外为了兼容考虑， innobackupex作为xtrabackup 的软链接， 即xtrabackup现在支持非Innodb表备份，并且Innobackupex在下一版本中移除，建议通过xtrabackup替换innobackupex</p>
+<p><strong>6、xtrabackup安装</strong></p>
+<p>yum install percona-xtrabackup 在EPEL源中<br>最新版本下载安装：<a href="https://www.percona.com/downloads/XtraBackup/LATEST/" target="_blank" rel="noopener">https://www.percona.com/downloads/XtraBackup/LATEST/</a>  </p>
+<h4 id="innobakupex备份"><a href="#innobakupex备份" class="headerlink" title="innobakupex备份"></a>innobakupex备份</h4><p>1、使用innobakupex备份时，其会调用xtrabackup备份所有的InnoDB表，复制所有关于表结构定义的相关文件(.frm)、以及MyISAM、 MERGE、 CSV和ARCHIVE表的相关文件，同时还会备份触发器和数据库配置信息相关的文件。</p>
+<p>2、这些文件会被保存至一个以时间命名的目录中,在备份时，innobackupex还会在备份目录中创建如下文件：</p>
+<blockquote>
+<p>(1)xtrabackup_checkpoints：备份类型（如完全或增量）、备份状态（如是否已经为prepared状态）和LSN(日志序列号)范围信息，每个InnoDB页(通常为16k大小)都会包含一个日志序列号，即LSN。 LSN是整个数据库系统的系统版本号，每个页面相关的LSN能够表明此页面最近是如何发生改变的</p>
+<p>(2)xtrabackup_binlog_info： mysql服务器当前正在使用的二进制日志文件及至备份这一刻为止二进制日志事件的位置  </p>
+<p>(3)xtrabackup_binlog_pos_innodb：二进制日志文件及用于InnoDB或XtraDB表的二进制日志文件的当前position</p>
+<p>(4)xtrabackup_binary：备份中用到的xtrabackup的可执行文件</p>
+<p>(5)backup-my.cnf：备份命令用到的配置选项信息在使用innobackupex进行备份时，还可以使用–notimestamp选项来阻止命令自动创建一个以时间命名的目录；innobackupex命令将会创建一个BACKUP-DIR目录来存储备份数据  </p>
+</blockquote>
+<p>3、Xtrabackup用法</p>
+<p>备份： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">innobackupex [option] BACKUP-ROOT-DIR</span><br><span class="line"></span><br><span class="line">选项说明：</span><br><span class="line">--user：该选项表示备份账号</span><br><span class="line"></span><br><span class="line">--password：该选项表示备份的密码</span><br><span class="line"></span><br><span class="line">--host：该选项表示备份数据库的地址</span><br><span class="line"></span><br><span class="line">--databases：该选项接受的参数为数据名，如果要指定多个数据库，彼此间需要以空格隔开；如： &quot;xtra_test dba_test&quot;，同时，在指定某数据库时，也可以只指定其中的某张表。如： &quot;mydatabase.mytable&quot;。该选项对innodb引擎表无效，还是会备份所有innodb表</span><br><span class="line"></span><br><span class="line">--defaults-file：该选项指定了从哪个文件读取MySQL配置，必须放在命令行第一个选项的位置</span><br><span class="line"></span><br><span class="line">--incremental：该选项表示创建一个增量备份，需要指定--incrementalbasedir</span><br><span class="line"></span><br><span class="line">--incremental-basedir：该选项表示接受了一个字符串参数指定含有full backup的目录为增量备份的base目录，与--incremental同时使用--incremental-dir：该选项表示增量备份的目录</span><br><span class="line"></span><br><span class="line">--include&#x3D;name：指定表名，格式： databasename.tablename</span><br></pre></td></tr></table></figure>
+
+<p>还原前准备： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">innobackupex --apply-log [option] BACKUP-DIR</span><br><span class="line"></span><br><span class="line">选项说明：</span><br><span class="line"></span><br><span class="line">--apply-log：一般情况下,在备份完成后，数据尚且不能用于恢复操作，因为备份的数据中可能会包含尚未提交的事务或已经提交但尚未同步至数据文件中的事务。因此，此时数据文件仍处理不一致状态。此选项作用是通过回滚未提交的事务及同步已经提交的事务至数据文件使数据文件处于一致性状态</span><br><span class="line"></span><br><span class="line">--use-memory：该选项表示和--apply-log选项一起使用，prepare备份的时候， xtrabackup做crash recovery分配的内存大小，单位字节。也可(1MB,1M,1G,1GB)，推荐1G</span><br><span class="line"></span><br><span class="line">--defaults-file：该选项指定了从哪个文件读取MySQL配置，必须放在命令行第一个选项的位置</span><br><span class="line"></span><br><span class="line">--export：表示开启可导出单独的表之后再导入其他Mysql中</span><br><span class="line"></span><br><span class="line">--redo-only：这个选项在prepare base full backup，往其中merge增量备份时候使用</span><br></pre></td></tr></table></figure>
+
+<p>还原： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">innobackupex --copy-back [选项] BACKUP-DIR</span><br><span class="line">innobackupex --move-back [选项] [--defaultsgroup&#x3D;GROUP-NAME] BACKUP-DIR</span><br><span class="line"></span><br><span class="line">选项说明：</span><br><span class="line"></span><br><span class="line">--copy-back：做数据恢复时将备份数据文件拷贝到MySQL服务器的datadir</span><br><span class="line"></span><br><span class="line">--move-back：这个选项与--copy-back相似，唯一的区别是它不拷贝文件，而是移动文件到目的地。这个选项移除backup文件，用时候必须小心。使用场景：没有足够的磁盘空间同事保留数据文件和Backup副本</span><br></pre></td></tr></table></figure>
+
+<p>还原注意事项：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.datadir目录必须为空。除非指定innobackupex --forcenon-empty-directorires选项指定，否则--copy-backup选项不会覆盖</span><br><span class="line"></span><br><span class="line">2.在restore之前,必须shutdown MySQL实例，你不能将一个运行中的实例restore到datadir目录中</span><br><span class="line"></span><br><span class="line">3.由于文件属性会被保留，大部分情况下你需要在启动实例之前将文件的属主改为mysql，这些文件将属于创建备份的用户chown -R mysql:mysql &#x2F;data&#x2F;mysql，以上需要在用户调用innobackupex之前完成</span><br><span class="line"></span><br><span class="line">4.--force-non-empty-directories：指定该参数时候，使得innobackupex --copy-back或--move-back选项转移文件到非空目录，已存在的文件不会被覆盖。如果--copy-back和--move-back文件需要从备份目录拷贝一个在datadir已经存在的文件，会报错失败</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL（五）</title>
+    <url>/2020/06/26/mysql5/</url>
+    <content><![CDATA[<h4 id="一、MySQL复制"><a href="#一、MySQL复制" class="headerlink" title="一、MySQL复制"></a>一、MySQL复制</h4><p>扩展方式： Scale Up ， Scale Out</p>
+<p><strong>MySQL的扩展</strong></p>
+<p>复制：每个节点都有相同的数据集</p>
+<blockquote>
+<p>向外扩展<br>二进制日志<br>单向</p>
+</blockquote>
+<p>复制的功用：</p>
+<blockquote>
+<p>数据分布<br>负载均衡读<br>备份<br>高可用和故障切换<br>MySQL升级测试  </p>
+</blockquote>
+<p><img src="/images/mysql5/mysql1.jpg" alt=""></p>
+<p><img src="/images/mysql5/mysql2.jpg" alt=""></p>
+<p><strong>MySQL垂直分区</strong>  </p>
+<p><img src="/images/mysql5/mysql3.jpg" alt=""></p>
+<p><strong>MySQL水平分片（ Sharding）</strong>  </p>
+<p><img src="/images/mysql5/mysql4.jpg" alt=""></p>
+<p>对应shard中查询相关数据  </p>
+<p><img src="/images/mysql5/mysql5.jpg" alt=""></p>
+<h4 id="二、主从"><a href="#二、主从" class="headerlink" title="二、主从"></a>二、主从</h4><p><strong>主从复制线程：</strong></p>
+<blockquote>
+<p>主节点：<br>dump Thread：为每个Slave的I/O Thread启动一个dump线程，用于向其发送binary log events</p>
+<p>从节点：<br>I/O Thread：向Master请求二进制日志事件，并保存于中继日志中<br>SQL Thread：从中继日志中读取日志事件，在本地完成重放</p>
+</blockquote>
+<p><strong>跟复制功能相关的文件：</strong></p>
+<blockquote>
+<p>master.info：用于保存slave连接至master时的相关信息，例如账号、密码、服务器地址等</p>
+<p>relay-log.info：保存在当前slave节点上已经复制的当前二进制日志和本地replay log日志的对应关系  </p>
+</blockquote>
+<p><strong>主从复制特点：</strong></p>
+<blockquote>
+<p>异步复制</p>
+<p>主从数据不一致比较常见</p>
+<p>复制架构：<br>1、Master/Slave, Master/Master, 环状复制<br>2、一主多从<br>3、从服务器还可以再有从服务器<br>4、一从多主:适用于多个不同数据库</p>
+</blockquote>
+<p><strong>复制需要考虑二进制日志事件记录格式</strong></p>
+<blockquote>
+<p>STATEMENT（ 5.0之前）、 ROW（ 5.1之后，推荐）、 MIXED</p>
+</blockquote>
+<p><strong>各种复制模型实战：</strong></p>
+<blockquote>
+<p>主从、主主、半同步复制、复制过滤器  </p>
+</blockquote>
+<p><strong>MySQL复制模型</strong>  </p>
+<p><img src="/images/mysql5/mysql6.jpg" alt=""></p>
+<p><strong>主从配置过程：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">参考文档： </span><br><span class="line">https:&#x2F;&#x2F;mariadb.com&#x2F;kb&#x2F;en&#x2F;library&#x2F;setting-upreplication&#x2F;</span><br><span class="line">https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;5.5&#x2F;en&#x2F;replicationconfiguration.html</span><br><span class="line"></span><br><span class="line">主节点：</span><br><span class="line">(1) 启动二进制日志</span><br><span class="line">[mysqld]</span><br><span class="line">log_bin&#x3D;mysql-bin</span><br><span class="line"></span><br><span class="line">(2) 为当前节点设置一个全局惟的ID号</span><br><span class="line">[mysqld]</span><br><span class="line">server_id&#x3D;#</span><br><span class="line"></span><br><span class="line">(3) 创建有复制权限的用户账号</span><br><span class="line">GRANT REPLCATION SLAVE ON *.* TO &#39;repluser&#39;@&#39;HOST&#39; IDENTIFIED BY &#39;replpass&#39;; </span><br><span class="line"></span><br><span class="line">从节点配置：</span><br><span class="line">(1) 启动中继日志</span><br><span class="line">[mysqld]</span><br><span class="line">server_id&#x3D;# 为当前节点设置一个全局惟的ID号</span><br><span class="line">relay_log&#x3D;relay-log relay log的文件路径，默认值hostname-relay-bin</span><br><span class="line">relay_log_index&#x3D;relay-log.index 默认值hostname-relay-bin.index</span><br><span class="line"></span><br><span class="line">(2) 使用有复制权限的用户账号连接至主服务器，并启动复制线程</span><br><span class="line">mysql&gt; CHANGE MASTER TO MASTER_HOST&#x3D;&#39;host&#39;,</span><br><span class="line">MASTER_USER&#x3D;&#39;repluser&#39;, MASTER_PASSWORD&#x3D;&#39;replpass&#39;,</span><br><span class="line">MASTER_LOG_FILE&#x3D;&#39;mysql-bin.xxxxx&#39;, MASTER_LOG_POS&#x3D;#;</span><br><span class="line">mysql&gt; START SLAVE [IO_THREAD|SQL_THREAD];</span><br><span class="line"></span><br><span class="line">如果主节点已经运行了一段时间，且有大量数据时，如何配置并启动slave节点</span><br><span class="line">(1) 通过备份恢复数据至从服务器</span><br><span class="line">(2) 复制起始位置为备份时，二进制日志文件及其POS</span><br><span class="line">(3) 如果要启用级联复制,需要在从服务器启用以下配置</span><br><span class="line">[mysqld]</span><br><span class="line">log_bin</span><br><span class="line">log_slave_updates</span><br></pre></td></tr></table></figure>
+
+<p><strong>复制架构中应该注意的问题：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、限制从服务器为只读</span><br><span class="line">	在从服务器上设置read_only&#x3D;ON 注意：此限制对拥有SUPER权限的用户均无效</span><br><span class="line">	阻止所有用户, 包括主服务器复制的更新 mysql&gt; FLUSH TABLES WITH READ LOCK;  </span><br><span class="line">	</span><br><span class="line">2、如何保证主从复制的事务安全</span><br><span class="line">参考文档 https:&#x2F;&#x2F;mariadb.com&#x2F;kb&#x2F;en&#x2F;library&#x2F;server-system-variables&#x2F;</span><br><span class="line"></span><br><span class="line">在master节点启用参数：</span><br><span class="line">sync_binlog&#x3D;1 每次写后立即同步二进制日志到磁盘，性能差</span><br><span class="line"></span><br><span class="line">如果用到的为InnoDB存储引擎： </span><br><span class="line">innodb_flush_logs_at_trx_commit&#x3D;1 #每次事务提交立即同步日志写磁盘</span><br><span class="line">innodb_support_xa&#x3D;ON 默认值，分布式事务MariaDB10.3.0废除</span><br><span class="line">sync_master_info&#x3D;# 多少次事件后master.info同步到磁盘</span><br><span class="line"></span><br><span class="line">在slave节点启用服务器选项：</span><br><span class="line">--skip_slave_start&#x3D;ON 不自动启动slave</span><br><span class="line"></span><br><span class="line">在slave节点启用参数：</span><br><span class="line">sync_relay_log&#x3D;#   #次写后同步relay log到磁盘</span><br><span class="line">sync_relay_log_info&#x3D;# 多个次事务后同步relay-log.info到磁盘</span><br></pre></td></tr></table></figure>
+
+<h4 id="三、主主"><a href="#三、主主" class="headerlink" title="三、主主"></a>三、主主</h4><p><strong>主主复制：互为主从</strong></p>
+<blockquote>
+<p>容易产生的问题：数据不一致；因此慎用</p>
+<p>考虑要点：自动增长id<br>1、配置一个节点使用奇数id<br>auto_increment_offset=1 开始点<br>auto_increment_increment=2 增长幅度</p>
+<p>2、另一个节点使用偶数id<br>auto_increment_offset=2<br>auto_increment_increment=2  </p>
+</blockquote>
+<p><strong>主主复制的配置步骤：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1) 各节点使用一个惟一server_id</span><br><span class="line">(2) 都启动binary log和relay log</span><br><span class="line">(3) 创建拥有复制权限的用户账号</span><br><span class="line">(4) 定义自动增长id字段的数值范围各为奇偶</span><br><span class="line">(5) 均把对方指定为主节点，并启动复制线程</span><br></pre></td></tr></table></figure>
+
+<h4 id="四、半同步"><a href="#四、半同步" class="headerlink" title="四、半同步"></a><strong>四、半同步</strong></h4><blockquote>
+<p>默认情况下， MySQL的复制功能是异步的，异步复制可以提供最佳的性能，主库把binlog日志发送给从库即结束，并不验证从库是否接收完毕。这意味着当主服务器或从服务器端发生故障时，有可能从服务器没有接收到主服务器发送过来的binlog日志，这就会造成主服务器和从服务器的数据不一致，甚至在恢复时造成数据的丢失  </p>
+</blockquote>
+<p><img src="/images/mysql5/mysql8.jpg" alt=""></p>
+<p><strong>半同步复制实现：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主服务器配置:</span><br><span class="line">mysql&gt; INSTALL PLUGIN rpl_semi_sync_master SONAME &#39;semisync_master.so&#39;;</span><br><span class="line">mysql&gt; SET GLOBAL VARIABLES rpl_semi_sync_master_enabled&#x3D;1;</span><br><span class="line">mysql&gt; SHOW GLOBAL VARIABLES LIKE &#39;%semi%&#39;;</span><br><span class="line">mysql&gt; SHOW GLOBAL STATUS LIKE &#39;%semi%‘;</span><br><span class="line"></span><br><span class="line">从服务器配置:</span><br><span class="line">mysql&gt; INSTALL PLUGIN rpl_semi_sync_slave SONAME &#39;semisync_slave.so&#39;;</span><br><span class="line">mysql&gt; SET GLOBAL VARIABLES rpl_semi_sync_slave_enabled&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="五、复制过滤器"><a href="#五、复制过滤器" class="headerlink" title="五、复制过滤器"></a>五、复制过滤器</h4><p>让从节点仅复制指定的数据库，或指定数据库的指定表</p>
+<p><strong>两种实现方式：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1) 主服务器仅向二进制日志中记录与特定数据库(特定表)相关的事件</span><br><span class="line"></span><br><span class="line">问题：时间还原无法实现；不建议使用</span><br><span class="line">binlog_do_db&#x3D; 数据库白名单列表，用逗号分隔</span><br><span class="line">binlog_ignore_db&#x3D; 数据库黑名单列表，和前项不要同时使用</span><br><span class="line"></span><br><span class="line">(2) 从服务器SQL_THREAD在replay中继日志中的事件时，仅读取与特定数据库(特定表)相关的事件并应用于本地问题：会造成网络及磁盘IO浪费</span><br></pre></td></tr></table></figure>
+
+<p><strong>复制过滤器从服务器上的相关设置</strong></p>
+<blockquote>
+<p>replicate_do_db= 指定复制库的白名单</p>
+<p>replicate_ignore_db= 指定复制库黑名单</p>
+<p>replicate_do_table= 指定复制表的白名单</p>
+<p>replicate_ignore_table= 指定复制表的黑名单</p>
+<p>replicate_wild_do_table= foo%.bar% 支持通配符</p>
+<p>replicate_wild_ignore_table=  </p>
+</blockquote>
+<h4 id="六、复制加密"><a href="#六、复制加密" class="headerlink" title="六、复制加密"></a>六、复制加密</h4><p><strong>基于SSL复制：</strong><br>在默认的主从复制过程或远程连接到MySQL/MariaDB所有<br>的链接通信中的数据都是明文的，外网里访问数据或则复制，<br>存在安全隐患。通过SSL/TLS加密的方式进行复制的方法，<br>来进一步提高数据的安全性</p>
+<p><strong>配置实现：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">参考文档： https:&#x2F;&#x2F;mariadb.com&#x2F;kb&#x2F;en&#x2F;library&#x2F;replication-withsecure-connections&#x2F;</span><br><span class="line"></span><br><span class="line">1、主服务器开启SSL： [mysqld] 加一行ssl</span><br><span class="line">2、master配置证书和私钥；并且创建一个要求必须使用SSL连接的复制账号</span><br><span class="line">3、slave端使用CHANGER MASTER TO 命令时指明ssl相关选项  </span><br><span class="line"></span><br><span class="line">Master配置</span><br><span class="line">[mysqld]</span><br><span class="line">log-bin</span><br><span class="line">server_id&#x3D;1</span><br><span class="line">ssl</span><br><span class="line">ssl-ca&#x3D;&#x2F;etc&#x2F;my.cnf.d&#x2F;ssl&#x2F;cacert.pem</span><br><span class="line">ssl-cert&#x3D;&#x2F;etc&#x2F;my.cnf.d&#x2F;ssl&#x2F;master.crt</span><br><span class="line">ssl-key&#x3D;&#x2F;etc&#x2F;my.cnf.d&#x2F;ssl&#x2F;master.key </span><br><span class="line"></span><br><span class="line">Slave配置</span><br><span class="line">mysql&gt;CHANGE MASTER TO</span><br><span class="line">MASTER_HOST&#x3D;&#39;MASTERIP&#39;,</span><br><span class="line">MASTER_USER&#x3D;&#39;rep&#39;,</span><br><span class="line">MASTER_PASSWORD&#x3D;&#39;centos&#39;,</span><br><span class="line">MASTER_LOG_FILE&#x3D;&#39;mariadb-bin.000001&#39;,</span><br><span class="line">MASTER_LOG_POS&#x3D;245,</span><br><span class="line">MASTER_SSL&#x3D;1,</span><br><span class="line">MASTER_SSL_CA &#x3D; &#39;&#x2F;etc&#x2F;my.cnf.d&#x2F;ssl&#x2F;cacert.pem&#39;,</span><br><span class="line">MASTER_SSL_CERT &#x3D; &#39;&#x2F;etc&#x2F;my.cnf.d&#x2F;ssl&#x2F;slave.crt&#39;;</span><br><span class="line">MASTER_SSL_KEY &#x3D; &#39;&#x2F;etc&#x2F;my.cnf.d&#x2F;ssl&#x2F;slave.key&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复制的监控和维护：</strong><br>(1) 清理日志 PURGE</p>
+<p>(2) 复制监控<br>SHOW MASTER STATUS<br>SHOW BINLOG EVENTS<br>SHOW BINARY LOGS<br>SHOW SLAVE STATUS<br>SHOW PROCESSLIST</p>
+<p>(3) 从服务器是否落后于主服务<br>Seconds_Behind_Master: 0</p>
+<p>(4) 如何确定主从节点数据是否一致<br>percona-tools</p>
+<p>(5) 数据不一致如何修复<br>删除从数据库，重新复制  </p>
+<h4 id="七、MySQL高可用"><a href="#七、MySQL高可用" class="headerlink" title="七、MySQL高可用"></a>七、MySQL高可用</h4><p>一、Master HA或多主模型</p>
+<p>二、MMM: Multi Master MySQL，基于主从复制实现</p>
+<p>三、MHA： Master HA，对主节点进行监控，可实现自动故障转移至其它从节点；通过提升某一从节点为新的主节点，基于主从复制实现，还需要客户端配合实现，目前MHA主要支持一主多从的架构，要搭建MHA,要求一个复制集群中必须最少有三台数据库服务器，一主二从，即一台充当master，一台充当备用master，另外一台充当从库，出于机器成本的考虑，淘宝进行了改造，目前淘宝TMHA已经支持一主一从<br><a href="https://code.google.com/archive/p/mysql-master-ha/" target="_blank" rel="noopener">https://code.google.com/archive/p/mysql-master-ha/</a></p>
+<p>四、Galera Cluster： wresp<br>通过wresp协议在全局实现复制；任何一节点都可读写，不需要主从复制，实现多主可读可写  </p>
+<p><strong>a. MHA</strong></p>
+<img src="/images/mysql5/mysql9.jpg" style="zoom: 67%;" />
+
+<img src="/images/mysql5/mysql11.jpg" style="zoom: 67%;" />
+
+<p><strong>MHA工作原理</strong></p>
+<blockquote>
+<p>1 从宕机崩溃的master保存二进制日志事件（ binlog events）<br>2 识别含有最新更新的slave<br>3 应用差异的中继日志（ relay log）到其他的slave<br>4 应用从master保存的二进制日志事件（ binlog events）<br>5 提升一个slave为新的master<br>6 使其他的slave连接新的master进行复制  </p>
+</blockquote>
+<p><strong>MHA软件由两部分组成， Manager工具包和Node工具包</strong></p>
+<blockquote>
+<p>Manager工具包主要包括以下几个工具：<br>• masterha_check_ssh 检查MHA的SSH配置状况<br>• masterha_check_repl 检查MySQL复制状况<br>• masterha_manger 启动MHA<br>• masterha_check_status 检测当前MHA运行状态<br>• masterha_master_monitor 检测master是否宕机<br>• masterha_master_switch 制故障转移（自动或手动）<br>• masterha_conf_host 添加或删除配置的server信息  </p>
+<p>Node工具包：这些工具通常由MHA Manager的脚本触发，无需人为操作，主要包括以下几个工具：<br>• save_binary_logs 保存和复制master的二进制日志<br>• apply_diff_relay_logs 识别差异的中继日志事件并将其差异的事件应用于其他的slave<br>• filter_mysqlbinlog 去除不必要的ROLLBACK事件（MHA已不再使用这个工具）<br>• purge_relay_logs 清除中继日志（不会阻塞SQL线程）</p>
+<p>注意：为了尽可能的减少主库硬件损坏宕机造成的数据丢失，因此在配置MHA的同时建议配置成MySQL 5.5的半同步复制  </p>
+</blockquote>
+<p><strong>b. MMA</strong>  </p>
+<p>自定义扩展：</p>
+<blockquote>
+<p>secondary_check_script：通过多条网络路由检测master的可用性</p>
+<p>master_ip_ailover_script：更新Application使用的masterip</p>
+<p>shutdown_script：强制关闭master节点</p>
+<p>report_script：发送报告</p>
+<p>init_conf_load_script：加载初始配置参数</p>
+<p>master_ip_online_change_script：更新master节点ip地址</p>
+</blockquote>
+<p>配置文件：</p>
+<blockquote>
+<p>global配置，为各application提供默认配置</p>
+<p>application配置：为每个主从复制集群  </p>
+</blockquote>
+<p><strong>c. Galera Cluster</strong></p>
+<p>Galera Cluster：集成了Galera插件的MySQL集群，是一种新型的，数据不共享的，高度冗余的高可用方案，目前Galera Cluster有两个版本，分别是Percona Xtradb Cluster及MariaDB Cluster， Galera本身是具有多主特性的，即采用multi-master的集群架构，是一个既稳健，又在数据一致性、完整性及高性能方面有出色表现的高可用解决方案</p>
+<p>三个节点组成了一个集群，与普通的主从架构不同，它们都可以作为主节点，三个节点是对等的，称为multimaster架构，当有客户端要写入或者读取数据时，连接哪个实例都是一样的，读到的数据是相同的，写入某一个节点之后，集群自己会将新数据同步到其它节点上面，这种架构不共享任何数据，是一种高冗余架构  </p>
+<img src="/images/mysql5/mysql12.jpg" style="zoom:50%;" />
+
+<p><strong>Galera Cluster特点：</strong>  </p>
+<blockquote>
+<p><strong>多主架构：</strong> 真正的多点读写的集群，在任何时候读写数据，都是最新的。</p>
+<p><strong>同步复制：</strong> 集群不同节点之间数据同步，没有延迟，在数据库挂掉之后，数据不会丢失。</p>
+<p><strong>并发复制：</strong> 从节点APPLY数据时，支持并行执行，更好的性能</p>
+<p><strong>故障切换：</strong> 在出现数据库故障时，因支持多点写入，切换容易</p>
+<p><strong>热插拔：</strong> 在服务期间，如果数据库挂了，只要监控程序发现的够快，不可服务时间就会非常少。在节点故障期间，节点本身对集群的影响非常小</p>
+<p><strong>自动节点克隆：</strong> 在新增节点，或者停机维护时，增量数据或者基础数据不需要人工手动备份提供， Galera Cluster会自动拉取在线节点数据，最终集群会变为一致</p>
+<p><strong>对应用透明：</strong> 集群的维护，对应用程序是透明的  </p>
+</blockquote>
+<p><strong>Galera Cluster工作过程：</strong>  </p>
+<p><img src="/images/mysql5/mysql13.jpg" alt=""></p>
+<p><strong>Galera Cluster官方文档：</strong><br><a href="https://galeracluster.com" target="_blank" rel="noopener">https://galeracluster.com</a><br><a href="https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/" target="_blank" rel="noopener">https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/</a></p>
+<p>Galera Cluster包括两个组件</p>
+<blockquote>
+<p>Galera replication library (galera-3)<br>WSREP： MySQL扩展Write Set Replication API</p>
+</blockquote>
+<p>wresp复制实现：</p>
+<blockquote>
+<p>percona-cluster<br>MariaDB-Cluster<br>至少需要三个节点，不能安装mariadb-server  </p>
+</blockquote>
+<p>Galera Cluster配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install MariaDB-Galera-server</span><br><span class="line"></span><br><span class="line">Vim &#x2F;etc&#x2F;my.cnf.d&#x2F;server.cnf</span><br><span class="line">wsrep_provider &#x3D; &#x2F;usr&#x2F;lib64&#x2F;galera&#x2F;libgalera_smm.so</span><br><span class="line">wsrep_cluster_address&#x3D;&quot;gcomm:&#x2F;&#x2F;172.16.0.7,172.16.0.17,172.16.0.27&quot;</span><br><span class="line">binlog_format&#x3D;row</span><br><span class="line">default_storage_engine&#x3D;InnoDB</span><br><span class="line">innodb_autoinc_lock_mode&#x3D;2</span><br><span class="line">bind-address&#x3D;0.0.0.0</span><br><span class="line"></span><br><span class="line">下面配置可选项</span><br><span class="line">wsrep_cluster_name &#x3D; ‘mycluster‘默认my_wsrep_cluster</span><br><span class="line">wsrep_node_name &#x3D; &#39;node1&#39;</span><br><span class="line">wsrep_node_address &#x3D; ‘172.16.0.7&#39;</span><br><span class="line"></span><br><span class="line">首次启动时，需要初始化集群，在其中一个节点上执行命令：</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysql start --wsrep-new-cluster</span><br><span class="line"></span><br><span class="line">而后正常启动其它节点</span><br><span class="line">service mysql start</span><br><span class="line"></span><br><span class="line">查看集群中相关系统变量和状态变量：</span><br><span class="line">SHOW VARIABLES LIKE &#39;wsrep_%‘;</span><br><span class="line">SHOW STATUS LIKE &#39;wsrep_%‘;</span><br><span class="line">SHOW STATUS LIKE &#39;wsrep_cluster_size‘;</span><br></pre></td></tr></table></figure>
+
+<p><strong>读写分离</strong>：</p>
+<blockquote>
+<p>mysql-proxy –&gt; Atlas (Qihoo)</p>
+<p>Amoeba： <a href="https://sourceforge.net/projects/amoeba/" target="_blank" rel="noopener">https://sourceforge.net/projects/amoeba/</a></p>
+<p>dbproxy： <a href="https://github.com/Meituan-Dianping/DBProxy" target="_blank" rel="noopener">https://github.com/Meituan-Dianping/DBProxy</a>  </p>
+</blockquote>
+<p><strong>复制的问题和解决方案：</strong></p>
+<blockquote>
+<p>(1) 数据损坏或丢失<br>Master： MHA + semi repl<br>Slave： 重新复制</p>
+<p>(2) 混合使用存储引擎<br>MyISAM：不支持事务<br>InnoDB：支持事务</p>
+<p>(3) 不惟一的server id<br>重新复制</p>
+<p>(4) 复制延迟<br>需要额外的监控工具的辅助<br>一从多主<br>多线程复制：对多个数据库复制  </p>
+</blockquote>
+<h4 id="八、性能衡量指标和压力测试"><a href="#八、性能衡量指标和压力测试" class="headerlink" title="八、性能衡量指标和压力测试"></a>八、性能衡量指标和压力测试</h4><p><strong>数据库服务衡量指标：</strong><br>qps: query per second<br>tps: transaction per second</p>
+<p><strong>压力测试工具：</strong></p>
+<blockquote>
+<p>mysqlslap</p>
+<p>Sysbench：功能强大 <a href="https://github.com/akopytov/sysbench" target="_blank" rel="noopener">https://github.com/akopytov/sysbench</a></p>
+<p>tpcc-mysql</p>
+<p>MySQL Benchmark Suite</p>
+<p>MySQL super-smack</p>
+<p>MyBench  </p>
+</blockquote>
+<p><strong>mysqlslap：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mysqlslap：来自于mariadb包，测试的过程默认生成一个mysqlslap的schema,生成测试表t1，查询和插入测试数据，mysqlslap库自动生成，如果已经存在则先删除。用--onlyprint来打印实际的测试过程，整个测试完成后不会在数据库中留下痕迹</span><br><span class="line"></span><br><span class="line">使用格式： mysqlslap [options]</span><br><span class="line"></span><br><span class="line">常用参数 [options] 说明：</span><br><span class="line">--auto-generate-sql, -a 自动生成测试表和数据，表示用mysqlslap工具自己生成的SQL脚本来测试并发压力</span><br><span class="line"></span><br><span class="line">--auto-generate-sql-load-type&#x3D;type 测试语句的类型。代表要测试的环境是读操作还是写操作还是两者混合的。取值包括：read， key， write， update和mixed(默认)</span><br><span class="line"></span><br><span class="line">--auto-generate-sql-add-auto-increment 代表对生成的表自动添加auto_increment列，从5.1.18版本开始支持</span><br><span class="line"></span><br><span class="line">--number-char-cols&#x3D;N, -x N 自动生成的测试表中包含多少个字符类型的列，默认1</span><br><span class="line"></span><br><span class="line">--number-int-cols&#x3D;N, -y N 自动生成的测试表中包含多少个数字类型的列，默认1</span><br><span class="line"></span><br><span class="line">--number-of-queries&#x3D;N 总的测试查询次数(并发客户数×每客户查询数)</span><br><span class="line"></span><br><span class="line">--query&#x3D;name,-q 使用自定义脚本执行测试，例如可以调用自定义的存储过程或者sql语句来执行测试</span><br><span class="line"></span><br><span class="line">--create-schema 代表自定义的测试库名称，测试的schema， MySQL中schema也就是database</span><br><span class="line"></span><br><span class="line">--commint&#x3D;N 多少条DML后提交一次</span><br><span class="line"></span><br><span class="line"> --compress, -C 如服务器和客户端都支持压缩，则压缩信息</span><br><span class="line"> </span><br><span class="line"> --concurrency&#x3D;N, -c N 表示并发量，即模拟多少个客户端同时执行select。可指定多个值，以逗号或者--delimiter参数</span><br><span class="line">指定值做为分隔符。如： --concurrency&#x3D;100,200,500</span><br><span class="line"></span><br><span class="line">--engine&#x3D;engine_name, -e engine_name 代表要测试的引擎，可以有多个，用分隔符隔开。例如： --engines&#x3D;myisam,innodb</span><br><span class="line"></span><br><span class="line">--iterations&#x3D;N, -i N 测试执行的迭代次数，代表要在不同并发环境下，各自运行测试多少次。</span><br><span class="line"></span><br><span class="line">--only-print 只打印测试语句而不实际执行。</span><br><span class="line"></span><br><span class="line">--detach&#x3D;N 执行N条语句后断开重连</span><br><span class="line"></span><br><span class="line">--debug-info, -T 打印内存和CPU的相关信息</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">单线程测试</span><br><span class="line">mysqlslap -a -uroot -p</span><br><span class="line"></span><br><span class="line">多线程测试。使用–concurrency来模拟并发连接</span><br><span class="line">mysqlslap -a -c 100 -uroot -p</span><br><span class="line"></span><br><span class="line">迭代测试。用于需要多次执行测试得到平均值</span><br><span class="line">mysqlslap -a -i 10 -uroot -p</span><br><span class="line">mysqlslap ---auto-generate-sql-add-autoincrement -a</span><br><span class="line">mysqlslap -a --auto-generate-sql-load-type&#x3D;read</span><br><span class="line">mysqlslap -a --auto-generate-secondary-indexes&#x3D;3</span><br><span class="line">mysqlslap -a --auto-generate-sql-write-number&#x3D;1000</span><br><span class="line">mysqlslap --create-schema world -q &quot;select count(*) from City”</span><br><span class="line">mysqlslap -a -e innodb -uroot -p</span><br><span class="line">mysqlslap -a --number-of-queries&#x3D;10 -uroot -p</span><br><span class="line"></span><br><span class="line">测试同时不同的存储引擎的性能进行对比：</span><br><span class="line">mysqlslap -a --concurrency&#x3D;50,100 --number-ofqueries 1000 --iterations&#x3D;5 --engine&#x3D;myisam,innodb -</span><br><span class="line">-debug-info -uroot -p</span><br><span class="line"></span><br><span class="line">执行一次测试，分别50和100个并发，执行1000次总查询：mysqlslap -a --concurrency&#x3D;50,100 --number-ofqueries 1000 --debug-info -uroot -p</span><br><span class="line"></span><br><span class="line">50和100个并发分别得到一次测试结果(Benchmark)，并发数越多，执行完所有查询的时间越长。为了准确起见，可以多迭代测试几次:</span><br><span class="line">mysqlslap -a --concurrency&#x3D;50,100 --number-ofqueries 1000 --iterations&#x3D;5 --debug-info -uroot -p</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python（一）</title>
+    <url>/2020/07/02/python1/</url>
+    <content><![CDATA[<p>Python之禅</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> this</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Beautiful is better than ugly. 优美胜于丑陋</p>
+<p>Explicit is better than implicit. 明了胜于隐晦</p>
+<p>Simple is better than complex. 简洁胜于复杂</p>
+<p>Complex is better than complicated. 复杂胜于混乱</p>
+<p>Flat is better than nested. 扁平胜于嵌套</p>
+<p>Sparse is better than dense. 间隔胜于紧凑</p>
+<p>Readability counts. 可读性很重要</p>
+<p>Special cases aren’t special enough to break the rules. 即便是特例，也不可违背这些规则</p>
+<p>Although practicality beats purity. 虽然现实往往不那么完美</p>
+<p>Errors should never pass silently. 有错必究</p>
+<p>Unless explicitly silenced. 除非你确定需要这样做</p>
+<p>In the face of ambiguity, refuse the temptation to guess.当存在多种可能，不要尝试去猜测</p>
+<p>There should be one– and preferably only one –obvious way to do it. 肯定有一种——通常也是唯一一种——最佳的解决方案</p>
+<p>Although that way may not be obvious at first unless you’re Dutch. 虽然这并不容易，除非你是荷兰人</p>
+<p>Now is better than never. 做也许好过不做</p>
+<p>Although never is often better than <em>right</em> now. 但不假思索就动手还不如不做</p>
+<p>If the implementation is hard to explain, it’s a bad idea.如果你无法向人描述你的方案，那肯定不是一个好方案</p>
+<p>If the implementation is easy to explain, it may be a good idea.反之亦然</p>
+<p>Namespaces are one honking great idea – let’s do more of those!名称空间是一种绝妙的理念，我们应当多加利用</p>
+</blockquote>
+<p>版本</p>
+<blockquote>
+<p>2.x—2.7</p>
+<p>3.x – 3.7</p>
+</blockquote>
+<p>程序</p>
+<blockquote>
+<p>算法 + 数据结构</p>
+<p>数据是一切程序的核心</p>
+<p>数据结构是数据在计算机中的类型和组织方式</p>
+<p>算法是处理数据的方式，算法有优劣之分</p>
+</blockquote>
+<p>. 表示家目录</p>
+<p>数值型<br>int、float、complex、bool –&gt; class (类)<br>1、3.14、2+3j  –&gt; instance (对象)</p>
+<p>内建函数（built-in）</p>
+<blockquote>
+<p>类型转换<br>int(), float(), complex(x), bool(x)</p>
+<p>数字的处理函数<br>min(), max(), pow(x,y), math.sqrt()</p>
+<p>进制函数，返回值是字符串<br>bin(), oct(), hex()</p>
+<p>math.pi</p>
+<p>math.e 自然常数</p>
+<p>类型判断<br>type(), isinstance()</p>
+</blockquote>
+<p>内置数据结构<br>1、列表list</p>
+<blockquote>
+<p>列表是可变的</p>
+<p>列表内的个体称作元素</p>
+<p>元素可以是任意对象</p>
+<p>线性数据结构</p>
+<p>列表内元素有顺序，可使用索引</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>编程语言、python</tag>
       </tags>
   </entry>
 </search>

@@ -136,7 +136,7 @@
 <meta property="og:description" content="MySQL（三）">
 <meta property="og:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
 <meta property="article:published_time" content="2020-06-26T06:45:01.000Z">
-<meta property="article:modified_time" content="2020-06-30T17:55:17.973Z">
+<meta property="article:modified_time" content="2020-07-01T08:00:20.109Z">
 <meta property="article:author" content="Ying Jie">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -458,10 +458,10 @@
       
 
       
-        <h4 id="MySQL-Server"><a href="#MySQL-Server" class="headerlink" title="MySQL Server"></a><strong>MySQL Server</strong></h4><h5 id="设置系统变量三种方法"><a href="#设置系统变量三种方法" class="headerlink" title="设置系统变量三种方法"></a><strong>设置系统变量三种方法</strong></h5><p>① 在命令行中设置:<br>shell&gt; ./mysqld_safe –aria_group_commit=”hard“</p>
+        <h5 id="设置系统变量"><a href="#设置系统变量" class="headerlink" title="设置系统变量"></a><strong>设置系统变量</strong></h5><p>✱ 三种方式<br>① 在命令行中设置:<br>shell&gt; ./mysqld_safe –aria_group_commit=”hard“</p>
 <p>② 在配置文件my.cnf中设置：aria_group_commit = “hard”</p>
 <p>③ 在mysql客户端使用SET命令：SET GLOBAL aria_group_commit=”hard”;  </p>
-<h5 id="服务器端变量设置"><a href="#服务器端变量设置" class="headerlink" title="服务器端变量设置"></a><strong>服务器端变量设置</strong></h5><p>✱ 修改服务器变量的值：mysql&gt; help SET</p>
+<p>✱ 修改服务器变量的值：mysql&gt; help SET</p>
 <p>✱ 修改全局变量：仅对修改后新创建的会话有效；对已经建立的会话无效<br>mysql&gt; SET GLOBAL system_var_name=value;<br>mysql&gt; SET @@global.system_var_name=value;</p>
 <p>✱ 修改会话变量：<br>mysql&gt; SET [SESSION] system_var_name=value;<br>mysql&gt; SET @@[session.]system_var_name=value;</p>
 <p>✱状态变量（只读）：用于保存mysqld运行中的统计数据的变量，不可更改<br>mysql&gt; SHOW GLOBAL STATUS;<br>mysql&gt; SHOW [SESSION] STATUS;  </p>
@@ -525,6 +525,154 @@
 <p><strong>命中率</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">命中率和内存使用率估算</span><br><span class="line">query_cache_min_res_unit ≈ (query_cache_size -Qcache_free_memory) &#x2F;Qcache_queries_in_cache</span><br><span class="line"></span><br><span class="line">查询缓存命中率 ≈ (Qcache_hits – Qcache_inserts) &#x2F; Qcache_hits * 100%</span><br><span class="line"></span><br><span class="line">查询缓存内存使用率 ≈ (query_cache_size – qcache_free_memory) &#x2F; query_cache_size * 100%</span><br></pre></td></tr></table></figure>
 
+<h5 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h5><p>InnoDB存储引擎的缓冲池: 通常InnoDB存储引擎缓冲池的命中不应该小于99%</p>
+<blockquote>
+<p>查看相关状态变量：show global status like ‘innodb%read%’\G<br>Innodb_buffer_pool_reads: 表示从物理磁盘读取页的次数<br>Innodb_buffer_pool_read_ahead: 预读的次数<br>Innodb_buffer_pool_read_ahead_evicted: 预读页，但是没有读取就从缓冲池中被替换的页数量，一般用来判断预读的效率<br>Innodb_buffer_pool_read_requests: 从缓冲池中读取页次数<br>Innodb_data_read: 总共读入的字节数<br>Innodb_data_reads: 发起读取请求的次数，每次读取可能需要读取多个页  </p>
+</blockquote>
+<h5 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h5><p>锁粒度：</p>
+<blockquote>
+<p>表级锁<br>行级锁</p>
+</blockquote>
+<p>锁：</p>
+<blockquote>
+<p>读锁：共享锁，只读不可写，多个读互不阻塞，<br>写锁：独占锁,排它锁，一个写锁会阻塞其它读和它锁</p>
+</blockquote>
+<p>实现：</p>
+<blockquote>
+<p>存储引擎：自行实现其锁策略和锁粒度<br>服务器级：实现了锁，表级锁；用户可显式请求</p>
+</blockquote>
+<p>分类：</p>
+<blockquote>
+<p>隐式锁：由存储引擎自动施加锁<br>显式锁：用户手动请求  </p>
+</blockquote>
+<p>锁策略：在锁粒度及数据安全性寻求的平衡机制</p>
+<p>显示使用锁</p>
+<blockquote>
+<p>LOCK TABLES tbl_name [[AS] alias] lock_type [, tbl_name [[AS] alias] lock_type] …</p>
+<p>✱lock_type: READ ， WRITE</p>
+<p>UNLOCK TABLES 解锁</p>
+<p>FLUSH TABLES tb_name[,…] [WITH READ LOCK]<br>关闭正在打开的表（清除查询缓存），通常在备份前加全局读锁</p>
+<p>SELECT clause [FOR UPDATE | LOCK IN SHARE MODE]<br>查询时加写或读锁  </p>
+</blockquote>
+<h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><p>事务Transactions：一组原子性的SQL语句，或一个独立工作单元</p>
+<p>事务日志：记录事务信息，实现undo,redo等故障恢复功能</p>
+<p>ACID特性：</p>
+<blockquote>
+<p>A： atomicity原子性；整个事务中的所有操作要么全部成功执行，要么全部失败后回滚</p>
+<p>C： consistency一致性；数据库总是从一个一致性状态转换为另一个一致性状态</p>
+<p>I： Isolation隔离性；一个事务所做出的操作在提交之前，是不能为其它事务所见；隔离有多种隔离级别，实现并发</p>
+<p>D： durability持久性；一旦事务提交，其所做的修改会永<br>久保存于数据库中  </p>
+</blockquote>
+<p>启动事务： START TRANSACTION</p>
+<p>结束事务：<br>(1) COMMIT：提交<br>(2) ROLLBACK: 回滚</p>
+<p>注意：只有事务型存储引擎方能支持此类操作</p>
+<p>建议：显式请求和提交事务，而不要使用“自动提交”功能<br>set autocommit={1|0}</p>
+<p>事务支持保存点： savepoint</p>
+<blockquote>
+<p>SAVEPOINT identifier<br>ROLLBACK [WORK] TO [SAVEPOINT] identifier<br>RELEASE SAVEPOINT identifier  </p>
+</blockquote>
+<p>事务隔离级别：从上至下更加严格</p>
+<blockquote>
+<p>READ UNCOMMITTED 可读取到未提交数据，产生脏读</p>
+<p>READ COMMITTED 可读提交数据，但未提交数据不可读，产生不可重复读，即可读取到多个提交数据，导致每次读取数据不一致</p>
+<p>REPEATABLE READ 可重复读，多次读取数据都一致，产生幻读，即读取过程中，即使有其它提交的事务修改数据，仍只能读取到未修改前的旧数据。此为MySQL默认设置</p>
+<p>SERIALIZABILE 可串行化，未提交的读事务阻塞修改事务，或者未提交的修改事务阻塞读事务。导致并发性能差</p>
+<p>MVCC: 多版本并发控制，和事务级别相关  </p>
+</blockquote>
+<p>指定事务隔离级别：</p>
+<blockquote>
+<p>服务器变量tx_isolation指定，默认为REPEATABLE READ，可在GLOBAL和SESSION级进行设置</p>
+<p>SET tx_isolation=’’<br>1、READ-UNCOMMITTED<br>2、READ-COMMITTED<br>3、REPEATABLE-READ<br>4、SERIALIZABLE</p>
+<p>服务器选项中指定<br>vim /etc/my.cnf<br>[mysqld]<br>transaction-isolation=SERIALIZABLE  </p>
+</blockquote>
+<p>死锁：</p>
+<blockquote>
+<p>两个或多个事务在同一资源相互占用，并请求锁定对方占用的资源的状态</p>
+</blockquote>
+<h5 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h5><p>事务日志： transaction log<br>错误日志： error log<br>查询日志： query log<br>慢查询日志： slow query log<br>二进制日志： binary log<br>中继日志： reley log  </p>
+<p>1、事务日志： transaction log</p>
+<blockquote>
+<p>事务日志的写入类型为“追加”，因此其操作为“顺序IO”；通常也被称为：预写式日志 write ahead logging</p>
+<p>日志文件： ib_logfile0， ib_logfile1  </p>
+<p>事务型存储引擎自行管理和使用<br>redo log<br>undo log</p>
+<p>Innodb事务日志相关配置<br>show variables like ‘%innodb_log%’;<br>• innodb_log_file_size 5242880 每个日志文件大小<br>• innodb_log_files_in_group 2 日志组成员个数<br>• innodb_log_group_home_dir ./ 事务文件路径</p>
+</blockquote>
+<p>2、中继日志： relay log</p>
+<blockquote>
+<p>主从复制架构中，从服务器用于保存从主服务器的二进制日志中读取到的事件  </p>
+</blockquote>
+<p>3、错误日志</p>
+<blockquote>
+<p>mysqld启动和关闭过程中输出的事件信息</p>
+<p>mysqld运行中产生的错误信息</p>
+<p>event scheduler运行一个event时产生的日志信息</p>
+<p>在主从复制架构中的从服务器上启动从服务器线程时产生的信息</p>
+<p>错误日志相关配置<br>SHOW GLOBAL VARIABLES LIKE ‘log_error’</p>
+<p>错误文件路径：log_error=/PATH/TO/LOG_ERROR_FILE</p>
+<p>是否记录警告信息至错误日志文件<br>log_warnings=1|0 默认值1  </p>
+</blockquote>
+<p>4、查询日志：记录查询操作</p>
+<blockquote>
+<p>文件： file，默认值<br>表： table</p>
+<p>查询日志相关设置<br>general_log=ON|OFF<br>general_log_file=HOSTNAME.log<br>log_output=TABLE|FILE|NONE  </p>
+</blockquote>
+<p>5、慢查询日志</p>
+<blockquote>
+<p>记录执行查询时长超出指定时长的操作</p>
+<p>slow_query_log=ON|OFF 开启或关闭慢查询</p>
+<p>long_query_time=N 慢查询的阀值，单位秒</p>
+<p>slow_query_log_file=HOSTNAME-slow.log 慢查询日志文件</p>
+<p>log_slow_filter = admin,filesort,filesort_on_disk,full_join,</p>
+<p>full_scan,query_cache,query_cache_miss,tmp_table,tmp_tabl<br>e_on_disk</p>
+<p>log_queries_not_using_indexes=ON 不使用索引也没有达到慢查询阀值的语句是否记录日志，默认OFF，即不记录</p>
+<p>log_slow_rate_limit = 1 多少次查询才记录， mariadb特有</p>
+</blockquote>
+<p>6、二进制日志</p>
+<p><strong>注意：建议二进制日志和数据文件分开存放</strong></p>
+<p>a. 记录导致数据改变或潜在导致数据改变的SQL语句<br>b. 功能：通过“重放”日志文件中的事件来生成数据副本</p>
+<p>二进制日志相关配置</p>
+<blockquote>
+<p>查看mariadb自行管理使用中的二进制日志文件列表<br>SHOW {BINARY | MASTER} LOGS</p>
+<p>查看使用中的二进制日志文件<br>SHOW MASTER STATUS</p>
+<p>查看二进制文件中的指定内容<br>SHOW BINLOG EVENTS [IN ‘log_name’] [FROM pos] [LIMIT [offset,] row_count]</p>
+<p>show binlog events in ‘mariadb-bin.000001’ from 6516 limit 2,3  </p>
+</blockquote>
+<p>二进制日志记录格式</p>
+<blockquote>
+<p>基于“语句”记录： statement，记录语句，默认模式</p>
+<p>基于“行”记录： row，记录数据，日志量较大</p>
+<p>混合模式： mixed, 让系统自行判定该基于哪种方式进行</p>
+<p>格式配置<br>show variables like ‘%binlog_format%’;</p>
+</blockquote>
+<p>二进制日志文件的构成</p>
+<blockquote>
+<p>日志文件： mysql|mariadb-bin.文件名后缀，二进制格式 如： mysql-bin.000001<br>索引文件： mysql|mariadb-bin.index，文本格式  </p>
+</blockquote>
+<p>二进制日志相关的服务器变量：</p>
+<blockquote>
+<p>sql_log_bin=ON|OFF：是否记录二进制日志，默认ON</p>
+<p>log_bin=/PATH/BIN_LOG_FILE：指定文件位置； 默认OFF，表示不启用二进制日志功能，上述两项都开启才可</p>
+<p>binlog_format=STATEMENT|ROW|MIXED：二进制日志记录的格式，默认STATEMENT</p>
+<p>max_binlog_size=1073741824：单个二进制日志文件的最大体积， 到达最大值会自动滚动，默认为1G<br>说明：文件达到上限时的大小未必为指定的精确值</p>
+<p>sync_binlog=1|0：设定是否启动二进制日志即时同步磁盘功能，默认0，由操作系统负责同步日志到磁盘</p>
+<p>expire_logs_days=N：二进制日志可以自动删除的天数。默认为0，即不自动删除  </p>
+</blockquote>
+<p>mysqlbinlog：二进制日志的客户端命令工具</p>
+<blockquote>
+<p>命令格式：<br>mysqlbinlog [OPTIONS] log_file…<br>–start-position=# 指定开始位置<br>–stop-position=#<br>–start-datetime=<br>–stop-datetime=</p>
+<p>时间格式： YYYY-MM-DD hh:mm:ss –base64-output[=name]</p>
+<p>示例：<br>mysqlbinlog –start-position=6787 –stop-position=7527 /var/lib/mysql/mariadb-bin.000003<br>mysqlbinlog –start-datetime=”2018-01-30 20:30:10” – stop-datetime=”2018-01-30 20:35:22” mariadb-bin.000003;  </p>
+</blockquote>
+<p>二进制日志事件的格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># at 328</span><br><span class="line"># 151105 16:31:40 server id 1 end_log_pos 431 Query thread_id&#x3D;1 exec_time&#x3D;0 error_code&#x3D;0</span><br><span class="line">use &#96;mydb&#96;&#x2F;*!*&#x2F;;</span><br><span class="line">SET TIMESTAMP&#x3D;1446712300&#x2F;*!*&#x2F;;</span><br><span class="line">CREATE TABLE tb1 (id int, name char(30))</span><br><span class="line">&#x2F;*!*&#x2F;;</span><br><span class="line"></span><br><span class="line">事件发生的日期和时间： 151105 16:31:40</span><br><span class="line">事件发生的服务器标识： server id 1</span><br><span class="line">事件的结束位置： end_log_pos 431</span><br><span class="line">事件的类型： Query</span><br><span class="line">事件发生时所在服务器执行此事件的线程的ID： thread_id&#x3D;1</span><br><span class="line">语句的时间戳与将其写入二进制文件中的时间差： exec_time&#x3D;0</span><br><span class="line">错误代码： error_code&#x3D;0</span><br><span class="line">事件内容：GTID： Global Transaction ID， mysql5.6以mariadb10以上版本专属属性</span><br></pre></td></tr></table></figure>
+
+<p>清除指定二进制日志：</p>
+<blockquote>
+<p>PURGE { BINARY | MASTER } LOGS { TO ‘log_name’ | BEFORE datetime_expr }</p>
+<p>示例：<br>PURGE BINARY LOGS TO ‘mariadb-bin.000003’;删除此文件前日志<br>PURGE BINARY LOGS BEFORE ‘2017-01-23’;<br>PURGE BINARY LOGS BEFORE ‘2017-03-22 09:25:30’;</p>
+<p>删除所有二进制日志， index文件重新记数<br>RESET MASTER [TO #]; 日志文件从#开始记数，默认从1开始，一般是master第一次启动时执行， MariaDB10.1.6开始支持TO #</p>
+<p>切换日志文件<br>FLUSH LOGS;  </p>
+</blockquote>
 
       
     </div>
@@ -575,8 +723,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/06/28/rpm/" rel="prev" title="RPM软件包管理">
-                RPM软件包管理 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/06/26/mysql4/" rel="prev" title="MySQL（四）">
+                MySQL（四） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -660,7 +808,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -671,7 +819,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -682,7 +830,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/about/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -722,7 +870,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-Server"><span class="nav-number">1.</span> <span class="nav-text">MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#设置系统变量三种方法"><span class="nav-number">1.1.</span> <span class="nav-text">设置系统变量三种方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务器端变量设置"><span class="nav-number">1.2.</span> <span class="nav-text">服务器端变量设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL-MODE"><span class="nav-number">1.3.</span> <span class="nav-text">SQL_MODE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQL架构"><span class="nav-number">1.4.</span> <span class="nav-text">MySQL架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询缓存（-Query-Cache-）"><span class="nav-number">1.5.</span> <span class="nav-text">查询缓存（ Query Cache ）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#设置系统变量"><span class="nav-number">1.</span> <span class="nav-text">设置系统变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL-MODE"><span class="nav-number">2.</span> <span class="nav-text">SQL_MODE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQL架构"><span class="nav-number">3.</span> <span class="nav-text">MySQL架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询缓存（-Query-Cache-）"><span class="nav-number">4.</span> <span class="nav-text">查询缓存（ Query Cache ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#InnoDB存储引擎"><span class="nav-number">5.</span> <span class="nav-text">InnoDB存储引擎</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#并发控制"><span class="nav-number">6.</span> <span class="nav-text">并发控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">7.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日志"><span class="nav-number">8.</span> <span class="nav-text">日志</span></a></li></ol></div>
             
 
           </div>
@@ -756,7 +904,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">29.4k</span>
+    <span title="Site words total count">48.9k</span>
   
 </div>
 

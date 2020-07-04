@@ -113,7 +113,7 @@
 
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="mysql," />
 
 
 
@@ -128,19 +128,19 @@
 
 
 
-<meta name="description" content="https介绍与实现">
+<meta name="description" content="MySQL（四）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="https">
-<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/29/https/index.html">
+<meta property="og:title" content="MySQL（四）">
+<meta property="og:url" content="http://www.xieyingjie.tech/2020/06/26/mysql4/index.html">
 <meta property="og:site_name" content="yingjie&#39;s blog">
-<meta property="og:description" content="https介绍与实现">
-<meta property="og:image" content="http://www.xieyingjie.tech/images/https/https1.jpg">
-<meta property="article:published_time" content="2020-06-29T03:42:23.000Z">
-<meta property="article:modified_time" content="2020-06-29T16:28:20.942Z">
+<meta property="og:description" content="MySQL（四）">
+<meta property="og:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
+<meta property="article:published_time" content="2020-06-26T08:20:12.000Z">
+<meta property="article:modified_time" content="2020-07-01T14:58:16.596Z">
 <meta property="article:author" content="Ying Jie">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.xieyingjie.tech/images/https/https1.jpg">
+<meta name="twitter:image" content="http://www.xieyingjie.tech/images/mysql/mysql1.png">
 
 
 
@@ -170,13 +170,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/29/https/"/>
+  <link rel="canonical" href="http://www.xieyingjie.tech/2020/06/26/mysql4/"/>
 
 
 
 
 
-  <title>https | yingjie's blog</title>
+  <title>MySQL（四） | yingjie's blog</title>
   
 
 
@@ -349,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/29/https/">
+    <link itemprop="mainEntityOfPage" href="http://www.xieyingjie.tech/2020/06/26/mysql4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ying Jie">
@@ -366,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">https</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL（四）</h1>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-29T11:42:23+08:00">
-                2020-06-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-26T16:20:12+08:00">
+                2020-06-26
               </time>
             
 
@@ -425,7 +425,7 @@
 
           
               <div class="post-description">
-                  https介绍与实现
+                  MySQL（四）
               </div>
           
 
@@ -445,9 +445,9 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="/images/https/https1.jpg" rel="gallery_ckbzyhuk7000324vk0i0h1w1w"
+                 href="/images/mysql/mysql1.png" rel="gallery_ckc32n3p50000e0vk28nc5cnf"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="/images/https/https1.jpg" itemprop="contentUrl"/>
+                <img src="/images/mysql/mysql1.png" itemprop="contentUrl"/>
               </a>
             
           
@@ -458,36 +458,123 @@
       
 
       
-        <h5 id="https"><a href="#https" class="headerlink" title="https"></a>https</h5><blockquote>
-<p>http over ssl</p>
-<p>SSL会话的简化过程<br>(1) 客户端发送可供选择的加密方式，并向服务器请求证书<br>(2) 服务器端发送证书以及选定的加密方式给客户端<br>(3) 客户端取得证书并进行证书验证</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> 如果信任给其发证书的CA<br>(a) 验证证书来源的合法性；用CA的公钥解密证书上数字签名<br>(b) 验证证书的内容的合法性：完整性验证<br>(c) 检查证书的有效期限<br>(d) 检查证书是否被吊销<br>(e) 证书中拥有者的名字，与访问的目标主机要一致</li>
-</ul>
-<p>(4) 客户端生成临时会话密钥（对称密钥），并使用服务器端的公钥加密此数据发送给服务器，完成密钥交换<br>(5) 服务用此密钥加密用户请求的资源，响应给客户端</p>
-<p>注意： SSL是基于IP地址实现,单IP的主机仅可以使用一个https虚拟主机  </p>
-</blockquote>
-<h5 id="https实现"><a href="#https实现" class="headerlink" title="https实现"></a>https实现</h5><p>(1) 为服务器申请数字证书</p>
+        <h4 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h4><h5 id="1、为什么要备份-？"><a href="#1、为什么要备份-？" class="headerlink" title="1、为什么要备份 ？"></a><strong>1、为什么要备份 ？</strong></h5><p>灾难恢复：硬件故障、软件故障、自然灾害、黑客攻击、误操作测试等数据丢失场景</p>
+<p>备份要点</p>
 <blockquote>
-<p>测试：通过私建CA发证书<br>(a) 创建私有CA<br>(b) 在服务器创建证书签署请求<br>(c) CA签证</p>
+<p>能容忍最多丢失多少数据<br>恢复数据需要在多长时间内完成<br>需要恢复哪些数据</p>
 </blockquote>
-<p>(2) 配置httpd支持使用ssl，及使用的证书</p>
+<p>还原要点</p>
 <blockquote>
-<p>yum -y install mod_ssl<br>配置文件： /etc/httpd/conf.d/ssl.conf<br>DocumentRoot<br>ServerName<br>SSLCertificateFile<br>SSLCertificateKeyFile</p>
+<p>做还原测试，用于测试备份的可用性<br>还原演练  </p>
 </blockquote>
-<p>(3) 测试基于https访问相应的主机</p>
+<p>备份类型：</p>
 <blockquote>
-<p>openssl s_client [-connect host:port] [-cert filename] [-CApath directory] [-CAfile filename]  </p>
+<p>完全备份：整个数据集</p>
+<p>部分备份：只备份数据子集，如部分库或表</p>
 </blockquote>
-<h5 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h5><blockquote>
-<p>HTTP Strict Transport Security</p>
-<p>服务器端配置支持HSTS后，会在给浏览器返回的HTTP首部中携带HSTS字段。浏览器获取到该信息后，会将所有HTTP访问请求在内部做307跳转到HTTPS。而无需任何网络过程</p>
+<p>完全备份、增量备份、差异备份</p>
+<blockquote>
+<p>增量备份：仅备份最近一次完全备份或增量备份（如果存在增量）以来变化的数据，备份较快，还原复杂<br>差异备份：仅备份最近一次完全备份以来变化的数据，备份较慢，还原简单</p>
 </blockquote>
-<h5 id="HSTS-preload-list"><a href="#HSTS-preload-list" class="headerlink" title="HSTS preload list"></a>HSTS preload list</h5><blockquote>
-<p>是Chrome浏览器中的HSTS预载入列表，在该列表中的网站，使用Chrome浏览器访问时，会自动转换成HTTPS。 Firefox、 Safari、Edge浏览器也会采用这个列表</p>
-<p>实现HSTS示例<br>vim /etc/httpd/conf/httpd.conf<br>Header always set Strict-Transport-Security “maxage=31536000”<br>RewriteEngine on<br>RewriteRule ^(/.*)$ https://%{HTTP_HOST}$1 [redirect=302]  </p>
+<p><strong>注意：二进制日志文件不应该与数据文件放在同一磁盘</strong>  </p>
+<p>冷、温、热备份</p>
+<blockquote>
+<p>冷备：读写操作均不可进行<br>温备：读操作可执行；但写操作不可执行<br>热备：读写操作均可执行</p>
+<p>MyISAM：温备，不支持热备<br>InnoDB: 都支持</p>
 </blockquote>
-<h5 id="基于httpd实现https应用"><a href="#基于httpd实现https应用" class="headerlink" title="基于httpd实现https应用"></a>基于httpd实现https应用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">准备两台服务器</span><br><span class="line">node1: webserver (centos 6)</span><br><span class="line">node2: caserver	 (centos 7)</span><br><span class="line"></span><br><span class="line">1. ca自签名</span><br><span class="line">[root@ca CA]#cd &#x2F;etc&#x2F;pki&#x2F;CA</span><br><span class="line">[root@ca CA]#touch index.txt</span><br><span class="line">[root@ca CA]#echo 01 &gt; serial </span><br><span class="line">#创建CA私钥</span><br><span class="line">[root@ca CA]#(umask 077;openssl genrsa -out private&#x2F;cakey.pem 2048) </span><br><span class="line">#自颁发证书</span><br><span class="line">[root@ca CA]# openssl req -new -x509 -key private&#x2F;cakey.pem -out cacert.pem -days 3650</span><br><span class="line"></span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &#39;.&#39;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [XX]:CN        国家</span><br><span class="line">State or Province Name (full name) []:GD   省名称</span><br><span class="line">Locality Name (eg, city) [Default City]:gz    城市名称</span><br><span class="line">Organization Name (eg, company) [Default Company Ltd]:example.com 公司</span><br><span class="line">Organizational Unit Name (eg, section) []:ca      部门</span><br><span class="line">Common Name (eg, your name or your server&#39;s hostname) []:ca.example.com 申请者</span><br><span class="line">Email Address []:</span><br><span class="line"></span><br><span class="line">2. web端准备证书申请</span><br><span class="line">#创建存放ssl证书目录</span><br><span class="line">[root@websrvs conf.d]# mkdir &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl</span><br><span class="line">[root@websrvs conf.d]# cd &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl</span><br><span class="line"></span><br><span class="line">#创建私钥和证书申请文件</span><br><span class="line">[root@websrvs ssl]# (umask 077;openssl genrsa -out httpd.key)</span><br><span class="line">[root@websrvs ssl]# openssl req -new -key httpd.key -out httpd.csr</span><br><span class="line"></span><br><span class="line">#将证书申请文件发送给Ca签名</span><br><span class="line">[root@websrvs ssl]# scp httpd.csr caserver_IP:&#x2F;etc&#x2F;pki&#x2F;CA</span><br><span class="line"></span><br><span class="line">3. CA签证并将证书文件发送给web端</span><br><span class="line">#签证</span><br><span class="line">[root@ca CA]# openssl ca -in httpd.csr  -out certs&#x2F;httpd.crt -days 360</span><br><span class="line">#将自签名证书和签署证书传回给web服务器</span><br><span class="line">[root@ca CA]# scp certs&#x2F;httpd.crt webserver_IP:&#x2F;etc&#x2F;http&#x2F;conf.d&#x2F;ssl</span><br><span class="line">[root@ca CA]# scp cacert.pem 192.168.68.138:&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl</span><br><span class="line"></span><br><span class="line">4. 配置httpd服务实现https</span><br><span class="line">#安装支持ssl模块</span><br><span class="line">[root@websrvs ssl]# yum -y install mod_ssl</span><br><span class="line">#修改httpd配置文件的默认证书目录</span><br><span class="line">[root@centos6 ssl]#vim &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl.conf</span><br><span class="line">Listen 443   https侦听端口</span><br><span class="line">ServerName  www.a.com:443  网站域名</span><br><span class="line">SSLCertificateFile  &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl&#x2F;httpd.crt  证书文件</span><br><span class="line">SSLCertificateKeyFile &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl&#x2F;httpd.key 私钥文件</span><br><span class="line">SSLCACertificatefile &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl&#x2F;cacert.pem CA证书文件</span><br><span class="line"></span><br><span class="line">5.重启httpd服务并查看监听端口 </span><br><span class="line">[root@websrvs ssl]# service httpd restart</span><br><span class="line">[root@websrvs ssl]# ss -ntl|grep 443</span><br><span class="line">LISTEN     0      128                      :::443                     :::*   </span><br><span class="line"></span><br><span class="line">6.客户端进行测试</span><br><span class="line">openssl s_client [-connect host:port] [-cert filename] [-CApath directory] [-CAfile filename]</span><br><span class="line">#示例</span><br><span class="line">[root@centos7 ~]#curl -k https:&#x2F;&#x2F;www.a.com  忽略证书检查</span><br><span class="line">[root@centos7 ~]#openssl s_client -connect www.a.com:443</span><br></pre></td></tr></table></figure>
+<p>物理和逻辑备份</p>
+<blockquote>
+<p>物理备份：直接复制数据文件进行备份，与存储引擎有关，占用较多的空间，速度快</p>
+<p>逻辑备份：从数据库中“导出”数据另存而进行的备份，与存储引擎无关，占用空间少，速度慢，可能丢失精度  </p>
+</blockquote>
+<p>备份时需要考虑的因素</p>
+<blockquote>
+<p>温备的持锁多久<br>备份产生的负载<br>备份过程的时长<br>恢复过程的时长</p>
+</blockquote>
+<p><strong>备份什么</strong></p>
+<blockquote>
+<p>数据<br>二进制日志、 InnoDB的事务日志<br>程序代码（存储过程、存储函数、触发器、事件调度器）<br>服务器的配置文件</p>
+</blockquote>
+<p>设计备份方案</p>
+<blockquote>
+<p>数据集：完全+增量<br>备份手段：物理，逻辑 </p>
+</blockquote>
+<h5 id="2、备份工具"><a href="#2、备份工具" class="headerlink" title="2、备份工具"></a><strong>2、备份工具</strong></h5><p>mysqldump：逻辑备份工具，适用所有存储引擎，温备；支持完全或部分备份；对InnoDB存储引擎支持热备</p>
+<p>cp, tar等复制归档工具：物理备份工具，适用所有存储引擎；只支持冷备；完全和部分备份</p>
+<p>LVM的快照：先加锁，做快照后解锁，几乎热备；借助文件系统管理工具进行备份</p>
+<p>mysqlhotcopy：几乎冷备；仅适用于MyISAM存储引擎   </p>
+<p><strong>备份工具的选择</strong></p>
+<ol>
+<li><p>mysqldump+复制binlog：</p>
+<blockquote>
+<p>mysqldump：完全备份<br>复制binlog中指定时间范围的event：增量备份</p>
+</blockquote>
+</li>
+<li><p>LVM快照+复制binlog：</p>
+<blockquote>
+<p>LVM快照：使用cp或tar等做物理备份；完全备份</p>
+<p>复制binlog中指定时间范围的event：增量备份</p>
+</blockquote>
+</li>
+<li><p>xtrabackup：</p>
+<blockquote>
+<p>由Percona提供支持对InnoDB做热备(物理备份)的工具，支持完全备份、增量备份</p>
+</blockquote>
+</li>
+<li><p>MariaDB Backup： 从MariaDB 10.1.26开始集成，基于Percona XtraBackup 2.3.8实现</p>
+</li>
+<li><p>mysqlbackup：热备份， MySQL Enterprise Edition组件  </p>
+</li>
+</ol>
+<p>逻辑备份工具： mysqldump, mydumper, phpMyAdmin</p>
+<p>Schema和数据存储在一起、巨大的SQL语句、单个巨大的备份文件</p>
+<h5 id="3、mysqldump工具："><a href="#3、mysqldump工具：" class="headerlink" title="3、mysqldump工具："></a><strong>3、mysqldump工具：</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">客户端命令，通过mysql协议连接至mysqld服务器进行备份</span><br><span class="line"></span><br><span class="line">mysqldump [OPTIONS] database [tables]</span><br><span class="line">mysqldump [OPTIONS] –B DB1 [DB2 DB3...]</span><br><span class="line">mysqldump [OPTIONS] –A [OPTIONS]</span><br><span class="line"></span><br><span class="line">mysqldump参考：https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;5.7&#x2F;en&#x2F;mysqldump.html  </span><br><span class="line"></span><br><span class="line">mysqldump常见选项：</span><br><span class="line">-A， --all-databases 备份所有数据库，含create database</span><br><span class="line"></span><br><span class="line">-B , --databases db_name… 指定备份的数据库，包括create database语句</span><br><span class="line"></span><br><span class="line">-E, --events：备份相关的所有event scheduler</span><br><span class="line"></span><br><span class="line">-R, --routines：备份所有存储过程和存储函数</span><br><span class="line"></span><br><span class="line">--triggers：备份表相关的触发器，默认启用,用--skiptriggers，不备份触发器</span><br><span class="line"></span><br><span class="line">--master-data[&#x3D;#]： 此选项须启用二进制日志</span><br><span class="line">    1：所备份的数据之前加一条记录为CHANGE MASTER TO语句，非注释，不指定#，默认为1</span><br><span class="line">    2：记录为注释的CHANGE MASTER TO语句，此选项会自动关闭--lock-tables功能，自动打开--lock-		all-tables功能（ 除非开启--single-transaction）  </span><br><span class="line"></span><br><span class="line">-F, --flush-logs ：备份前滚动日志，锁定表完成后，执行flush logs命令,生成新的二进制日志文件，配合-A时，会导致刷新多次数据库，在同一时刻执行转储和日志刷新，则应同时使用--flush-logs和-x， --master-data或-single-transaction,此时只刷新一次，建议：和-x， --master-data或 --single-transaction一起使用</span><br><span class="line"></span><br><span class="line">--compact 去掉注释，适合调试，生产不使用</span><br><span class="line"></span><br><span class="line">-d, --no-data 只备份表结构</span><br><span class="line"></span><br><span class="line">-t, --no-create-info 只备份数据,不备份create table</span><br><span class="line"></span><br><span class="line">-n,--no-create-db 不备份create database，可被-A或-B覆盖</span><br><span class="line"></span><br><span class="line">--flush-privileges 备份mysql或相关时需要使用</span><br><span class="line"></span><br><span class="line">-f, --force 忽略SQL错误，继续执行</span><br><span class="line"></span><br><span class="line">--hex-blob 使用十六进制符号转储二进制列（例如，“abc”变为0x616263），受影响的数据类型包括BINARY， VARBINARY，BLOB， BIT</span><br><span class="line"></span><br><span class="line">-q, --quick 不缓存查询，直接输出，加快备份速度 </span><br><span class="line"></span><br><span class="line">MyISAM备份选项：</span><br><span class="line">	支持温备；不支持热备，所以必须先锁定要备份的库，而后启动备份操作</span><br><span class="line"></span><br><span class="line">    锁定方法如下：</span><br><span class="line">    -x,--lock-all-tables：加全局读锁，锁定所有库的所有表，同时加--single-transaction或--lock-	tables选项会关闭此选项功能</span><br><span class="line"></span><br><span class="line">    注意：数据量大时，可能会导致长时间无法并发访问数据库</span><br><span class="line"></span><br><span class="line">    -l,--lock-tables：对于需要备份的每个数据库，在启动备份之前分别锁定其所有表，默认为on,--skip-		lock-tables选项可禁用,对备份MyISAM的多个库,可能会造成数据不一致</span><br><span class="line"></span><br><span class="line">    注意：以上选项对InnoDB表一样生效，实现温备，但不推荐使用</span><br><span class="line">    </span><br><span class="line">InnoDB备份选项：</span><br><span class="line">    支持热备，可用温备但不建议用</span><br><span class="line">    </span><br><span class="line">    --single-transaction</span><br><span class="line">    1、此选项Innodb中推荐使用，不适用MyISAM，此选项会开始备份前，先执行START TRANSACTION指令，并</span><br><span class="line">    且在备份期间，不允许对数据进行修改操作</span><br><span class="line">    </span><br><span class="line">    2、此选项和--lock-tables（此选项隐含提交挂起的事务）选项是相互排斥</span><br><span class="line">    </span><br><span class="line">    3、备份大型表时，建议将--single-transaction选项和--quick结合一起使用</span><br></pre></td></tr></table></figure>
+
+<h5 id="4、生产备份策略"><a href="#4、生产备份策略" class="headerlink" title="4、生产备份策略"></a><strong>4、生产备份策略</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#InnoDB建议备份策略</span><br><span class="line">mysqldump –uroot –A –F –E –R --single-transaction --master-data&#x3D;1 --flush-privileges --triggers --hexblob &gt;$BACKUP_DIR&#x2F;fullbak_$BACKUP_TIME.sql</span><br><span class="line"></span><br><span class="line">#MyISAM建议备份策略</span><br><span class="line">mysqldump –uroot –A –F –E –R –x --master-data&#x3D;1 --flush-privileges --triggers --hex-blob &gt;$BACKUP_DIR&#x2F;fullbak_$BACKUP_TIME.sql</span><br></pre></td></tr></table></figure>
+
+<h5 id="5、基于LVM的备份"><a href="#5、基于LVM的备份" class="headerlink" title="5、基于LVM的备份"></a><strong>5、基于LVM的备份</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">(1) 请求锁定所有表</span><br><span class="line">mysql&gt; FLUSH TABLES WITH READ LOCK;</span><br><span class="line"></span><br><span class="line">(2) 记录二进制日志文件及事件位置</span><br><span class="line">mysql&gt; FLUSH LOGS;</span><br><span class="line">mysql&gt; SHOW MASTER STATUS;</span><br><span class="line">mysql -e &#39;SHOW MASTER STATUS&#39; &gt; &#x2F;PATH&#x2F;TO&#x2F;SOMEFILE</span><br><span class="line"></span><br><span class="line">(3) 创建快照</span><br><span class="line">lvcreate -L # -s -p r -n NAME &#x2F;DEV&#x2F;VG_NAME&#x2F;LV_NAME</span><br><span class="line"></span><br><span class="line">(4) 释放锁</span><br><span class="line">mysql&gt; UNLOCK TABLES;</span><br><span class="line"></span><br><span class="line">(5) 挂载快照卷，执行数据备份</span><br><span class="line"></span><br><span class="line">(6) 备份完成后，删除快照卷</span><br><span class="line"></span><br><span class="line">(7) 制定好策略，通过原卷备份二进制日志</span><br></pre></td></tr></table></figure>
+
+<h4 id="xtrabackup"><a href="#xtrabackup" class="headerlink" title="xtrabackup"></a>xtrabackup</h4><p><strong>1、Percona</strong></p>
+<p>官网： <a href="http://www.percona.com" target="_blank" rel="noopener">www.percona.com</a></p>
+<p>percona-server</p>
+<p>InnoDB –&gt; XtraDB</p>
+<p><strong>2、Xtrabackup</strong><br>percona提供的mysql数据库备份工具，惟一开源的能够对innodb和xtradb数据库进行热备的工具</p>
+<p>特点：<br>(1)备份还原过程快速、可靠<br>(2)备份过程不会打断正在执行的事务<br>(3)能够基于压缩等功能节约磁盘空间和流量<br>(4)自动实现备份检验<br>(5)开源，免费  </p>
+<p><strong>3、Xtrabackup2.2版之前包括4个可执行文件：</strong></p>
+<blockquote>
+<p>Innobackupex: perl 脚本<br>Xtrabackup: C/C++ 编译的二进制<br>Xbcrypt:加解密<br>Xbstream:支持并发写的流文件格式</p>
+</blockquote>
+<p>xtrabackup是用来备份 InnoDB 表的，不能备份非 InnoDB 表，和 mysqld server 没有交互；</p>
+<p> innobackupex 脚本用来备份非InnoDB 表，同时会调用 xtrabackup 命令来备份 InnoDB 表，还<br>会和 mysqld server 发送命令进行交互，如加读锁（ FTWRL）、获取位点（ SHOW SLAVE STATUS）等。即innobackupex是在xtrabackup 之上做了一层封装实现的。</p>
+<p>虽然目前一般不用 MyISAM 表，只是mysql 库下的系统表是MyISAM 的，因此备份基本都通innobackupex 命令进行  </p>
+<p><strong>4、Xtrabackup备份过程</strong>  </p>
+<img src="/images/mysql4/mysql13.jpg" style="zoom:50%;" />
+
+<p><strong>5、Xtrabackup的新版变化</strong>  </p>
+<p>xtrabackup版本升级到2.4后， 相比之前的2.1有了比较大的变化： innobackupex 功能全部集成到 xtrabackup 里面，只有一个 binary程序， 另外为了兼容考虑， innobackupex作为xtrabackup 的软链接， 即xtrabackup现在支持非Innodb表备份，并且Innobackupex在下一版本中移除，建议通过xtrabackup替换innobackupex</p>
+<p><strong>6、xtrabackup安装</strong></p>
+<p>yum install percona-xtrabackup 在EPEL源中<br>最新版本下载安装：<a href="https://www.percona.com/downloads/XtraBackup/LATEST/" target="_blank" rel="noopener">https://www.percona.com/downloads/XtraBackup/LATEST/</a>  </p>
+<h4 id="innobakupex备份"><a href="#innobakupex备份" class="headerlink" title="innobakupex备份"></a>innobakupex备份</h4><p>1、使用innobakupex备份时，其会调用xtrabackup备份所有的InnoDB表，复制所有关于表结构定义的相关文件(.frm)、以及MyISAM、 MERGE、 CSV和ARCHIVE表的相关文件，同时还会备份触发器和数据库配置信息相关的文件。</p>
+<p>2、这些文件会被保存至一个以时间命名的目录中,在备份时，innobackupex还会在备份目录中创建如下文件：</p>
+<blockquote>
+<p>(1)xtrabackup_checkpoints：备份类型（如完全或增量）、备份状态（如是否已经为prepared状态）和LSN(日志序列号)范围信息，每个InnoDB页(通常为16k大小)都会包含一个日志序列号，即LSN。 LSN是整个数据库系统的系统版本号，每个页面相关的LSN能够表明此页面最近是如何发生改变的</p>
+<p>(2)xtrabackup_binlog_info： mysql服务器当前正在使用的二进制日志文件及至备份这一刻为止二进制日志事件的位置  </p>
+<p>(3)xtrabackup_binlog_pos_innodb：二进制日志文件及用于InnoDB或XtraDB表的二进制日志文件的当前position</p>
+<p>(4)xtrabackup_binary：备份中用到的xtrabackup的可执行文件</p>
+<p>(5)backup-my.cnf：备份命令用到的配置选项信息在使用innobackupex进行备份时，还可以使用–notimestamp选项来阻止命令自动创建一个以时间命名的目录；innobackupex命令将会创建一个BACKUP-DIR目录来存储备份数据  </p>
+</blockquote>
+<p>3、Xtrabackup用法</p>
+<p>备份： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">innobackupex [option] BACKUP-ROOT-DIR</span><br><span class="line"></span><br><span class="line">选项说明：</span><br><span class="line">--user：该选项表示备份账号</span><br><span class="line"></span><br><span class="line">--password：该选项表示备份的密码</span><br><span class="line"></span><br><span class="line">--host：该选项表示备份数据库的地址</span><br><span class="line"></span><br><span class="line">--databases：该选项接受的参数为数据名，如果要指定多个数据库，彼此间需要以空格隔开；如： &quot;xtra_test dba_test&quot;，同时，在指定某数据库时，也可以只指定其中的某张表。如： &quot;mydatabase.mytable&quot;。该选项对innodb引擎表无效，还是会备份所有innodb表</span><br><span class="line"></span><br><span class="line">--defaults-file：该选项指定了从哪个文件读取MySQL配置，必须放在命令行第一个选项的位置</span><br><span class="line"></span><br><span class="line">--incremental：该选项表示创建一个增量备份，需要指定--incrementalbasedir</span><br><span class="line"></span><br><span class="line">--incremental-basedir：该选项表示接受了一个字符串参数指定含有full backup的目录为增量备份的base目录，与--incremental同时使用--incremental-dir：该选项表示增量备份的目录</span><br><span class="line"></span><br><span class="line">--include&#x3D;name：指定表名，格式： databasename.tablename</span><br></pre></td></tr></table></figure>
+
+<p>还原前准备： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">innobackupex --apply-log [option] BACKUP-DIR</span><br><span class="line"></span><br><span class="line">选项说明：</span><br><span class="line"></span><br><span class="line">--apply-log：一般情况下,在备份完成后，数据尚且不能用于恢复操作，因为备份的数据中可能会包含尚未提交的事务或已经提交但尚未同步至数据文件中的事务。因此，此时数据文件仍处理不一致状态。此选项作用是通过回滚未提交的事务及同步已经提交的事务至数据文件使数据文件处于一致性状态</span><br><span class="line"></span><br><span class="line">--use-memory：该选项表示和--apply-log选项一起使用，prepare备份的时候， xtrabackup做crash recovery分配的内存大小，单位字节。也可(1MB,1M,1G,1GB)，推荐1G</span><br><span class="line"></span><br><span class="line">--defaults-file：该选项指定了从哪个文件读取MySQL配置，必须放在命令行第一个选项的位置</span><br><span class="line"></span><br><span class="line">--export：表示开启可导出单独的表之后再导入其他Mysql中</span><br><span class="line"></span><br><span class="line">--redo-only：这个选项在prepare base full backup，往其中merge增量备份时候使用</span><br></pre></td></tr></table></figure>
+
+<p>还原： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">innobackupex --copy-back [选项] BACKUP-DIR</span><br><span class="line">innobackupex --move-back [选项] [--defaultsgroup&#x3D;GROUP-NAME] BACKUP-DIR</span><br><span class="line"></span><br><span class="line">选项说明：</span><br><span class="line"></span><br><span class="line">--copy-back：做数据恢复时将备份数据文件拷贝到MySQL服务器的datadir</span><br><span class="line"></span><br><span class="line">--move-back：这个选项与--copy-back相似，唯一的区别是它不拷贝文件，而是移动文件到目的地。这个选项移除backup文件，用时候必须小心。使用场景：没有足够的磁盘空间同事保留数据文件和Backup副本</span><br></pre></td></tr></table></figure>
+
+<p>还原注意事项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.datadir目录必须为空。除非指定innobackupex --forcenon-empty-directorires选项指定，否则--copy-backup选项不会覆盖</span><br><span class="line"></span><br><span class="line">2.在restore之前,必须shutdown MySQL实例，你不能将一个运行中的实例restore到datadir目录中</span><br><span class="line"></span><br><span class="line">3.由于文件属性会被保留，大部分情况下你需要在启动实例之前将文件的属主改为mysql，这些文件将属于创建备份的用户chown -R mysql:mysql &#x2F;data&#x2F;mysql，以上需要在用户调用innobackupex之前完成</span><br><span class="line"></span><br><span class="line">4.--force-non-empty-directories：指定该参数时候，使得innobackupex --copy-back或--move-back选项转移文件到非空目录，已存在的文件不会被覆盖。如果--copy-back和--move-back文件需要从备份目录拷贝一个在datadir已经存在的文件，会报错失败</span><br></pre></td></tr></table></figure>
 
 
       
@@ -516,7 +603,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
           
         </div>
       
@@ -529,8 +616,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/29/httpd/" rel="next" title="centos6编译安装httpd-2.4">
-                <i class="fa fa-chevron-left"></i> centos6编译安装httpd-2.4
+              <a href="/2020/06/26/mysql3/" rel="next" title="MySQL（三）">
+                <i class="fa fa-chevron-left"></i> MySQL（三）
               </a>
             
           </div>
@@ -539,8 +626,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/07/02/python1/" rel="prev" title="python（一）">
-                python（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2020/06/26/mysql5/" rel="prev" title="MySQL（五）">
+                MySQL（五） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -686,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#https"><span class="nav-number">1.</span> <span class="nav-text">https</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https实现"><span class="nav-number">2.</span> <span class="nav-text">https实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HSTS"><span class="nav-number">3.</span> <span class="nav-text">HSTS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HSTS-preload-list"><span class="nav-number">4.</span> <span class="nav-text">HSTS preload list</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于httpd实现https应用"><span class="nav-number">5.</span> <span class="nav-text">基于httpd实现https应用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#备份和恢复"><span class="nav-number">1.</span> <span class="nav-text">备份和恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、为什么要备份-？"><span class="nav-number">1.1.</span> <span class="nav-text">1、为什么要备份 ？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、备份工具"><span class="nav-number">1.2.</span> <span class="nav-text">2、备份工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、mysqldump工具："><span class="nav-number">1.3.</span> <span class="nav-text">3、mysqldump工具：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、生产备份策略"><span class="nav-number">1.4.</span> <span class="nav-text">4、生产备份策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、基于LVM的备份"><span class="nav-number">1.5.</span> <span class="nav-text">5、基于LVM的备份</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xtrabackup"><span class="nav-number">2.</span> <span class="nav-text">xtrabackup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#innobakupex备份"><span class="nav-number">3.</span> <span class="nav-text">innobakupex备份</span></a></li></ol></div>
             
 
           </div>
